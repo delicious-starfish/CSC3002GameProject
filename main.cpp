@@ -20,9 +20,9 @@ long long getTime() {
 */
 
 int main() {
-    initgraph(720, 640);
-    setbkcolor(0Xcfd9eb);
-    BeginBatchDraw();
+    //initgraph(720, 640);
+    //setbkcolor(0Xcfd9eb);
+    //BeginBatchDraw();
     Game game;
 
 
@@ -30,23 +30,23 @@ int main() {
 
     std::cout << game.world.toString();
 
-    int nextLogic = getTime(), nextRender = getTime();
-    int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
-    int currentTime;
+    //int nextLogic = getTime(), nextRender = getTime();
+    //int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
+    //int currentTime;
 
-    while (true) {
-        currentTime = getTime();
-         // Monitor the mouse action
-        if (currentTime >= nextLogic) {
-            logicTick(game.world);
-            nextLogic += logicInterval;
-        }
-        if (currentTime >= nextRender) {
-            renderTick(game.world);
-            nextLogic += renderInterval;
-        }
+    //while (true) {
+    //    currentTime = getTime();
+    //     // Monitor the mouse action
+    //    if (currentTime >= nextLogic) {
+    //        logicTick(game.world);
+    //        nextLogic += logicInterval;
+    //    }
+    //    if (currentTime >= nextRender) {
+    //        renderTick(game.world);
+    //        nextLogic += renderInterval;
+    //    }
 
-    }
+    //}
 
-    return 0;
+    //return 0;
 }

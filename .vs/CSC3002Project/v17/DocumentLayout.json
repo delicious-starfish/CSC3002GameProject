@@ -47,8 +47,7 @@
               "ViewState": "AgIAAFEAAAAAAAAAAAAAAFgAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-10-16T11:07:39.534Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -60,8 +59,7 @@
               "RelativeToolTip": "gameBuildings.cpp",
               "ViewState": "AgIAAB8AAAAAAAAAAAAcwCYAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-16T11:11:16.227Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T11:11:16.227Z"
             },
             {
               "$type": "Document",
@@ -73,8 +71,7 @@
               "RelativeToolTip": "constants.h",
               "ViewState": "AgIAACUAAAAAAAAAAAAAACoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-16T11:38:52.972Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T11:38:52.972Z"
             },
             {
               "$type": "Document",
@@ -86,8 +83,7 @@
               "RelativeToolTip": "gameCollection.h",
               "ViewState": "AgIAACwAAAAAAAAAAAAAAC0AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-16T10:36:36.595Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T10:36:36.595Z"
             },
             {
               "$type": "Document",
@@ -99,8 +95,7 @@
               "RelativeToolTip": "gameCollection.cpp",
               "ViewState": "AgIAAIcAAAAAAAAAAAAAAIsAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-16T10:41:16.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T10:41:16.279Z"
             },
             {
               "$type": "Document",
@@ -110,7 +105,7 @@
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\GameProject\\CSC3002Project\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAABgAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAABgAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-13T11:58:07.343Z",
               "EditorCaption": ""
