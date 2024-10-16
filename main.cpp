@@ -23,7 +23,12 @@ int main() {
     initgraph(720, 640);
     setbkcolor(0Xcfd9eb);
     BeginBatchDraw();
-    Game game = Game();
+    Game game;
+
+
+    game.loadTestMap();
+
+    std::cout << game.world.toString();
 
     int nextLogic = getTime(), nextRender = getTime();
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;

@@ -2,19 +2,32 @@
 /*
 	This file contains functions and classes dealing with building objects
 */
-
+#include "gameItem.h"
 #ifndef _gameBuildings_h_
 #define _gameBuildings_h_
 
 class Belt {
 	public:
-		int itemNow[2][2][2],itemPre[2][2][2];
+		Item itemNow,itemPre;
 		// The item on the belt now, and the last item on the belt
 		// itemPre was created for the animiations
 		int dir;
 		// the direction of the belt
 		// 1 stand for up, 2 stand for down, 3 stand for left, 4 stand for right
 		int pos[2];
+		Belt(int direction, int x, int y);
+		/*
+			Build an empty belt at (x,y), with dir = direction
+		*/
+
+		Belt();
+		/*
+			default building function for Belt
+		*/
+		void grantItem(Item item);
+		/*
+			Give the belt the item
+		*/
 	private:
 
 };
@@ -24,13 +37,22 @@ class Cutter {
 		Cutter cut the item in it into half, the cutting line is vertical
 	*/
 	public:
-		int timeCost;
-		// time needed for the cutter to perform a cut
-		int item[2][2][2];
+		Item item;
 		// the item to be cutted
 		int dir;
 		// same as that in Belt
 		int pos[2];
+
+		Cutter(int direction, int x, int y);
+		/*
+			Build an empty cutter at (x,y), with dir = direction
+		*/
+
+		Cutter();
+		/*
+			default building function for Cutter
+		*/
+
 	private:
 
 };
@@ -46,7 +68,7 @@ class Porter {
 	public:
 		int pos[2];
 		int dir;
-		int item[2][2][2];
+		Item item;
 		// the item to be shot
 };
 
@@ -57,17 +79,28 @@ class Composer {
 
 	*/
 	public:
-		int inputItem1[2][2][2], inputItem2[2][2][2];
-		// these two are ingredients
+		Item inputItemLeft, inputItemRight;
+		// inputItemLeft would be at the Left of the product, so does the inputItemRight
 		int pos[2];
 		int dir;
+
+		Composer(int direction, int x, int y);
+		/*
+			Build an empty Composer at (x,y), with dir = direction
+		*/
+
+		Composer();
+		/*
+			default building function for Composer
+		*/
+
 };
 
 class Rotator {
 	/*
 		A Rotator rotate the item by 90 degrees clockwise
 	*/
-	int item[2][2][2];
+	Item item;
 	// The item to be rotated
 	int pos[2];
 	int dir;
@@ -79,7 +112,7 @@ class Miner {
 	*/
 	int pos[2];
 	int	dir;
-	int item[2][2][2];
+	Item item;
 	// the item to be produced by it
 
 };

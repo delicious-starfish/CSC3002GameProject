@@ -18,6 +18,15 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="gameCollection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gameBuildings.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gameItem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameBuildings.h">
@@ -30,6 +39,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="gameRender.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gameItem.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

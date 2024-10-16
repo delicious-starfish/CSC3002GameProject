@@ -1,8 +1,2 @@
-﻿  main.cpp
-C:\GameProject\CSC3002Project\main.cpp(28,19): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
-C:\GameProject\CSC3002Project\main.cpp(28,43): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
-C:\GameProject\CSC3002Project\main.cpp(33,30): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
-main.obj : error LNK2019: 无法解析的外部符号 "public: __cdecl Game::Game(void)" (??0Game@@QEAA@XZ)，函数 main 中引用了该符号
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl logicTick(class World &)" (?logicTick@@YAXAEAVWorld@@@Z)，函数 main 中引用了该符号
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl renderTick(class World &)" (?renderTick@@YAXAEAVWorld@@@Z)，函数 main 中引用了该符号
-C:\GameProject\CSC3002Project\x64\Debug\CSC3002Project.exe : fatal error LNK1120: 3 个无法解析的外部命令
+﻿  gameCollection.cpp
+  CSC3002Project.vcxproj -> C:\GameProject\CSC3002Project\x64\Debug\CSC3002Project.exe

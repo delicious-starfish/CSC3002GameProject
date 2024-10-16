@@ -3,8 +3,11 @@
 	This file contains the classes that store world objects
 */
 #include "gameBuildings.h"
+#include "constants.h"
+#include <string>
 #ifndef _gameCollection_h_
 #define _gameCollection_h_
+
 
 class Node {
 	public:
@@ -13,6 +16,7 @@ class Node {
 			is at a specific position
 		*/
 		Node();
+		Node(int buildingType, int dataId, bool isMainBlock);
 		/*
 			the Init function for the class Node
 			input nothing and return the Node class variable
@@ -33,19 +37,32 @@ class World {
 		/*
 			the Init function for the class World
 			input nothing and return the World class variable
+			fill mapp with empty nodes
 		*/
 
 	
-		Node mapp[48][48];// the map that shows what is at a specific point
-		Belt belt[2500];
-		Cutter cutter[2500];
-		Averager averager[2500];
-		Porter porter[2500];
-		Composer composer[2500];
-		Rotator rotator[2500];
-		Miner miner[2500];
+		Node mapp[MAPLENGTH][MAPLENGTH];// the map that shows what is at a specific point
+		Belt belt[250];
+		Cutter cutter[250];
+		/*Averager averager[2500];
+		Porter porter[2500];*/
+		Composer composer[250];
+		/*Rotator rotator[2500];
+		Miner miner[2500];*/
+		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0;
+		int rotatorNum = 0;
 
+		void buildAt(int building, int x, int y, int direction);
+		// build an empty building at x,y with direction
 
+		std::string toString();
+		/*
+			outPut: a simplized visualized version of the world
+			represent the buildings in symbols
+
+			Only support the belt and cutter, others will be represented as numbers
+		*/
+		
 };
 
 class Game {
@@ -59,6 +76,8 @@ class Game {
 		*/
 		
 		World world;
+		void loadTestMap();
+		//void generateMap();
 	private:
 };
 
