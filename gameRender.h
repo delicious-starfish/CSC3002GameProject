@@ -16,6 +16,11 @@ extern int RotatorAMOUNT;
 extern int MinerAMOUNT;
 
 void loadImgRes();
+/*
+	Load the graphic resources of the game.
+	Must be loaded first!!!!
+*/
+
 
 void renderTick(World &world);
 // This function will not change the value of world
