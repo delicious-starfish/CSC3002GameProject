@@ -27,6 +27,9 @@
     <ClCompile Include="gameItem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="gameRender.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameBuildings.h">

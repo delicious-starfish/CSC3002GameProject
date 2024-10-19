@@ -14,4 +14,7 @@ C:\GameProject\CSC3002Project\constants.h(43,9): warning C4005: “YELLOW”: �
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(59,9):
       参见“YELLOW”的前一个定义
   
-LINK : fatal error LNK1168: 无法打开 C:\GameProject\CSC3002Project\x64\Debug\CSC3002Project.exe 进行写入
+C:\GameProject\CSC3002Project\main.cpp(45,19): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+C:\GameProject\CSC3002Project\main.cpp(45,43): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+C:\GameProject\CSC3002Project\main.cpp(50,30): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
+  CSC3002Project.vcxproj -> C:\GameProject\CSC3002Project\x64\Debug\CSC3002Project.exe

@@ -42,13 +42,13 @@ class World {
 
 	
 		Node mapp[MAPLENGTH][MAPLENGTH];// the map that shows what is at a specific point
-		Belt belt[250];
-		Cutter cutter[250];
-		/*Averager averager[2500];
-		Porter porter[2500];*/
+		Belt belt[2500];
+		Cutter cutter[2500];
+		//Averager averager[2500];
+		//Porter porter[2500];
 		Composer composer[250];
-		/*Rotator rotator[2500];
-		Miner miner[2500];*/
+		//Rotator rotator[2500];
+		//Miner miner[2500];
 		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0;
 		int rotatorNum = 0;
 

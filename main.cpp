@@ -29,35 +29,38 @@ long long getTime() {
     Input : nothing
     Output: a long long variable that tells how many milliseconds have passed since 1970
 */
+Game *game = new Game();
 
 int main() {
-    //initgraph(720, 640);
-    //setbkcolor(0Xcfd9eb);
-    //BeginBatchDraw();
-    Game game;
 
+    initgraph(720, 640);
+    setbkcolor(0Xcfd9eb);
+    BeginBatchDraw();
 
-    game.loadTestMap();
+    loadImgRes();
+    game -> loadTestMap();
 
-    std::cout << game.world.toString();
+    //std::cout << game.world.toString();
 
-    //int nextLogic = getTime(), nextRender = getTime();
-    //int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
-    //int currentTime;
+    int nextLogic = getTime(), nextRender = getTime();
+    int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
+    int currentTime;
 
-    //while (true) {
-    //    currentTime = getTime();
-    //     // Monitor the mouse action
-    //    if (currentTime >= nextLogic) {
-    //        logicTick(game.world);
-    //        nextLogic += logicInterval;
-    //    }
-    //    if (currentTime >= nextRender) {
-    //        renderTick(game.world);
-    //        nextLogic += renderInterval;
-    //    }
+    while (true) {
+        currentTime = getTime();
+         // Monitor the mouse action
+        //if (currentTime >= nextLogic) {
+        //    logicTick(game.world);
+        //    nextLogic += logicInterval;
+        //}
+        if (currentTime >= nextRender) {
+            renderTick(game -> world);
+            nextLogic += renderInterval;
+        }
+        FlushBatchDraw();
+        Sleep(10);
 
-    //}
-
+    }
+    delete game;
     //return 0;
 }

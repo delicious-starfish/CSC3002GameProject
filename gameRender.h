@@ -15,6 +15,8 @@ extern int ComposerAMOUNT;
 extern int RotatorAMOUNT;
 extern int MinerAMOUNT;
 
+void loadImgRes();
+
 void renderTick(World &world);
 // This function will not change the value of world
 // It use the value in world to render the screen
