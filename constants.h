@@ -35,12 +35,12 @@
 
 
 
-//ID for color
-#define WHITE 1
+//ID for color of item
+#define REDITEM 1
 
-#define RED 2
+#define YELLOWITEM 2
 
-#define YELLOW 3
+#define BLUEITEM 3
 
 
 
