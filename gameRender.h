@@ -1,4 +1,6 @@
 #include "gameCollection.h"
+#include <graphics.h>
+#include <conio.h>
 
 #pragma once
 #ifndef _gameRender_h_
@@ -21,6 +23,8 @@ void loadImgRes();
 	Must be loaded first!!!!
 */
 
+void putAlphaImage(int x, int y, IMAGE* srcimg);
+//It can put alpha images (images with opacity) on position(x,y)
 
 void renderTick(World &world);
 // This function will not change the value of world
