@@ -15,6 +15,8 @@ class Belt {
 		// the direction of the belt
 		// 1 stand for up, 2 stand for down, 3 stand for left, 4 stand for right
 		int pos[2];
+		bool isEmpty;
+		// 传送带上是否有物品
 		Belt(int direction, int x, int y);
 		/*
 			Build an empty belt at (x,y), with dir = direction
@@ -26,7 +28,10 @@ class Belt {
 		*/
 		void grantItem(Item item);
 		/*
-			Give the belt the item
+		* Method: gramtItem
+		* Usage: belt.grantItem(item)
+		* ---------------------------------
+		  Give the belt the item, set the itemNow to the item you give
 		*/
 	private:
 

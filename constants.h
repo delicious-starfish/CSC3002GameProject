@@ -42,6 +42,8 @@
 
 #define BLUEITEM 3
 
+#define WHITEITEM 4
+
 
 
 //direction

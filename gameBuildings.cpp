@@ -8,6 +8,7 @@ Belt::Belt(int direction, int x, int y) {
 	pos[0] = x;
 	pos[1] = y;
 	itemNow = Item();
+	isEmpty = true;
 }
 
 Belt::Belt() {
@@ -15,6 +16,11 @@ Belt::Belt() {
 	pos[0] = -1;
 	pos[0] = -1;
 	itemNow = Item();
+	isEmpty = true;
+}
+
+void Belt::grantItem(Item item) {
+	itemNow = item;
 }
 
 Cutter::Cutter(int direction, int x, int y) {

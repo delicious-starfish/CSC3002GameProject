@@ -63,6 +63,18 @@ class World {
 			Only support the belt and cutter, others will be represented as numbers
 		*/
 		
+		void putItemAt(Item item, int x, int y);
+		/*
+		Method: putItemAt
+		Usage: world.putItemAt(item, x, y);
+		--------------------------
+		put an item at (x,y) in the map. if there is a building at (x,y), then the item will be 
+		attached as its property.
+		If there is no building at (x,y) nothing would happen
+
+		Not finished, only support adding item to belts
+		
+		*/
 };
 
 class Game {

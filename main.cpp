@@ -39,8 +39,10 @@ int main() {
 
     loadImgRes();
     game -> loadTestMap();
+    Item testItem = Item(QUARTERSQUARE, WHITEITEM);
+    game -> world.putItemAt(testItem,5,12);
 
-    //std::cout << game.world.toString();
+    std::cout << game -> world.toString();
 
     int nextLogic = getTime(), nextRender = getTime();
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;

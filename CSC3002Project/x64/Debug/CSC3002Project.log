@@ -1,20 +1,9 @@
-﻿  main.cpp
-C:\GameProject\CSC3002Project\constants.h(39,9): warning C4005: “WHITE”: 宏重定义
-  (编译源文件“main.cpp”)
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(60,9):
-      参见“WHITE”的前一个定义
-  
-C:\GameProject\CSC3002Project\constants.h(41,9): warning C4005: “RED”: 宏重定义
-  (编译源文件“main.cpp”)
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(49,9):
-      参见“RED”的前一个定义
-  
-C:\GameProject\CSC3002Project\constants.h(43,9): warning C4005: “YELLOW”: 宏重定义
-  (编译源文件“main.cpp”)
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(59,9):
-      参见“YELLOW”的前一个定义
-  
-C:\GameProject\CSC3002Project\main.cpp(45,19): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
-C:\GameProject\CSC3002Project\main.cpp(45,43): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
-C:\GameProject\CSC3002Project\main.cpp(50,30): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
+﻿  gameBuildings.cpp
+  gameCollection.cpp
+  gameRender.cpp
+  main.cpp
+C:\GameProject\CSC3002Project\main.cpp(47,19): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+C:\GameProject\CSC3002Project\main.cpp(47,43): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+C:\GameProject\CSC3002Project\main.cpp(52,30): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
+  正在生成代码...
   CSC3002Project.vcxproj -> C:\GameProject\CSC3002Project\x64\Debug\CSC3002Project.exe
