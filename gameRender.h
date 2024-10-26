@@ -1,4 +1,5 @@
 #include "gameCollection.h"
+#include "gameBuildings.h"
 #include <graphics.h>
 #include <conio.h>
 
@@ -8,6 +9,10 @@
 
 extern int currentTime;
 extern int currentRenderTime;
+extern int cameraPositionX;
+extern int cameraPositionY;
+extern int mousePositionX;
+extern int mousePositionY;
 extern int totalScore;
 extern int BeltAMOUNT;
 extern int CutterAMOUNT;
