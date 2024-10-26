@@ -11,6 +11,10 @@
 
 int currentTime;
 int currentRenderTime;
+int cameraPositionX;
+int cameraPositionY;
+int mousePositionX;
+int mousePositionY;
 int totalScore;
 int BeltAMOUNT;
 int CutterAMOUNT;
@@ -33,16 +37,25 @@ Game *game = new Game();
 
 int main() {
 
-    initgraph(720, 640);
+    initgraph(720, 480);
     setbkcolor(0Xcfd9eb);
     BeginBatchDraw();
 
     loadImgRes();
     game -> loadTestMap();
-    Item testItem = Item(QUARTERSQUARE, WHITEITEM);
-    game -> world.putItemAt(testItem,5,12);
 
-    std::cout << game -> world.toString();
+    cameraPositionX = 0;
+    cameraPositionY = 0;
+    //The origin camera point
+
+    mousePositionX = 0;
+    mousePositionY = 0;
+    int controlPositionX = 0;
+    int controlPositionY = 0;
+    ExMessage mouseMessage;
+    //initialize the mouse
+
+    //std::cout << game.world.toString();
 
     int nextLogic = getTime(), nextRender = getTime();
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
@@ -59,8 +72,28 @@ int main() {
             renderTick(game -> world);
             nextLogic += renderInterval;
         }
+        while (peekmessage(&mouseMessage, EM_MOUSE | EM_KEY))
+        {
+            //Mouse Operation
+            switch (mouseMessage.message)
+            {
+            case WM_MOUSEMOVE:
+                if (mouseMessage.lbutton) { cameraPositionX = mouseMessage.x - controlPositionX; cameraPositionY = mouseMessage.y - controlPositionY; }
+                mousePositionX = mouseMessage.x; mousePositionY = mouseMessage.y;
+                break;
+            case WM_LBUTTONDOWN:
+                controlPositionX = mouseMessage.x - cameraPositionX; controlPositionY = mouseMessage.y - cameraPositionY;
+                break;
+            case WM_LBUTTONUP:
+                break;
+            case WM_KEYDOWN:
+                if (mouseMessage.vkcode == VK_ESCAPE)
+                    return 0;
+                break;
+            }
+        }
         FlushBatchDraw();
-        Sleep(10);
+        Sleep(1);
 
     }
     delete game;
