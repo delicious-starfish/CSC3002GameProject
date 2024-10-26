@@ -33,16 +33,18 @@ long long getTime() {
     Input : nothing
     Output: a long long variable that tells how many milliseconds have passed since 1970
 */
-Game *game = new Game();
+Game* game = new Game();
 
 int main() {
 
-    initgraph(720, 480);
+    initgraph(720, 640);
     setbkcolor(0Xcfd9eb);
     BeginBatchDraw();
 
     loadImgRes();
-    game -> loadTestMap();
+    game->loadTestMap();
+    Item testItem = Item(QUARTERSQUARE, WHITEITEM);
+    game->world.putItemAt(testItem, 5, 12);
 
     cameraPositionX = 0;
     cameraPositionY = 0;
@@ -55,7 +57,7 @@ int main() {
     ExMessage mouseMessage;
     //initialize the mouse
 
-    //std::cout << game.world.toString();
+    std::cout << game->world.toString();
 
     int nextLogic = getTime(), nextRender = getTime();
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
@@ -63,13 +65,13 @@ int main() {
 
     while (true) {
         currentTime = getTime();
-         // Monitor the mouse action
-        //if (currentTime >= nextLogic) {
-        //    logicTick(game.world);
-        //    nextLogic += logicInterval;
-        //}
+        // Monitor the mouse action
+       //if (currentTime >= nextLogic) {
+       //    logicTick(game.world);
+       //    nextLogic += logicInterval;
+       //}
         if (currentTime >= nextRender) {
-            renderTick(game -> world);
+            renderTick(game->world);
             nextLogic += renderInterval;
         }
         while (peekmessage(&mouseMessage, EM_MOUSE | EM_KEY))
@@ -93,7 +95,7 @@ int main() {
             }
         }
         FlushBatchDraw();
-        Sleep(1);
+        Sleep(10);
 
     }
     delete game;
