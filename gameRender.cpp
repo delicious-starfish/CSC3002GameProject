@@ -1,17 +1,28 @@
 #include "gameCollection.h"
 #include "gameRender.h"
+#include "gameBuildings.h"
 #include <graphics.h>
 #include <conio.h>
 
+IMAGE mouse;
 IMAGE grnd;
-IMAGE belt;
+IMAGE beltup;
+IMAGE beltdn;
+IMAGE beltlf;
+IMAGE beltrt;
 IMAGE belC;
+IMAGE cutt;
 IMAGE rota;
 
 void loadImgRes() {
+    loadimage(&mouse, _T("tex\\click.png"));
 	loadimage(&grnd, _T("tex\\grd1.png"));
-	loadimage(&belt, _T("tex\\belt.png"));
+	loadimage(&beltup, _T("tex\\belt-up.png"));
+    loadimage(&beltdn, _T("tex\\belt-dn.png"));
+    loadimage(&beltlf, _T("tex\\belt-lf.png"));
+    loadimage(&beltrt, _T("tex\\belt-rt.png"));
 	loadimage(&belC, _T("tex\\belC.png"));
+    loadimage(&cutt, _T("tex\\cutt.png"));
 	loadimage(&rota, _T("tex\\rota.png"));
 }
 
@@ -45,18 +56,39 @@ void putAlphaImage(int x, int y, IMAGE* srcimg)
 
 void renderTick(World& world) {
 	cleardevice();
+    for (int i = 0; i < MAPLENGTH; i++) {
+        for (int j = 0; j < MAPLENGTH; j++) {
+            putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &grnd);
+        }
+    }
 	for (int i = 0; i < MAPLENGTH; i++) {
 		for (int j = 0; j < MAPLENGTH; j++) {
 			switch (world.mapp[i][j].type)
 			{
-			case(GROUNDID):
-				putAlphaImage(j* 32, i* 32, &grnd); break;
 			case(BELTID):
-				putAlphaImage(j * 32, i * 32, &belt); break;
+                switch (world.belt[world.mapp[i][j].id].dir){
+                case UP:
+                    putAlphaImage(j * 32+ cameraPositionX, i * 32+ cameraPositionY, &beltup);
+                    break;
+                case DOWN:
+                    putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &beltdn);
+                    break;
+                case LEFT:
+                    putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &beltlf);
+                    break;
+                case RIGHT:
+                    putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &beltrt);
+                    break;
+                }
+				break;
 			case(ROTATORID):
-				putAlphaImage(j * 32, i * 32, &rota); break;
+				putAlphaImage(j * 32+cameraPositionX, i * 32+ cameraPositionY, &rota); break;
+            case(CUTTERID):
+                if(world.mapp[i][j].isMain==true)
+                putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &cutt); break;
 
 			}
 		}
 	}
+    putAlphaImage(mousePositionX-16, mousePositionY-16, &mouse);
 }
