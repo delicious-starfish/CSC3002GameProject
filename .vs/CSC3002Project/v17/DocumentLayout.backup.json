@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\GameProject\\CSC3002Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameRender.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameRender.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameRender.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameRender.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameRender.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameRender.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameItem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameItem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameBuildings.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameBuildings.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameItem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameItem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameCollection.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -50,11 +50,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "gameBuildings.h",
               "DocumentMoniker": "C:\\GameProject\\CSC3002Project\\gameBuildings.h",
               "RelativeDocumentMoniker": "gameBuildings.h",
@@ -63,12 +63,11 @@
               "ViewState": "AgIAAF0AAAAAAAAAAAAAAGEAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-10-16T11:07:39.534Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "gameItem.h",
               "DocumentMoniker": "C:\\GameProject\\CSC3002Project\\gameItem.h",
               "RelativeDocumentMoniker": "gameItem.h",
@@ -82,13 +81,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "gameRender.cpp",
               "DocumentMoniker": "C:\\GameProject\\CSC3002Project\\gameRender.cpp",
               "RelativeDocumentMoniker": "gameRender.cpp",
               "ToolTip": "C:\\GameProject\\CSC3002Project\\gameRender.cpp",
               "RelativeToolTip": "gameRender.cpp",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAAGUAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-19T08:41:58.775Z",
               "EditorCaption": ""
@@ -101,7 +100,7 @@
               "RelativeDocumentMoniker": "gameRender.h",
               "ToolTip": "C:\\GameProject\\CSC3002Project\\gameRender.h",
               "RelativeToolTip": "gameRender.h",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAEYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-10-19T05:38:40.188Z",
               "EditorCaption": ""
@@ -120,13 +119,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\GameProject\\CSC3002Project\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\GameProject\\CSC3002Project\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAEUAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADYAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-13T11:58:07.343Z",
               "EditorCaption": ""
@@ -141,8 +140,7 @@
               "RelativeToolTip": "gameCollection.cpp",
               "ViewState": "AgIAAFEAAAAAAAAAAAAAAFwAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-16T10:41:16.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T10:41:16.279Z"
             },
             {
               "$type": "Document",
@@ -154,8 +152,7 @@
               "RelativeToolTip": "gameCollection.h",
               "ViewState": "AgIAAD8AAAAAAAAAAAAgwBYAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-16T10:36:36.595Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T10:36:36.595Z"
             },
             {
               "$type": "Document",

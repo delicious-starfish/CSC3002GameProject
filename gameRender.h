@@ -60,4 +60,18 @@ void renderMouse();
 	Output the graph of mouse, including the building it select and is going to build
 	By Yao Yi Ling
 */
+
+void renderItems(World &world);
+/*
+	Method: renderItems
+	Usage: renderItems(world);
+			it is a sub function in method renderTick, only use in renderTick
+	-------------------------------------------
+	Output the graph of items, actually it only care about item on the belt
+	By kan bo yi
+
+	At present only render the first layer
+	Not Finished
+*/
+
 #endif

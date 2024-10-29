@@ -57,6 +57,7 @@ void putAlphaImage(int x, int y, IMAGE* srcimg)
 void renderTick(World& world) {
 	cleardevice();
     renderBuildings(world);
+    //renderItems(world);
     renderMouse();
     
 }
@@ -93,6 +94,37 @@ void renderBuildings(World& world) {
                 if (world.mapp[i][j].isMain == true)
                     putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &cutt); break;
 
+            }
+        }
+    }
+}
+
+void renderItems(World& world) {
+    for (int i = 0; i < world.beltNum; i++) {
+        if (!world.belt[i].isEmpty) {
+            setlinecolor(BLACK);
+            // The belt has item, start rendering
+            Item itemRender = world.belt[i].itemNow;
+            for (int j = 0; j < 2; j++) {
+                for (int k = 0; k < 2; k++) {
+                    switch (itemRender.colorId[0][j][k]) {
+                    case REDITEM:
+                        setfillcolor(RED);
+                        break;
+                    case YELLOWITEM:
+                        setfillcolor(YELLOW);
+                        break;
+                    case BLUEITEM:
+                        setfillcolor(BLUE);
+                    case WHITEITEM:
+                        setfillcolor(WHITE);
+                    }
+
+                    switch (itemRender.shapeId[0][j][k]) {
+                    case QUARTERSQUARE:
+
+                    }
+                }
             }
         }
     }
