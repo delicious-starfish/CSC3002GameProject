@@ -30,7 +30,7 @@ class Item {
 	* -----------------------------------------
 	* create an Item with all the same shape, and a same color.
 	* 整个物品全由相同的图形和颜色构成
-		
+		by kan bo yi
 	*/
 
 };

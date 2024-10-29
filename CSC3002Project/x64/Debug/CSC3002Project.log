@@ -1,9 +1,1 @@
-﻿  gameBuildings.cpp
-  gameCollection.cpp
-  gameRender.cpp
-  main.cpp
-C:\GameProject\CSC3002Project\main.cpp(47,19): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
-C:\GameProject\CSC3002Project\main.cpp(47,43): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
-C:\GameProject\CSC3002Project\main.cpp(52,30): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
-  正在生成代码...
-  CSC3002Project.vcxproj -> C:\GameProject\CSC3002Project\x64\Debug\CSC3002Project.exe
+﻿  CSC3002Project.vcxproj -> C:\GameProject\CSC3002Project\x64\Debug\CSC3002Project.exe

@@ -20,6 +20,7 @@ class Belt {
 		Belt(int direction, int x, int y);
 		/*
 			Build an empty belt at (x,y), with dir = direction
+			by kan bo yi
 		*/
 
 		Belt();
@@ -32,6 +33,7 @@ class Belt {
 		* Usage: belt.grantItem(item)
 		* ---------------------------------
 		  Give the belt the item, set the itemNow to the item you give
+		  by kan bo yi
 		*/
 	private:
 
@@ -51,6 +53,7 @@ class Cutter {
 		Cutter(int direction, int x, int y);
 		/*
 			Build an empty cutter at (x,y), with dir = direction
+			by kan bo yi
 		*/
 
 		Cutter();
@@ -92,6 +95,7 @@ class Composer {
 		Composer(int direction, int x, int y);
 		/*
 			Build an empty Composer at (x,y), with dir = direction
+			by kan bo yi
 		*/
 
 		Composer();

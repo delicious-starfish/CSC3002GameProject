@@ -56,19 +56,25 @@ void putAlphaImage(int x, int y, IMAGE* srcimg)
 
 void renderTick(World& world) {
 	cleardevice();
+    renderBuildings(world);
+    renderMouse();
+    
+}
+
+void renderBuildings(World& world) {
     for (int i = 0; i < MAPLENGTH; i++) {
         for (int j = 0; j < MAPLENGTH; j++) {
             putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &grnd);
         }
     }
-	for (int i = 0; i < MAPLENGTH; i++) {
-		for (int j = 0; j < MAPLENGTH; j++) {
-			switch (world.mapp[i][j].type)
-			{
-			case(BELTID):
-                switch (world.belt[world.mapp[i][j].id].dir){
+    for (int i = 0; i < MAPLENGTH; i++) {
+        for (int j = 0; j < MAPLENGTH; j++) {
+            switch (world.mapp[i][j].type)
+            {
+            case(BELTID):
+                switch (world.belt[world.mapp[i][j].id].dir) {
                 case UP:
-                    putAlphaImage(j * 32+ cameraPositionX, i * 32+ cameraPositionY, &beltup);
+                    putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &beltup);
                     break;
                 case DOWN:
                     putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &beltdn);
@@ -80,15 +86,18 @@ void renderTick(World& world) {
                     putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &beltrt);
                     break;
                 }
-				break;
-			case(ROTATORID):
-				putAlphaImage(j * 32+cameraPositionX, i * 32+ cameraPositionY, &rota); break;
+                break;
+            case(ROTATORID):
+                putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &rota); break;
             case(CUTTERID):
-                if(world.mapp[i][j].isMain==true)
-                putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &cutt); break;
+                if (world.mapp[i][j].isMain == true)
+                    putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &cutt); break;
 
-			}
-		}
-	}
-    putAlphaImage(mousePositionX-16, mousePositionY-16, &mouse);
+            }
+        }
+    }
+}
+
+void renderMouse() {
+    putAlphaImage(mousePositionX - 16, mousePositionY - 16, &mouse);
 }

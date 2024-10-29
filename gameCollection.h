@@ -20,6 +20,7 @@ class Node {
 		/*
 			the Init function for the class Node
 			input nothing and return the Node class variable
+			by kan bo yi
 		*/
 		int type;
 		//0 ground, 1 belt, 2 cutter, 3 averager, 4 porter, 5 composer, 6 rotator, 
@@ -38,6 +39,7 @@ class World {
 			the Init function for the class World
 			input nothing and return the World class variable
 			fill mapp with empty nodes
+			by kan bo yi
 		*/
 
 	
@@ -54,6 +56,7 @@ class World {
 
 		void buildAt(int building, int x, int y, int direction);
 		// build an empty building at x,y with direction
+		// by kan bo yi
 
 		std::string toString();
 		/*
@@ -61,6 +64,7 @@ class World {
 			represent the buildings in symbols
 
 			Only support the belt and cutter, others will be represented as numbers
+			by kan bo yi
 		*/
 		
 		void putItemAt(Item item, int x, int y);
@@ -73,7 +77,7 @@ class World {
 		If there is no building at (x,y) nothing would happen
 
 		Not finished, only support adding item to belts
-		
+		by kan bo yi
 		*/
 };
 
