@@ -56,20 +56,43 @@ void putAlphaImage(int x, int y, IMAGE* srcimg)
 
 void renderTick(World& world) {
 	cleardevice();
+    renderBackground();
     renderBuildings(world);
-    //renderItems(world);
+    renderItems(world);
     renderMouse();
     
 }
 
-void renderBuildings(World& world) {
+void renderBackground() {
     for (int i = 0; i < MAPLENGTH; i++) {
         for (int j = 0; j < MAPLENGTH; j++) {
+            int XLeft, YUp; // Consider whether we should render this building
+            YUp = i * 32 + cameraPositionY;
+            XLeft = j * 32 + cameraPositionX;
+            int XRight = XLeft + 32;
+            int YDown = YUp + 32;
+
+
+            if (XLeft > SCREENMAXX || YUp > SCREENMAXY || XRight < 0 || YDown < 0) continue;
+
             putAlphaImage(j * 32 + cameraPositionX, i * 32 + cameraPositionY, &grnd);
         }
     }
+}
+
+void renderBuildings(World& world) {
+   
     for (int i = 0; i < MAPLENGTH; i++) {
         for (int j = 0; j < MAPLENGTH; j++) {
+            int XLeft, YUp; // Consider whether we should render this building
+            YUp = i * 32 + cameraPositionY;
+            XLeft = j * 32 + cameraPositionX;
+            int XRight = XLeft + 32;
+            int YDown = YUp + 32;
+
+
+            if (XLeft > SCREENMAXX || YUp > SCREENMAXY || XRight < 0 || YDown < 0) continue;
+
             switch (world.mapp[i][j].type)
             {
             case(BELTID):
@@ -105,6 +128,15 @@ void renderItems(World& world) {
             setlinecolor(BLACK);
             // The belt has item, start rendering
             Item itemRender = world.belt[i].itemNow;
+            int XLeft, YUp; // Consider whether we should render this item on the belt
+            YUp = world.belt[i].pos[0] * 32 + cameraPositionY;
+            XLeft = world.belt[i].pos[1] * 32 + cameraPositionX;
+            int XRight = XLeft + 32;
+            int YDown = YUp + 32;
+
+
+            if (XLeft > SCREENMAXX || YUp > SCREENMAXY || XRight < 0 || YDown < 0) continue;
+            // belt out of visible range, won't be showed
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 2; k++) {
                     switch (itemRender.colorId[0][j][k]) {
@@ -122,7 +154,7 @@ void renderItems(World& world) {
 
                     switch (itemRender.shapeId[0][j][k]) {
                     case QUARTERSQUARE:
-
+                        fillrectangle(XLeft + k * 15 + 2, YUp + j * 15 + 2, XLeft + 16 + k * 15, YUp + 16 + j * 15);
                     }
                 }
             }

@@ -40,6 +40,17 @@ void renderTick(World &world);
 // output nothing
 // By Yao Yi Ling
 
+void renderBackground();
+/*
+	Method: renderBackground
+	Usage: renderBackground();
+			it is a sub function in method renderTick, only use in renderTick
+	--------------------------------
+	Output the graph of background
+	By Yao Yi Ling
+*/
+
+
 void renderBuildings(World& world);
 /*
 	Method: renderBuildings

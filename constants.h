@@ -62,5 +62,10 @@
 #define COMPOSERTICKCOST 2
 
 
+//ÆÁÄ»´óÐ¡
+#define SCREENMAXX 720
+#define SCREENMAXY 640
+
+
 #endif // !_constant_h_
 

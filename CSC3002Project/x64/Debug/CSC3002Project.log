@@ -1,7 +1,5 @@
-﻿  gameRender.cpp
-  main.cpp
-C:\GameProject\CSC3002Project\main.cpp(62,19): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
-C:\GameProject\CSC3002Project\main.cpp(62,43): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
-C:\GameProject\CSC3002Project\main.cpp(67,30): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
-  正在生成代码...
+﻿  main.cpp
+C:\GameProject\CSC3002Project\main.cpp(64,19): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+C:\GameProject\CSC3002Project\main.cpp(64,43): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+C:\GameProject\CSC3002Project\main.cpp(69,30): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
   CSC3002Project.vcxproj -> C:\GameProject\CSC3002Project\x64\Debug\CSC3002Project.exe

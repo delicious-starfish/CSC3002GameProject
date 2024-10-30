@@ -37,13 +37,15 @@ Game* game = new Game();
 
 int main() {
 
-    initgraph(720, 640);
+    initgraph(SCREENMAXX, SCREENMAXY);
     setbkcolor(0Xcfd9eb);
     BeginBatchDraw();
 
     loadImgRes();
     game->loadTestMap();
     Item testItem = Item(QUARTERSQUARE, WHITEITEM);
+    testItem.colorId[0][1][1] = YELLOWITEM;
+    testItem.colorId[0][0][1] = REDITEM;
     game->world.putItemAt(testItem, 5, 12);
 
     cameraPositionX = 0;
@@ -57,7 +59,7 @@ int main() {
     ExMessage mouseMessage;
     //initialize the mouse
 
-    std::cout << game->world.toString();
+    //std::cout << game->world.toString();
 
     int nextLogic = getTime(), nextRender = getTime();
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
