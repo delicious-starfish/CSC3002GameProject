@@ -51,7 +51,6 @@ class IntImg {
 	*/
 	//this may cost more time than previous one
 
-	void putItemImg(int x, int y, double r, IMAGE* srcimg, double scale, int color, int dir);
 
 	void RenderImg();
 	/*
