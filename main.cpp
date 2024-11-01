@@ -11,18 +11,16 @@
 
 int currentTime;
 int currentRenderTime;
+int screenSizeX;
+int screenSizeY;
+double screenScale;
 int cameraPositionX;
 int cameraPositionY;
 int mousePositionX;
 int mousePositionY;
 int totalScore;
-int BeltAMOUNT;
-int CutterAMOUNT;
-int AveragerAMOUNT;
-int PorterAMOUNT;
-int ComposerAMOUNT;
-int RotatorAMOUNT;
-int MinerAMOUNT;
+
+IntImg* intimg1 = new IntImg();
 
 long long getTime() {
     long long millisecSince1970 = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
@@ -37,7 +35,15 @@ Game* game = new Game();
 
 int main() {
 
-    initgraph(SCREENMAXX, SCREENMAXY);
+    screenSizeX = 960;
+    screenSizeY = 540;
+    //set screen size (No larger than 1920*1080)
+    screenScale = 1;
+    //set screen scale (Better within 0.25~1.00)
+    double previousScreenScale = 1;
+    
+    initgraph(screenSizeX, screenSizeY);
+    
     setbkcolor(0Xcfd9eb);
     BeginBatchDraw();
 
@@ -45,7 +51,11 @@ int main() {
     game->loadTestMap();
     Item testItem = Item(QUARTERSQUARE, WHITEITEM);
     testItem.colorId[0][1][1] = YELLOWITEM;
-    testItem.colorId[0][0][1] = REDITEM;
+    testItem.colorId[0][0][0] = REDITEM;
+    testItem.colorId[0][1][0] = BLUEITEM;
+    testItem.shapeId[0][1][0] = QUARTERWINDMILL;
+    testItem.shapeId[0][0][1] = QUARTERCIRCLE;
+    testItem.shapeId[0][1][1] = QUARTERCIRCLE;
     game->world.putItemAt(testItem, 5, 12);
 
     cameraPositionX = 0;
@@ -73,7 +83,7 @@ int main() {
        //    nextLogic += logicInterval;
        //}
         if (currentTime >= nextRender) {
-            renderTick(game->world);
+            intimg1->renderTick(game->world);
             nextLogic += renderInterval;
         }
         while (peekmessage(&mouseMessage, EM_MOUSE | EM_KEY))
@@ -89,6 +99,16 @@ int main() {
                 controlPositionX = mouseMessage.x - cameraPositionX; controlPositionY = mouseMessage.y - cameraPositionY;
                 break;
             case WM_LBUTTONUP:
+                break;
+            case WM_MOUSEWHEEL:
+                //Change screenscale by scrolling mouse
+                if (mouseMessage.wheel > 0 && screenScale < 1) screenScale+=0.0625;
+                else if (mouseMessage.wheel < 0 && screenScale>0.375) screenScale-=0.0625;
+                mouseMessage.wheel = 0;
+                //Reset camera position to Realize mouse-centered scaling
+                cameraPositionX = mousePositionX - (mousePositionX - cameraPositionX) * screenScale / previousScreenScale;
+                cameraPositionY = mousePositionY - (mousePositionY - cameraPositionY) * screenScale / previousScreenScale;
+                previousScreenScale = screenScale;
                 break;
             case WM_KEYDOWN:
                 if (mouseMessage.vkcode == VK_ESCAPE)
