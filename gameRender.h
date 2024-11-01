@@ -2,6 +2,7 @@
 #include "gameBuildings.h"
 #include <graphics.h>
 #include <conio.h>
+#include <cmath>
 
 #pragma once
 #ifndef _gameRender_h_
@@ -9,80 +10,130 @@
 
 extern int currentTime;
 extern int currentRenderTime;
+extern int screenSizeX;
+extern int screenSizeY;
+extern double screenScale;
 extern int cameraPositionX;
 extern int cameraPositionY;
 extern int mousePositionX;
 extern int mousePositionY;
 extern int totalScore;
-extern int BeltAMOUNT;
-extern int CutterAMOUNT;
-extern int AveragerAMOUNT;
-extern int PorterAMOUNT;
-extern int ComposerAMOUNT;
-extern int RotatorAMOUNT;
-extern int MinerAMOUNT;
+
+
+class IntImg {
+	//Integer Image
+    public:
+	int pixel[1920][1080];
+	//An int array representing pixels
+	//Screen size cannot be larger than this
+
+	IntImg();
+	//Initialize
+
+	void putImg(int x, int y, IMAGE* srcimg, int direction, double scale);
+	/*
+	    Method: putImg
+	    Usage: putImg(PositionX, PositionY, Image pointer, Direction1234, Scale of zooming);
+
+	-------------------------------------------
+	    Write the values to the array from an image
+	    By Yao Yilin
+        */
+
+	void putImg(int x, int y, double r, IMAGE* srcimg, double scale);
+	/*
+	    Method: putImg
+	    Usage: putImg(PositionX, PositionY, RotationRAD, Image pointer, Scale of zooming);
+
+	-------------------------------------------
+	    Write the values to the array from an image, allow rotation
+	    By Yao Yilin
+	*/
+	//this may cost more time than previous one
+
+	void putItemImg(int x, int y, double r, IMAGE* srcimg, double scale, int color, int dir);
+
+	void RenderImg();
+	/*
+	    Method: RenderImg
+	    Usage: RenderImg();
+	    		it is a sub function in method renderTick, only use in renderTick
+	-------------------------------------------
+	    Output the final image
+	    By Yao Yilin
+	*/
+	    //Should be called in method renderTick, or nothing will be putted on the screen!
+	    //Usually the last step of renderTick
+
+	void ClearImg();
+	/*
+		Method: ClearImg
+		Usage: ClearImg();
+				it is a sub function in method renderTick, only use in renderTick
+	-------------------------------------------
+		Output an empty pixel[][] array
+		By Yao Yilin
+	*/
+	    //Usually the first step of renderTick
+
+	void putGrounds();
+        /*
+	    Method: putGrounds
+	    Usage: putGrounds();
+	    		it is a sub function in method renderTick, only use in renderTick
+	--------------------------------
+	    Output the layer of background
+	    By Yao Yilin
+        */
+
+	void putBuildings(World &world);
+        /*
+	    Method: putBuildings
+	    Usage: putBuildings(world);
+	    		it is a sub function in method renderTick, only use in renderTick
+	--------------------------------
+	    Output the layer of buildings
+	    By Yao Yilin
+        */
+
+	void putItems(World& world);
+	/*
+	    Method: putItems
+	    Usage: putItems(world);
+	    		it is a sub function in method renderTick, only use in renderTick
+	-------------------------------------------
+	    Output the layer of items, actually it only care about item on the belt
+	    By Kan Bo Yi && Yao Yilin
+
+		At present only render the first layer
+		Not Finished
+        */
+
+	void putUI();
+	/*
+		Method: putUI
+	    Usage: putUI();
+		    	娉ㄦ剰锛屾湰鍑芥暟鏃犳硶渚︽祴榧犳爣浣嶇疆锛岄紶鏍囦綅缃俊鎭潵鑷簬main.cpp涓洃鍚埌鐨勯紶鏍囦綅缃紝
+		    	璇ヤ綅缃瓨鍌ㄤ簬gameRender.h瀹氫箟鐨勫叏灞�鍙橀噺mousePositionX涓巑ousePositionY
+	-------------------------------------------
+	    Output the layer of mouse, including the building it select and is going to build
+	    And UI
+	    By Yao Yilin
+        */
+
+    void renderTick(World &world);
+    // This function will not change the value of world
+    // It use the value in world to render the screen
+    // input World world
+    // output nothing
+	//By Yao Yilin
+};
 
 void loadImgRes();
 /*
 	Load the graphic resources of the game.
-	Must be loaded first!!!!
-	By Yao Yi Ling
-*/
-
-void putAlphaImage(int x, int y, IMAGE* srcimg);
-//It can put alpha images (images with opacity) on position(x,y)
-//By Yao Yi Ling
-
-void renderTick(World &world);
-// This function will not change the value of world
-// It use the value in world to render the screen
-// input World world
-// output nothing
-// By Yao Yi Ling
-
-void renderBackground();
-/*
-	Method: renderBackground
-	Usage: renderBackground();
-			it is a sub function in method renderTick, only use in renderTick
-	--------------------------------
-	Output the graph of background
-	By Yao Yi Ling
-*/
-
-
-void renderBuildings(World& world);
-/*
-	Method: renderBuildings
-	Usage: renderBuildings(world);
-			it is a sub function in method renderTick, only use in renderTick
-	--------------------------------
-	Output the graph of buildings
-	By Yao Yi Ling
-*/
-
-void renderMouse();
-/*
-	Method: renderMouse
-	Usage: renderMouse();
-			注意，本函数无法侦测鼠标位置，鼠标位置信息来自于main.cpp中监听到的鼠标位置，
-			该位置存储于gameRender.h定义的全局变量mousePositionX与mousePositionY
-	-------------------------------------------
-	Output the graph of mouse, including the building it select and is going to build
-	By Yao Yi Ling
-*/
-
-void renderItems(World &world);
-/*
-	Method: renderItems
-	Usage: renderItems(world);
-			it is a sub function in method renderTick, only use in renderTick
-	-------------------------------------------
-	Output the graph of items, actually it only care about item on the belt
-	By kan bo yi
-
-	At present only render the first layer
-	Not Finished
+	Must be loaded first
+        By Yao Yilin
 */
 
 #endif
