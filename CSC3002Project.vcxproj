@@ -130,6 +130,7 @@
     <ClCompile Include="gameBuildings.cpp" />
     <ClCompile Include="gameCollection.cpp" />
     <ClCompile Include="gameItem.cpp" />
+    <ClCompile Include="gameLogic.cpp" />
     <ClCompile Include="gameRender.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

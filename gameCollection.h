@@ -52,6 +52,7 @@ class World {
 		//Rotator rotator[2500];
 		//Miner miner[2500];
 		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0;
+		int maxBeltId = 0;
 		int rotatorNum = 0;
 
 		void buildAt(int building, int x, int y, int direction);
@@ -77,6 +78,17 @@ class World {
 		If there is no building at (x,y) nothing would happen
 
 		Not finished, only support adding item to belts
+		by kan bo yi
+		*/
+private:
+	void refreshBeltAt(int x, int y, int direction);
+	/*
+		Method: refreshBeltAt
+		Usage: world.refreshBeltAt(1,0,LEFT);
+		--------------------------
+		在mapp和belt中添加完传送带之后，还需要刷新传送带的idNxt变量以便于更新.
+		默认新添加的传送带就是belt[maxBeltId]
+
 		by kan bo yi
 		*/
 };

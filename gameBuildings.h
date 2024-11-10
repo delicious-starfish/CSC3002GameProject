@@ -3,6 +3,7 @@
 	This file contains functions and classes dealing with building objects
 */
 #include "gameItem.h"
+#include <queue>
 #ifndef _gameBuildings_h_
 #define _gameBuildings_h_
 
@@ -17,6 +18,8 @@ class Belt {
 		int pos[2];
 		bool isEmpty;
 		// 传送带上是否有物品
+		int idNxt;
+		// idNxt : 在更新时会给该传送带传递物品的传送带编号
 		Belt(int direction, int x, int y);
 		/*
 			Build an empty belt at (x,y), with dir = direction
@@ -34,6 +37,17 @@ class Belt {
 		* ---------------------------------
 		  Give the belt the item, set the itemNow to the item you give
 		  by kan bo yi
+		*/
+
+		bool exist();
+		/*
+			Method exist
+			Usage bool a = Belt.exist()
+			-------------------------
+			Tell client whether this belt has been built. If it has just been initialized, or have been deleted
+			,than this function will return false.
+			by kan bo yi
+
 		*/
 	private:
 

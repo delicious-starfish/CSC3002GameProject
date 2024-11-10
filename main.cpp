@@ -1,6 +1,7 @@
 #include <graphics.h>
 #include <conio.h>
 #include <iostream>
+#include<stdlib.h>
 #include <chrono>
 #include "gameCollection.h"
 #include "gameLogic.h"
@@ -69,7 +70,7 @@ int main() {
     ExMessage mouseMessage;
     //initialize the mouse
 
-    //std::cout << game->world.toString();
+    std::cout << game->world.toString() << std::endl << "------------------------------------------" << std::endl;
 
     int nextLogic = getTime(), nextRender = getTime();
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
@@ -77,47 +78,55 @@ int main() {
 
     while (true) {
         currentTime = getTime();
-        // Monitor the mouse action
-       //if (currentTime >= nextLogic) {
-       //    logicTick(game.world);
-       //    nextLogic += logicInterval;
-       //}
+         //Monitor the mouse action
+
+
+
+        if (currentTime >= nextLogic) {
+            logicTick(game -> world);
+            nextLogic += logicInterval;
+            
+        }
         if (currentTime >= nextRender) {
-            intimg1->renderTick(game->world);
+            //intimg1->renderTick(game-> world);
+            //system("cls");
+            std::cout << game->world.toString() << std::endl;
             nextLogic += renderInterval;
         }
-        while (peekmessage(&mouseMessage, EM_MOUSE | EM_KEY))
-        {
-            //Mouse Operation
-            switch (mouseMessage.message)
-            {
-            case WM_MOUSEMOVE:
-                if (mouseMessage.lbutton) { cameraPositionX = mouseMessage.x - controlPositionX; cameraPositionY = mouseMessage.y - controlPositionY; }
-                mousePositionX = mouseMessage.x; mousePositionY = mouseMessage.y;
-                break;
-            case WM_LBUTTONDOWN:
-                controlPositionX = mouseMessage.x - cameraPositionX; controlPositionY = mouseMessage.y - cameraPositionY;
-                break;
-            case WM_LBUTTONUP:
-                break;
-            case WM_MOUSEWHEEL:
-                //Change screenscale by scrolling mouse
-                if (mouseMessage.wheel > 0 && screenScale < 1) screenScale+=0.0625;
-                else if (mouseMessage.wheel < 0 && screenScale>0.375) screenScale-=0.0625;
-                mouseMessage.wheel = 0;
-                //Reset camera position to Realize mouse-centered scaling
-                cameraPositionX = mousePositionX - (mousePositionX - cameraPositionX) * screenScale / previousScreenScale;
-                cameraPositionY = mousePositionY - (mousePositionY - cameraPositionY) * screenScale / previousScreenScale;
-                previousScreenScale = screenScale;
-                break;
-            case WM_KEYDOWN:
-                if (mouseMessage.vkcode == VK_ESCAPE)
-                    return 0;
-                break;
-            }
-        }
-        FlushBatchDraw();
-        Sleep(10);
+        break;
+        //while (peekmessage(&mouseMessage, EM_MOUSE | EM_KEY))
+        //{
+        //    //Mouse Operation
+        //    switch (mouseMessage.message)
+        //    {
+        //    case WM_MOUSEMOVE:
+        //        if (mouseMessage.lbutton) { cameraPositionX = mouseMessage.x - controlPositionX; cameraPositionY = mouseMessage.y - controlPositionY; }
+        //        mousePositionX = mouseMessage.x; mousePositionY = mouseMessage.y;
+        //        break;
+        //    case WM_LBUTTONDOWN:
+        //        controlPositionX = mouseMessage.x - cameraPositionX; controlPositionY = mouseMessage.y - cameraPositionY;
+        //        break;
+        //    case WM_LBUTTONUP:
+        //        break;
+        //    case WM_MOUSEWHEEL:
+        //        //Change screenscale by scrolling mouse
+        //        if (mouseMessage.wheel > 0 && screenScale < 1) screenScale+=0.0625;
+        //        else if (mouseMessage.wheel < 0 && screenScale>0.375) screenScale-=0.0625;
+        //        mouseMessage.wheel = 0;
+        //        //Reset camera position to Realize mouse-centered scaling
+        //        cameraPositionX = mousePositionX - (mousePositionX - cameraPositionX) * screenScale / previousScreenScale;
+        //        cameraPositionY = mousePositionY - (mousePositionY - cameraPositionY) * screenScale / previousScreenScale;
+        //        previousScreenScale = screenScale;
+        //        break;
+        //    case WM_KEYDOWN:
+        //        if (mouseMessage.vkcode == VK_ESCAPE)
+        //            return 0;
+        //        break;
+        //        break;
+        //    }
+        //}
+        //FlushBatchDraw();
+        Sleep(0.1);
 
     }
     delete game;

@@ -7,6 +7,7 @@ Belt::Belt(int direction, int x, int y) {
 	dir = direction;
 	pos[0] = x;
 	pos[1] = y;
+	idNxt = -1;
 	itemNow = Item();
 	isEmpty = true;
 }
@@ -17,6 +18,11 @@ Belt::Belt() {
 	pos[0] = -1;
 	itemNow = Item();
 	isEmpty = true;
+	idNxt = -1;
+}
+
+bool Belt::exist() {
+	return (dir != 0);
 }
 
 void Belt::grantItem(Item item) {
