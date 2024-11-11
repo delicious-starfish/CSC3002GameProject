@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "gameBuildings.h"
 #include <string>
+//#include <iostream>
 
 using namespace std;
 
@@ -153,14 +154,16 @@ string World::toString() {
 }
 
 void World::refreshBeltAt(int x, int y, int direction) {
-	int dir[4][2] = { {1,0},{-1,0},{0,1},{0,-1} };
-
+	int dir[4][2] = { {-1,0},{1,0},{0,-1},{0,1} };
+	//std::cout << "----------------------------------------------" << std::endl;
+	//std::cout << "Refresh when adding belt " << maxBeltId << " at position (" << x << "," << y << ")" << std::endl;
 	for (int i = 0; i < 4; i++) {
 		int xx = x + dir[i][0];
 		int yy = y + dir[i][1];
 		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 		if (mapp[xx][yy].type != BELTID) continue;
 		int targetId = mapp[xx][yy].id;
+
 		int targetDir = -1;
 		switch (i) {
 		case UP - 1:
@@ -176,7 +179,59 @@ void World::refreshBeltAt(int x, int y, int direction) {
 			targetDir = LEFT;
 			break;
 		}
-		if (belt[targetDir].dir == targetDir) belt[targetId].idNxt = maxBeltId;
+
+		//std::cout << "with target direction = ";
+		/*switch (targetDir) {
+		case UP:
+			std::cout << "UP" << std::endl;
+			break;
+		case DOWN:
+			std::cout << "DOWN" << std::endl;
+			break;
+		case LEFT:
+			std::cout << "LEFT" << std::endl;
+			break;
+		case RIGHT:
+			std::cout << "RIGHT" << std::endl;
+			break;
+		}*/
+
+		//std::cout << "find belt" << " at position (" << xx << "," << yy << ")" << " with direction ";
+		/*switch (belt[targetId].dir) {
+		case UP:
+			std::cout << "UP" << std::endl;
+			break;
+		case DOWN:
+			std::cout << "DOWN" << std::endl;
+			break;
+		case LEFT:
+			std::cout << "LEFT" << std::endl;
+			break;
+		case RIGHT:
+			std::cout << "RIGHT" << std::endl;
+			break;
+		}*/
+
+
+		if (belt[targetId].dir == targetDir) {
+			belt[targetId].idNxt = maxBeltId;
+			/*std::cout << "find previous belt " << targetId << " at position (" << xx << "," << yy << ")";
+			std::cout << " the expected direction is ";
+			switch (targetDir) {
+			case UP:
+				std::cout << "UP" << std::endl;
+				break;
+			case DOWN:
+				std::cout << "DOWN" << std::endl;
+				break;
+			case LEFT:
+				std::cout << "LEFT" << std::endl;
+				break;
+			case RIGHT:
+				std::cout << "RIGHT" << std::endl;
+				break;
+			}*/
+		}
 
 	}
 
@@ -184,7 +239,10 @@ void World::refreshBeltAt(int x, int y, int direction) {
 	int yy = y + dir[direction - 1][1];
 	if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) return;
 
-	if (mapp[xx][yy].type == BELTID) belt[maxBeltId].idNxt = mapp[xx][yy].id;
+	if (mapp[xx][yy].type == BELTID) {
+		belt[maxBeltId].idNxt = mapp[xx][yy].id;
+		//std::cout << "find next belt " << mapp[xx][yy].id << " at position (" << xx << "," << yy << ")" << std::endl;
+	}
 }
 
 Game::Game() {

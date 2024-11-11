@@ -3,7 +3,6 @@
 #include "constants.h"
 #include "gameBuildings.h"
 #include "gameItem.h"
-#include <iostream>
 
 void logicTick(World& world) {
 	buildingLogic(world);
