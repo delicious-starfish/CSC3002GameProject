@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "gameBuildings.h"
 #include <string>
-//#include <iostream>
 
 using namespace std;
 
@@ -51,6 +50,7 @@ void World::buildAt(int building, int x, int y, int direction) {
 					mapp[x + 1][y] = Node(CUTTERID, cutterNum, false);
 					break;
 			}
+			maxCutterId++;
 			cutterNum++;
 			break;
 
@@ -78,6 +78,19 @@ void World::buildAt(int building, int x, int y, int direction) {
 			}
 			composerNum++;
 			break;
+
+		case MINERID:
+			mapp[x][y] = Node(MINERID, maxMinerId, true);
+			miner[maxMinerId] = Miner(x, y, direction);
+			maxMinerId++;
+			break;
+
+		case RUBBISHBINID:
+			mapp[x][y] = Node(RUBBISHBINID, maxRubbishBinId, true);
+			rubbishBin[maxRubbishBinId] = RubbishBin(x, y);
+			maxRubbishBinId++;
+			
+			break;
 	}
 }
 
@@ -85,10 +98,15 @@ void World::putItemAt(Item item, int x, int y) {
 	int buildingId = mapp[y][x].type;
 	switch (buildingId) {
 	case BELTID:
-		int beltId = mapp[y][x].id; // The id that belt[id] represent the belt at (x,y)
-		belt[beltId].grantItem(item);
-		belt[beltId].isEmpty = false;
+		belt[mapp[y][x].id].grantItem(item);
+		belt[mapp[y][x].id].isEmpty = false;
+		break;
+	case MINERID:
+		miner[mapp[y][x].id].setProduct(item);
+		miner[mapp[y][x].id].isEmpty = false;
+		break;
 	}
+	
 }
 
 
@@ -252,11 +270,14 @@ Game::Game() {
 
 
 void Game::loadTestMap() {
-	for (int i = 0; i < 12; i++) world.buildAt(BELTID, 12, i, RIGHT);
+	world.buildAt(MINERID, 12, 0, RIGHT);
+	for (int i = 1; i < 12; i++) world.buildAt(BELTID, 12, i, RIGHT);
 	world.buildAt(CUTTERID, 12, 12, RIGHT);
 	for (int i = 13; i < 15; i++) world.buildAt(BELTID, 12, i, RIGHT);
-	for (int i = 12; i < 15; i++) world.buildAt(BELTID, i, 15, DOWN);
-	for (int i = 13; i < 16; i++) world.buildAt(BELTID, 15, i, LEFT);
+	for (int i = 13; i < 19; i++) world.buildAt(BELTID, 13, i, RIGHT);
+	world.buildAt(RUBBISHBINID, 13, 19, 0);
+	for (int i = 9; i < 13; i++) world.buildAt(BELTID, i, 15, UP);
+	world.buildAt(RUBBISHBINID, 8, 15, 0);
 }
 
 

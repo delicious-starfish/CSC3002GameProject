@@ -1,6 +1,7 @@
 #include "gameCollection.h"
 #include "gameRender.h"
 #include "gameBuildings.h"
+#include "constants.h"
 #include <graphics.h>
 #include <conio.h>
 #include <cmath>
@@ -17,6 +18,8 @@ IMAGE belt;
 IMAGE belC;
 IMAGE cutt;
 IMAGE rota;
+IMAGE miner;
+IMAGE bin;
 //Items
 IMAGE SqR;
 IMAGE SqY;
@@ -41,6 +44,8 @@ void loadImgRes() {
     loadimage(&belC, _T("tex\\belC.png"));
     loadimage(&cutt, _T("tex\\cutt.png"));
     loadimage(&rota, _T("tex\\rota.png"));
+    loadimage(&miner, _T("tex\\miner.png"));
+    loadimage(&bin, _T("tex\\rubbishBin.png"));
     loadimage(&SqR, _T("tex\\squr-R.png"));
     loadimage(&SqY, _T("tex\\squr-Y.png"));
     loadimage(&SqB, _T("tex\\squr-B.png"));
@@ -186,13 +191,18 @@ void IntImg::putBuildings(World& world){
             case(CUTTERID):
                 if (world.mapp[i][j].isMain == true)
                     putImg((j * 64 - 32) * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &cutt, 2, screenScale); break;
+            case(MINERID):
+                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &miner, world.miner[world.mapp[i][j].id].dir, screenScale); break;
+            case(RUBBISHBINID):
+                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &bin, UP, screenScale); break;
             }
+            
         }
     }
 }
 
 void IntImg::putItems(World& world){
-    for (int i = 0; i < world.beltNum; i++) {
+    for (int i = 0; i < world.maxBeltId; i++) {
         if (!world.belt[i].isEmpty) {
             // The belt has item, start rendering
             Item itemRender = world.belt[i].itemNow;
@@ -209,6 +219,7 @@ void IntImg::putItems(World& world){
                     case 3:dir = 2; break;
                     }
                     spANDcl = itemRender.shapeId[0][j][k]*8+itemRender.colorId[0][j][k];
+                    
                     //Determine which image to show
                     switch (spANDcl) {
                     case 9:
@@ -239,6 +250,57 @@ void IntImg::putItems(World& world){
                 }
             }
             
+        }
+    }
+
+    for (int i = 0; i < world.maxMinerId; i++) {
+        if (!world.miner[i].isEmpty) {
+            // The belt has item, start rendering
+            Item itemRender = world.miner[i].item;
+            int YUp = world.miner[i].pos[0] * 64 * screenScale + cameraPositionY;
+            int XLeft = world.miner[i].pos[1] * 64 * screenScale + cameraPositionX;
+            int dir;
+            int spANDcl;
+            for (int j = 0; j < 2; j++) {
+                for (int k = 0; k < 2; k++) {
+                    switch (2 * j + k) {
+                    case 0:dir = 1; break;
+                    case 1:dir = 4; break;
+                    case 2:dir = 3; break;
+                    case 3:dir = 2; break;
+                    }
+                    spANDcl = itemRender.shapeId[0][j][k] * 8 + itemRender.colorId[0][j][k];
+
+                    //Determine which image to show
+                    switch (spANDcl) {
+                    case 9:
+                        putImg(XLeft, YUp, &CcR, dir, screenScale); break;
+                    case 10:
+                        putImg(XLeft, YUp, &CcY, dir, screenScale); break;
+                    case 11:
+                        putImg(XLeft, YUp, &CcB, dir, screenScale); break;
+                    case 12:
+                        putImg(XLeft, YUp, &CcW, dir, screenScale); break;
+                    case 17:
+                        putImg(XLeft, YUp, &SqR, dir, screenScale); break;
+                    case 18:
+                        putImg(XLeft, YUp, &SqY, dir, screenScale); break;
+                    case 19:
+                        putImg(XLeft, YUp, &SqB, dir, screenScale); break;
+                    case 20:
+                        putImg(XLeft, YUp, &SqW, dir, screenScale); break;
+                    case 25:
+                        putImg(XLeft, YUp, &MlR, dir, screenScale); break;
+                    case 26:
+                        putImg(XLeft, YUp, &MlY, dir, screenScale); break;
+                    case 27:
+                        putImg(XLeft, YUp, &MlB, dir, screenScale); break;
+                    case 28:
+                        putImg(XLeft, YUp, &MlW, dir, screenScale); break;
+                    }
+                }
+            }
+
         }
     }
 }

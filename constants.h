@@ -22,6 +22,9 @@
 
 #define MINERID 7
 
+#define RUBBISHBINID 8
+
+
 
 
 //ID for item
@@ -57,9 +60,8 @@
 
 
 //Basic Game Settings
-#define CUTTERTICKCOST 2 
+#define MINERTICKCOST 2
 
-#define COMPOSERTICKCOST 2
 
 
 //ÆÁÄ»´óÐ¡

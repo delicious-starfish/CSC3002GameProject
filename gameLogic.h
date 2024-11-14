@@ -22,15 +22,32 @@ void beltLogic(World & world);
 	made by Kanboyi
 */
 
-void buildingLogic(World& world);
+void buildingInput(World& world);
 /*
-	Method buildingLogic
-	Usage: buildingLogic(world); This function is only used in method logicTick
+	Method buildingInput
+	Usage: buildingInput(world); This function is only used in method logicTick
 	--------------------------------
-	let every building to get the ingredient from the belts. The belt then generate the product, which is stored inside the
-	building, waiting for being extracted
+	let every building to get the ingredient from the belts. In the meantime it will store its product in its variable
+
+	Only finished the cutter
+
+	by Kan bo yi
 
 	
+*/
+
+void buildingOutput(World& world);
+/*
+	Method buildingOutput
+	Usage: buildingOutput(world); This function is only used in method logicTick
+	--------------------------------
+	let every building output the product to the belts.
+
+	Only finished the cutter
+
+	by Kan bo yi
+
+
 */
 
 void belt_FindEndAndUpdate(World& world, bool footprint[], int nowId);

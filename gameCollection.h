@@ -46,13 +46,14 @@ class World {
 		Node mapp[MAPLENGTH][MAPLENGTH];// the map that shows what is at a specific point
 		Belt belt[2500];
 		Cutter cutter[2500];
+		RubbishBin rubbishBin[2500];
 		//Averager averager[2500];
 		//Porter porter[2500];
 		Composer composer[250];
 		//Rotator rotator[2500];
-		//Miner miner[2500];
-		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0;
-		int maxBeltId = 0;
+		Miner miner[2500];
+		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0, minerNum = 0,rubbishBinNum = 0;
+		int maxBeltId = 0,maxCutterId = 0, maxMinerId = 0, maxRubbishBinId = 0;
 		int rotatorNum = 0;
 
 		void buildAt(int building, int x, int y, int direction);

@@ -8,7 +8,7 @@
 #include "gameRender.h"
 
 #define LOGIC_FPS 5
-#define RENDER_FPS 10
+#define RENDER_FPS 30
 
 int currentTime;
 int currentRenderTime;
@@ -58,7 +58,7 @@ int main() {
     testItem.colorId[0][0][0] = REDITEM;
     testItem.colorId[0][1][0] = BLUEITEM;
     testItem.shapeId[0][1][0] = QUARTERWINDMILL;
-    testItem.shapeId[0][0][1] = QUARTERCIRCLE;
+    testItem.shapeId[0][0][1] = NOTHING;
     testItem.shapeId[0][1][1] = QUARTERCIRCLE;
     game->world.putItemAt(testItem, 0, 12);
     game->world.putItemAt(testItem, 3, 12);
