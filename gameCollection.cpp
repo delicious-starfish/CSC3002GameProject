@@ -277,7 +277,7 @@ void Game::loadTestMap() {
 	for (int i = 13; i < 19; i++) world.buildAt(BELTID, 13, i, RIGHT);
 	world.buildAt(RUBBISHBINID, 13, 19, 0);
 	for (int i = 9; i < 13; i++) world.buildAt(BELTID, i, 15, UP);
-	world.buildAt(RUBBISHBINID, 8, 15, 0);
+	//world.buildAt(RUBBISHBINID, 8, 15, 0);
 }
 
 
