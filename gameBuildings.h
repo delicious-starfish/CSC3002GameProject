@@ -17,9 +17,9 @@ class Belt {
 		// 1 stand for up, 2 stand for down, 3 stand for left, 4 stand for right
 		int pos[2];
 		bool isEmpty;
-		// ´«ËÍ´øÉÏÊÇ·ñÓĞÎïÆ·
+		// ä¼ é€å¸¦ä¸Šæ˜¯å¦æœ‰ç‰©å“
 		int idNxt;
-		// idNxt : ÔÚ¸üĞÂÊ±»á¸ø¸Ã´«ËÍ´ø´«µİÎïÆ·µÄ´«ËÍ´ø±àºÅ
+		// idNxt : åœ¨æ›´æ–°æ—¶ä¼šç»™è¯¥ä¼ é€å¸¦ä¼ é€’ç‰©å“çš„ä¼ é€å¸¦ç¼–å·
 		Belt(int direction, int x, int y);
 		/*
 			Build an empty belt at (x,y), with dir = direction
@@ -59,14 +59,14 @@ class Cutter {
 	*/
 	public:
 		Item OutputMain,OutputSub;
-		// Ç°Õß¶ÔÓ¦ÎªÔÚµØÍ¼¡°Ö÷·½¿é¡±ÉÏÃæµÄÊä³ö£¬ºóÕßÊÇ¡°¸±·½¿é¡±ÉÏÃæµÄÊä³ö
-		// ¡°Ö÷·½¿é¡±£¬¡°¸±·½¿é¡±µÄ¶¨ÒåÏê¼ûgameCollection.cppµÄbuildAtº¯Êı
+		// å‰è€…å¯¹åº”ä¸ºåœ¨åœ°å›¾â€œä¸»æ–¹å—â€ä¸Šé¢çš„è¾“å‡ºï¼Œåè€…æ˜¯â€œå‰¯æ–¹å—â€ä¸Šé¢çš„è¾“å‡º
+		// â€œä¸»æ–¹å—â€ï¼Œâ€œå‰¯æ–¹å—â€çš„å®šä¹‰è¯¦è§gameCollection.cppçš„buildAtå‡½æ•°
 
 		int dir;
 		// same as that in Belt
 		int pos[2];
 		bool isEmptyMain,isEmptySub;
-		//ÕâÁ½¸ö·Ö±ğÒâÎ¶×ÅOutputMainÓëOutputSubÎª¿ÕµÄ
+		//è¿™ä¸¤ä¸ªåˆ†åˆ«æ„å‘³ç€OutputMainä¸OutputSubä¸ºç©ºçš„
 
 		int getSubx();
 		int getSuby();
@@ -74,7 +74,7 @@ class Cutter {
 			Method:getSubx/getSuby
 			Usage int xx = cutter.getSubx(),yy = cutter.getSuby();
 			---------------------------------------------------
-			µÃµ½cutterµÄ¸±ÖĞĞÄ£¨¼´ÁíÒ»¸öÊä³ö¿Ú£©µÄ×ø±ê
+			å¾—åˆ°cutterçš„å‰¯ä¸­å¿ƒï¼ˆå³å¦ä¸€ä¸ªè¾“å‡ºå£ï¼‰çš„åæ ‡
 			by Kan bo yi
 		*/
 
@@ -160,8 +160,10 @@ class Composer {
 		Item inputItemLeft, inputItemRight;
 		// inputItemLeft would be at the Left of the product, so does the inputItemRight
 		int pos[2];
-		int dir;
-
+		int dir;	
+		bool isEmpty;
+		int getSubx();
+		int getSuby();
 		Composer(int direction, int x, int y);
 		/*
 			Build an empty Composer at (x,y), with dir = direction
@@ -193,7 +195,7 @@ public:
 	int pos[2];
 	int	dir;
 	int produceStatus;
-	//ÒòÎªminer²»ÊÇÃ¿Ò»¿Ì¶¼ÔÚÉú²úÎïÆ·
+	//å› ä¸ºminerä¸æ˜¯æ¯ä¸€åˆ»éƒ½åœ¨ç”Ÿäº§ç‰©å“
 
 	bool isEmpty;
 	Item item;
@@ -207,7 +209,7 @@ public:
 		Method: setProduct
 		Usage: miner.setProduct(product);
 		------------------------------
-		ÉèÖÃ¿ª²ÉÆ÷Ã¿MINERTICKCOSTÉú²ú³öÀ´µÄÊÇÊ²Ã´ÎïÆ·
+		è®¾ç½®å¼€é‡‡å™¨æ¯MINERTICKCOSTç”Ÿäº§å‡ºæ¥çš„æ˜¯ä»€ä¹ˆç‰©å“
 		by Kan bo yi
 	*/
 
@@ -216,11 +218,11 @@ public:
 		Method: outPut
 		Usage: miner.outPut(belt)
 		------------------------------
-		Ïò´«µİµÄ´«ËÍ´øÖĞÊä³ö²úÎï£¬Èç¹û´«ËÍ´ø´ËÊ±ÎªÂú»òÕß¿ª²ÉÆ÷µÄÉú²úCD»¹Ã»¹ı£¬ÄÇÃ´·µ»Øfalse
-		Êä³ö³É¹ûÔò·µ»Øtrue
+		å‘ä¼ é€’çš„ä¼ é€å¸¦ä¸­è¾“å‡ºäº§ç‰©ï¼Œå¦‚æœä¼ é€å¸¦æ­¤æ—¶ä¸ºæ»¡æˆ–è€…å¼€é‡‡å™¨çš„ç”Ÿäº§CDè¿˜æ²¡è¿‡ï¼Œé‚£ä¹ˆè¿”å›false
+		è¾“å‡ºæˆæœåˆ™è¿”å›true
 
-		Èç¹û·µ»Øfalse produceStatus = min(MINERTICKCOST, produceStatus + 1) (ÎªÁË´¦Àí¶ÂÈûËùÒÔ²ÅÕâÑù)
-		Èç¹û·µ»Øtrue produceStatus = 1
+		å¦‚æœè¿”å›false produceStatus = min(MINERTICKCOST, produceStatus + 1) (ä¸ºäº†å¤„ç†å µå¡æ‰€ä»¥æ‰è¿™æ ·)
+		å¦‚æœè¿”å›true produceStatus = 1
 		by Kan bo yi
 	*/
 
@@ -239,7 +241,7 @@ public:
 			Method: input
 			Usage: bool flag = rubbishBin.input(belt);
 			--------------------------------------
-			À¬»øÍ°»áÉ¾³ı´«Èë´«ËÍ´øÉÏÃæµÄÎïÆ·
+			åƒåœ¾æ¡¶ä¼šåˆ é™¤ä¼ å…¥ä¼ é€å¸¦ä¸Šé¢çš„ç‰©å“
 			by kan bo yi
 
 		*/
