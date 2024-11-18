@@ -132,7 +132,6 @@ Composer::Composer(int direction, int x, int y) {
 	pos[1] = y;
 	inputItemLeft = Item();
 	inputItemRight = Item();
-	isEmpty = true;
 }
 
 Composer::Composer() {
@@ -141,66 +140,7 @@ Composer::Composer() {
 	pos[1] = -1;
 	inputItemLeft = Item();
 	inputItemRight = Item();
-	isEmpty = true;
 }
-
-int Composer::getSubx() {
-	switch (dir) {
-	case UP:
-		return pos[0];
-	case DOWN:
-		return pos[0];
-	case LEFT:
-		return pos[0] - 1;
-	case RIGHT:
-		return pos[0] + 1;
-	}
-}
-
-int Composer::getSuby() {
-	switch (dir) {
-	case UP:
-		return pos[1] + 1;
-	case DOWN:
-		return pos[1] - 1;
-	case LEFT:
-		return pos[1];
-	case RIGHT:
-		return pos[1];
-	}
-}
-
-bool input(Belt& leftInput, Belt& rightInput) {
-	if (!isEmpty) return false;
-	if (leftInput.isEmpty || rightInput.isEmpty) return false; 
-
-	inputItemLeft = leftInput.itemNow;
-	inputItemRight = rightInput.itemNow;
-
-	leftInput.isEmpty = true;
-	rightInput.isEmpty = true;
-
-	Item combinedItem;
-
-	for (int i = 0; i < 2; i++) {
-		combinedItem.shapeId[i][0][0] = inputItemLeft.shapeId[i][0][0];
-		combinedItem.colorId[i][0][0] = inputItemLeft.colorId[i][0][0];
-		combinedItem.shapeId[i][1][0] = inputItemLeft.shapeId[i][1][0];
-		combinedItem.colorId[i][1][0] = inputItemLeft.colorId[i][1][0];
-
-		combinedItem.shapeId[i][0][1] = inputItemRight.shapeId[i][0][1];
-		combinedItem.colorId[i][0][1] = inputItemRight.colorId[i][0][1];
-		combinedItem.shapeId[i][1][1] = inputItemRight.shapeId[i][1][1];
-		combinedItem.colorId[i][1][1] = inputItemRight.colorId[i][1][1];
-	}
-
-	Output = combinedItem;
-	isEmpty = false;
-
-	leftInput.itemNow = Item();
-	rightInput.itemNow = Item();
-
-	return true;
 
 Miner::Miner() {
 	pos[0] = -1;
