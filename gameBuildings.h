@@ -157,13 +157,11 @@ class Composer {
 
 	*/
 	public:
-		Item inputItemLeft, inputItemRight;
+		Item Output;
 		// inputItemLeft would be at the Left of the product, so does the inputItemRight
 		int pos[2];
-		int dir;	
-		bool isEmpty;
-		int getSubx();
-		int getSuby();
+		int dir;
+		bool OutisEmpty;
 		Composer(int direction, int x, int y);
 		/*
 			Build an empty Composer at (x,y), with dir = direction
@@ -175,7 +173,13 @@ class Composer {
 			default building function for Composer
 		*/
 
+		int getSubx();
+		int getSuby();
+
+		bool output(Belt& output);
+		bool input(Belt& leftinput, Belt& rightinput);
 };
+
 
 class Rotator {
 	/*
