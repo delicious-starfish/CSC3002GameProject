@@ -130,18 +130,28 @@ Composer::Composer(int direction, int x, int y) {
 	dir = direction;
 	pos[0] = x;
 	pos[1] = y;
-	inputItemLeft = Item();
-	inputItemRight = Item();
-	isEmpty = true;
+	Output = Item();
+	OutisEmpty = true;
 }
 
 Composer::Composer() {
 	dir = 0;
 	pos[0] = -1;
 	pos[1] = -1;
-	inputItemLeft = Item();
-	inputItemRight = Item();
-	isEmpty = true;
+	Output = Item();
+	OutisEmpty = true;
+}
+
+bool Composer::output(Belt& output) {
+	if (OutisEmpty || !output.isEmpty) return false;
+
+	OutisEmpty = true;
+
+	output.grantItem(Output);
+	Output = Item();
+	output.isEmpty = false;
+
+	return true;
 }
 
 int Composer::getSubx() {
@@ -170,37 +180,30 @@ int Composer::getSuby() {
 	}
 }
 
-bool input(Belt& leftInput, Belt& rightInput) {
-	if (!isEmpty) return false;
-	if (leftInput.isEmpty || rightInput.isEmpty) return false; 
+bool Composer::input(Belt& leftinput, Belt& rightinput) {
+	if (leftinput.isEmpty || rightinput.isEmpty) return false;
+	if (!(OutisEmpty)) return false;
+	Item leftitem = leftinput.itemNow;
+	Item rightitem = rightinput.itemNow;
+	leftinput.isEmpty = true;
+	rightinput.isEmpty = true;
 
-	inputItemLeft = leftInput.itemNow;
-	inputItemRight = rightInput.itemNow;
+	Item itemout = Item();
+	for (int x = 0; x < 2; x++)
+		for (int y = 0; y < 2; y++)
+			if (leftitem.shapeId[0][x][y] != 0 && rightitem.shapeId[0][x][y] != 0) return false;
 
-	leftInput.isEmpty = true;
-	rightInput.isEmpty = true;
-
-	Item combinedItem;
-
-	for (int i = 0; i < 2; i++) {
-		combinedItem.shapeId[i][0][0] = inputItemLeft.shapeId[i][0][0];
-		combinedItem.colorId[i][0][0] = inputItemLeft.colorId[i][0][0];
-		combinedItem.shapeId[i][1][0] = inputItemLeft.shapeId[i][1][0];
-		combinedItem.colorId[i][1][0] = inputItemLeft.colorId[i][1][0];
-
-		combinedItem.shapeId[i][0][1] = inputItemRight.shapeId[i][0][1];
-		combinedItem.colorId[i][0][1] = inputItemRight.colorId[i][0][1];
-		combinedItem.shapeId[i][1][1] = inputItemRight.shapeId[i][1][1];
-		combinedItem.colorId[i][1][1] = inputItemRight.colorId[i][1][1];
-	}
-
-	Output = combinedItem;
-	isEmpty = false;
-
-	leftInput.itemNow = Item();
-	rightInput.itemNow = Item();
-
+	for (int x = 0; x < 2; x++)
+		for (int y = 0; y < 2; y++) {
+			itemout.shapeId[0][x][y] = leftitem.shapeId[0][x][y] == 0 ? rightitem.shapeId[0][x][y] : leftitem.shapeId[0][x][y];
+			itemout.colorId[0][x][y] = leftitem.colorId[0][x][y] == 0 ? rightitem.colorId[0][x][y] : leftitem.colorId[0][x][y];
+		}
+	Output = itemout;
+	OutisEmpty = false;
+	leftinput.itemNow = Item();
+	rightinput.itemNow = Item();
 	return true;
+}
 
 Miner::Miner() {
 	pos[0] = -1;
