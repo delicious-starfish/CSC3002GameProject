@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="gameBuildings.cpp" />
     <ClCompile Include="gameCollection.cpp" />
+    <ClCompile Include="gameControl.cpp" />
     <ClCompile Include="gameItem.cpp" />
     <ClCompile Include="gameLogic.cpp" />
     <ClCompile Include="gameRender.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="constants.h" />
     <ClInclude Include="gameBuildings.h" />
     <ClInclude Include="gameCollection.h" />
+    <ClInclude Include="gameControl.h" />
     <ClInclude Include="gameItem.h" />
     <ClInclude Include="gameLogic.h" />
     <ClInclude Include="gameRender.h" />

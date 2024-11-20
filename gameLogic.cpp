@@ -35,6 +35,7 @@ void beltLogic(World& world) {
 
 void buildingInput(World & world) {
 	int dir[4][2] = { {1,0},{-1,0},{0,1},{0,-1} };
+	//处理切割器的输入
 	for (int i = 0; i < world.maxCutterId; i++) {
 		//std::cout << "-----------------------------------" << "\n查询切割器编号" << i << std::endl;
 		if (world.cutter[i].dir == 0) continue;
@@ -74,6 +75,40 @@ void buildingInput(World & world) {
 				}
 			}
 		}
+	}
+	//处理合成器的输入
+
+	for (int i = 0; i < world.maxComposerId; i++) {
+		//std::cout << "-----------------------------------" << "\n查询切割器编号" << i << std::endl;
+		if (world.composer[i].dir == 0) continue;
+		// It means that the cutter hasn't been built or has just been removed
+
+		Composer* composer = &world.composer[i];
+		int x = composer->pos[0], y = composer->pos[1];
+		int xx = x + dir[composer->dir - 1][0], yy = y + dir[composer->dir - 1][1];
+		int inputBeltIdMain = -1, inputBeltIdSub = -1;
+		//std::cout << "查询坐标(" << xx << "," << yy << ")的输入" << std::endl;
+		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
+		if (world.mapp[xx][yy].type == BELTID && world.belt[world.mapp[xx][yy].id].dir == composer->dir) {
+			if (world.belt[world.mapp[xx][yy].id].isEmpty != true) {
+				// 提取输入
+				inputBeltIdMain = world.mapp[xx][yy].id;
+				//std::cout << "检测到输入，坐标(" << xx << "," << yy << ")" << std::endl;
+			}
+		}
+
+		//处理副格的输入
+		xx = composer->getSubx() + dir[composer->dir - 1][0]; yy = composer->getSuby() + dir[composer->dir - 1][1];
+		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
+		if (world.mapp[xx][yy].type == BELTID && world.belt[world.mapp[xx][yy].id].dir == composer->dir) {
+			if (world.belt[world.mapp[xx][yy].id].isEmpty != true) {
+				// 提取输入
+				inputBeltIdSub = world.mapp[xx][yy].id;
+				//std::cout << "检测到输入，坐标(" << xx << "," << yy << ")" << std::endl;
+			}
+		}
+
+		if (inputBeltIdMain != -1 && inputBeltIdSub != -1) composer->input(world.belt[inputBeltIdMain], world.belt[inputBeltIdSub]);
 	}
 	return;
 }
@@ -133,6 +168,27 @@ void buildingOutput(World& world) {
 			}
 		}
 	
+	}
+	//处理Composer
+
+	for (int i = 0; i < world.maxComposerId; i++) {
+		if (world.composer[i].dir == 0) continue;
+		//std::cout << "-----------------------------------" << "\n查询切割器编号" << i << std::endl;
+		Composer* composer = &world.composer[i];
+
+		if (!composer->OutisEmpty) {
+			int x = composer->pos[0], y = composer->pos[1];
+			int xx = x + dir[composer->dir - 1][0], yy = y + dir[composer->dir - 1][1];
+			if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
+			if (world.mapp[xx][yy].type == BELTID) {
+				if (world.belt[world.mapp[xx][yy].id].isEmpty) {
+					// 1.这是条传送带
+					// 2.这条带子是空的		
+					composer->output(world.belt[world.mapp[xx][yy].id]);
+				}
+			}
+		}
+
 	}
 }
 

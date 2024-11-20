@@ -200,8 +200,6 @@ bool Composer::input(Belt& leftinput, Belt& rightinput) {
 		}
 	Output = itemout;
 	OutisEmpty = false;
-	leftinput.itemNow = Item();
-	rightinput.itemNow = Item();
 	return true;
 }
 

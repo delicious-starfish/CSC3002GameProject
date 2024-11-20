@@ -53,7 +53,7 @@ class World {
 		//Rotator rotator[2500];
 		Miner miner[2500];
 		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0, minerNum = 0,rubbishBinNum = 0;
-		int maxBeltId = 0,maxCutterId = 0, maxMinerId = 0, maxRubbishBinId = 0;
+		int maxBeltId = 0,maxCutterId = 0, maxComposerId = 0, maxMinerId = 0, maxRubbishBinId = 0;
 		int rotatorNum = 0;
 
 		void buildAt(int building, int x, int y, int direction);

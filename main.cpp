@@ -6,8 +6,9 @@
 #include "gameCollection.h"
 #include "gameLogic.h"
 #include "gameRender.h"
+#include "gameControl.h"
 
-#define LOGIC_FPS 5
+#define LOGIC_FPS 3
 #define RENDER_FPS 30
 
 int currentTime;
@@ -15,16 +16,23 @@ int currentRenderTime;
 int screenSizeX;
 int screenSizeY;
 double screenScale;
+double previousScreenScale;
 int cameraPositionX;
 int cameraPositionY;
 int mousePositionX;
 int mousePositionY;
+int controlPositionX;
+int controlPositionY;
+int mouseCase;
+int hoverCase;
+int scrollCase;
 int totalScore;
 
 
 
 
 IntImg* intimg1 = new IntImg();
+GameButton* gameButton = new GameButton();
 
 long long getTime() {
     long long millisecSince1970 = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
@@ -44,7 +52,7 @@ int main() {
     //set screen size (No larger than 1920*1080)
     screenScale = 1;
     //set screen scale (Better within 0.25~1.00)
-    double previousScreenScale = 1;
+    previousScreenScale = 1;
     
     initgraph(screenSizeX, screenSizeY);
     
@@ -68,8 +76,11 @@ int main() {
 
     mousePositionX = 0;
     mousePositionY = 0;
-    int controlPositionX = 0;
-    int controlPositionY = 0;
+    controlPositionX = 0;
+    controlPositionY = 0;
+    mouseCase = 0;
+    hoverCase = 0;
+    scrollCase = 1;
     ExMessage mouseMessage;
     //initialize the mouse
 
@@ -94,37 +105,7 @@ int main() {
             nextRender += renderInterval;
         }
         // Mouse Monitor
-        while (peekmessage(&mouseMessage, EM_MOUSE | EM_KEY))
-        {
-            //Mouse Operation
-            switch (mouseMessage.message)
-            {
-            case WM_MOUSEMOVE:
-                if (mouseMessage.lbutton) { cameraPositionX = mouseMessage.x - controlPositionX; cameraPositionY = mouseMessage.y - controlPositionY; }
-                mousePositionX = mouseMessage.x; mousePositionY = mouseMessage.y;
-                break;
-            case WM_LBUTTONDOWN:
-                controlPositionX = mouseMessage.x - cameraPositionX; controlPositionY = mouseMessage.y - cameraPositionY;
-                break;
-            case WM_LBUTTONUP:
-                break;
-            case WM_MOUSEWHEEL:
-                //Change screenscale by scrolling mouse
-                if (mouseMessage.wheel > 0 && screenScale < 1) screenScale+=0.0625;
-                else if (mouseMessage.wheel < 0 && screenScale>0.375) screenScale-=0.0625;
-                mouseMessage.wheel = 0;
-                //Reset camera position to Realize mouse-centered scaling
-                cameraPositionX = mousePositionX - (mousePositionX - cameraPositionX) * screenScale / previousScreenScale;
-                cameraPositionY = mousePositionY - (mousePositionY - cameraPositionY) * screenScale / previousScreenScale;
-                previousScreenScale = screenScale;
-                break;
-            case WM_KEYDOWN:
-                if (mouseMessage.vkcode == VK_ESCAPE)
-                    return 0;
-                break;
-                break;
-            }
-        }
+        gameButton->operateTick(game->world, mouseMessage);
         FlushBatchDraw();
         //Sleep(0.05);
 

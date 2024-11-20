@@ -17,7 +17,7 @@ void World::buildAt(int building, int x, int y, int direction) {
 	switch (building) {
 		case BELTID:
 			belt[maxBeltId] = Belt(direction, x, y);
-			mapp[x][y] = Node(BELTID, beltNum, true);
+			mapp[x][y] = Node(BELTID, maxBeltId, true);
 
 
 			// update the idNxt that is prepared for update
@@ -31,23 +31,23 @@ void World::buildAt(int building, int x, int y, int direction) {
 
 
 		case CUTTERID:
-			cutter[cutterNum] = Cutter(direction, x, y);
+			cutter[maxCutterId] = Cutter(direction, x, y);
 
-			mapp[x][y] = Node(CUTTERID, cutterNum, true);
+			mapp[x][y] = Node(CUTTERID, maxCutterId, true);
 			// Cutter length = 2, so two block will be set on mapp
 			// However, only one of them would be a mainblock (isMain = true)
 			switch (direction) {
 				case UP:
-					mapp[x][y + 1] = Node(CUTTERID, cutterNum, false);
+					mapp[x][y + 1] = Node(CUTTERID, maxCutterId, false);
 					break;
 				case DOWN:
-					mapp[x][y - 1] = Node(CUTTERID, cutterNum, false);
+					mapp[x][y - 1] = Node(CUTTERID, maxCutterId, false);
 					break;
 				case LEFT:
-					mapp[x - 1][y] = Node(CUTTERID, cutterNum, false);
+					mapp[x - 1][y] = Node(CUTTERID, maxCutterId, false);
 					break;
 				case RIGHT:
-					mapp[x + 1][y] = Node(CUTTERID, cutterNum, false);
+					mapp[x + 1][y] = Node(CUTTERID, maxCutterId, false);
 					break;
 			}
 			maxCutterId++;
@@ -57,26 +57,27 @@ void World::buildAt(int building, int x, int y, int direction) {
 
 
 		case COMPOSERID:
-			composer[composerNum] = Composer(direction, x, y);
+			composer[maxComposerId] = Composer(direction, x, y);
 
-			mapp[y][x] = Node(COMPOSERID, cutterNum, true);
+			mapp[x][y] = Node(COMPOSERID, maxComposerId, true);
 			// Cutter length = 2, so two block will be set on mapp
 			// However, only one of them would be a mainblock (isMain = true)
 			switch (direction) {
 			case UP:
-				mapp[y][x + 1] = Node(COMPOSERID, cutterNum, false);
+				mapp[x][y + 1] = Node(COMPOSERID, maxComposerId, false);
 				break;
 			case DOWN:
-				mapp[y][x - 1] = Node(COMPOSERID, cutterNum, false);
+				mapp[x][y - 1] = Node(COMPOSERID, maxComposerId, false);
 				break;
 			case LEFT:
-				mapp[y + 1][x] = Node(COMPOSERID, cutterNum, false);
+				mapp[x - 1][y] = Node(COMPOSERID, maxComposerId, false);
 				break;
 			case RIGHT:
-				mapp[y - 1][x] = Node(COMPOSERID, cutterNum, false);
+				mapp[x + 1][y] = Node(COMPOSERID, maxComposerId, false);
 				break;
 			}
 			composerNum++;
+			maxComposerId++;
 			break;
 
 		case MINERID:
@@ -273,11 +274,13 @@ void Game::loadTestMap() {
 	world.buildAt(MINERID, 12, 0, RIGHT);
 	for (int i = 1; i < 12; i++) world.buildAt(BELTID, 12, i, RIGHT);
 	world.buildAt(CUTTERID, 12, 12, RIGHT);
-	for (int i = 13; i < 15; i++) world.buildAt(BELTID, 12, i, RIGHT);
-	for (int i = 13; i < 19; i++) world.buildAt(BELTID, 13, i, RIGHT);
+	for (int i = 13; i < 14; i++) world.buildAt(BELTID, 12, i, RIGHT);
+	world.buildAt(COMPOSERID, 12, 14, RIGHT);
+	for (int i = 13; i < 14; i++) world.buildAt(BELTID, 13, i, RIGHT);
+	for (int i = 15; i < 19; i++) world.buildAt(BELTID, 13, i, RIGHT);
 	world.buildAt(RUBBISHBINID, 13, 19, 0);
 	for (int i = 9; i < 13; i++) world.buildAt(BELTID, i, 15, UP);
-	//world.buildAt(RUBBISHBINID, 8, 15, 0);
+	world.buildAt(RUBBISHBINID, 8, 15, 0);
 }
 
 

@@ -27,6 +27,11 @@ class IntImg {
 	//An int array representing pixels
 	//Screen size cannot be larger than this
 
+	int shade[1920][1080];
+
+	int leftBound; int rightBound;
+	int upBound; int dnBound;
+
 	IntImg();
 	//Initialize
 
@@ -51,6 +56,16 @@ class IntImg {
 	*/
 	//this may cost more time than previous one
 
+
+	void putShadow(int x, int y, IMAGE* srcimg, double scale);
+	/*
+		Method: putShadow
+		Usage: putShadow(PositionX, PositionY, Image pointer, Scale of zooming);
+
+	-------------------------------------------
+		Put the GI shadow, for better visual effect, doesn't affect game play
+		By Yao Yilin
+		*/
 
 	void RenderImg();
 	/*
@@ -119,6 +134,16 @@ class IntImg {
 	    And UI
 	    By Yao Yilin
         */
+
+    void blur();
+	/*
+		Method: blur
+
+	-------------------------------------------
+		Blur the buillding box UI, for better visual effect, doesn't affect game play.
+		It will cost some time.
+		By Yao Yilin
+		*/
 
     void renderTick(World &world);
     // This function will not change the value of world
