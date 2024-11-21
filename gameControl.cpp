@@ -33,6 +33,7 @@ void GameButton::operateTick(World& world,ExMessage& msg)
     else if (BTcutt.isHover()) { hoverCase = UICUTTER; }
     else if (BTcomp.isHover()) { hoverCase = UICOMPOSER; }
     else if (BTcolr.isHover()) { hoverCase = UICOLORER; }
+    else if (BTdelete.isHover()) { hoverCase = UIDELETER; }
     else { hoverCase = NORMALCASE; }
     //Check where is the mouse hovering currently
     int scrscl64 = screenScale * 64;
@@ -60,6 +61,7 @@ void GameButton::operateTick(World& world,ExMessage& msg)
             case UICUTTER: 
             case UIROTATOR:
             case UIBELT: mouseCase = hoverCase; break;
+            case UIDELETER: mouseCase = hoverCase; break;
             }
             //Check where it hovers, and assign mouseCase when clicking right button
             if (canBuild)
@@ -68,6 +70,7 @@ void GameButton::operateTick(World& world,ExMessage& msg)
                 case UICUTTER:
                 case UIROTATOR:
                 case UIBELT: world.buildAt(mouseCase - UIGROUND, UIbY, UIbX, scrollCase); mouseCase = NORMALCASE; break;
+                case UIDELETER: world.destoryAt(UIbY, UIbX); mouseCase = NORMALCASE; break;
                 }
             //If mouseCase is about to build, and canBuild, then build a building
             break;

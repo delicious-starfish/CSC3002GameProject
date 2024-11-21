@@ -47,6 +47,7 @@ public:
 	Button BTcutt = Button(237, 334, 443, 540);
 	Button BTcomp = Button(334, 431, 443, 540);
 	Button BTcolr = Button(431, 528, 443, 540);
+	Button BTdelete = Button(528, 625, 443, 540);
 	//后面还会加按钮
     void operateTick(World& world,ExMessage& msg);
 	//Left click and drag to move the screen
@@ -55,6 +56,8 @@ public:
 	//When select a building, Scroll to rotate it, Right click to place it
 	//目前仅支持传送带和切割器的操作
 	//---By Yilin Yao
+	//添加删除按钮
+	//---By Kan bo yi
 };
 //以后可能会有主菜单UI界面，用新的class建立
 

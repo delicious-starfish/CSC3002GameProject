@@ -5,6 +5,7 @@
 #include "gameBuildings.h"
 #include "constants.h"
 #include <string>
+#include <stack>
 #ifndef _gameCollection_h_
 #define _gameCollection_h_
 
@@ -52,6 +53,7 @@ class World {
 		Composer composer[250];
 		//Rotator rotator[2500];
 		Miner miner[2500];
+		std::stack<int> deletedBeltId;
 		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0, minerNum = 0,rubbishBinNum = 0;
 		int maxBeltId = 0,maxCutterId = 0, maxComposerId = 0, maxMinerId = 0, maxRubbishBinId = 0;
 		int rotatorNum = 0;
@@ -59,6 +61,18 @@ class World {
 		void buildAt(int building, int x, int y, int direction);
 		// build an empty building at x,y with direction
 		// by kan bo yi
+
+		void destoryAt(int x, int y);
+		/*
+			Method: destroyAt
+			Usage: world.destroyAt(0,10);
+			--------------------------------
+			Destroy the building at the position.
+			If the building occupies multiple blocks on the mapp. We can destroy the whole building if you execute it on any of the position
+			the building occupy
+			
+			by Kan Bo Yi
+		*/
 
 		std::string toString();
 		/*
@@ -85,13 +99,52 @@ private:
 	void refreshBeltAt(int x, int y, int direction);
 	/*
 		Method: refreshBeltAt
-		Usage: world.refreshBeltAt(1,0,LEFT);
+		Usage: world.refreshBeltAt(1,0,LEFT,4);
 		--------------------------
 		在mapp和belt中添加完传送带之后，还需要刷新传送带的idNxt变量以便于更新.
 		默认新添加的传送带就是belt[maxBeltId]
 
 		by kan bo yi
 		*/
+	
+	void deleteInArray(int buildingType, int id);
+	/*
+		Method: deleteInArray
+		Usage: world.deleteInArray(BELTID,10);
+		--------------------------
+		在belt[],composer[],rubbishBin[],cutter[]等中删除目标建筑
+		并且会把该建筑Id加入回收栈中。在下次建造时会优先使用回收栈中的建筑Id
+
+		by kan bo yi
+	*/
+
+	void deleteInMapp(int buildingType, int id);
+	/*
+		Method: deleteInMapp
+		Usage: world.deleteInMapp(BELTID,10);
+		--------------------------
+		在mapp中把该建筑占据的所有地方全部重新设置为地面
+
+		by kan bo yi
+	*/
+	void deleteBeltLink(int id);
+	/*
+		Method: deleteBeltLink
+		Usage: world.deleteBeltLink(10);
+		--------------------------
+		让该传送带周围的传送带与其全部脱钩
+
+		by kan bo yi
+	*/
+	void clearGround(int building, int x, int y, int direction);
+	/*
+		Method: clearGround
+		Usage: world.clearGround(BELTID,10,10,UP);
+		--------------------------
+		在你建造Id为building的id之前清空与之位置冲突的建筑
+		目前仅仅支持传送带
+		by kan bo yi
+	*/
 };
 
 class Game {

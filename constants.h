@@ -85,6 +85,7 @@
 #define UICUTTER 102
 #define UICOMPOSER 105
 #define UICOLORER 111
+#define UIDELETER 666
 
 
 #endif // !_constant_h_

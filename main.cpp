@@ -97,7 +97,6 @@ int main() {
         if (currentTime >= nextLogic) {
             logicTick(game -> world);
             nextLogic += logicInterval;
-            
         }
         // Render
         if (currentTime >= nextRender) {

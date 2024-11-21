@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "gameBuildings.h"
 #include <string>
+#include <stack>
 
 using namespace std;
 
@@ -14,17 +15,22 @@ World::World() {
 
 
 void World::buildAt(int building, int x, int y, int direction) {
+	clearGround(building,x,y,direction);
 	switch (building) {
 		case BELTID:
-			belt[maxBeltId] = Belt(direction, x, y);
-			mapp[x][y] = Node(BELTID, maxBeltId, true);
-
-
+			if (deletedBeltId.empty()) {
+				belt[maxBeltId] = Belt(direction, x, y);
+				mapp[x][y] = Node(BELTID, maxBeltId, true);
+				maxBeltId++;
+			}
+			else {
+				belt[deletedBeltId.top()] = Belt(direction, x, y);
+				mapp[x][y] = Node(BELTID, deletedBeltId.top(), true);
+				deletedBeltId.pop();
+			}
+			this->refreshBeltAt(x, y, direction);
 			// update the idNxt that is prepared for update
-			this->refreshBeltAt(x,y,direction);
-
 			beltNum++;
-			maxBeltId++;
 
 			break;
 
@@ -95,6 +101,20 @@ void World::buildAt(int building, int x, int y, int direction) {
 	}
 }
 
+void World::destoryAt(int x, int y) {
+	int buildingType = mapp[x][y].type;
+	int buildingId = mapp[x][y].id;
+	if (buildingType == GROUNDID) return;
+
+	if (buildingType == BELTID) deleteBeltLink(buildingId);
+
+	deleteInArray(buildingType, buildingId);
+	deleteInMapp(buildingType, buildingId);
+
+	
+}
+
+
 void World::putItemAt(Item item, int x, int y) {
 	int buildingId = mapp[y][x].type;
 	switch (buildingId) {
@@ -110,6 +130,29 @@ void World::putItemAt(Item item, int x, int y) {
 	
 }
 
+void World::deleteInArray(int building, int id) {
+	switch (building) {
+	case BELTID:
+		belt[id].dir = 0;
+		belt[id].itemNow = Item();
+		beltNum--;
+		deletedBeltId.push(id);
+		break;
+	}
+}
+
+void World::deleteInMapp(int buildingType, int id) {
+	if (buildingType == BELTID) {
+		int xx = belt[id].pos[0], yy = belt[id].pos[1];
+		mapp[xx][yy] = Node();
+	}
+}
+
+void World::clearGround(int building, int x, int y, int direction) {
+	if (building == BELTID) {
+		if (mapp[x][y].type != GROUNDID) destoryAt(x, y);
+	}
+}
 
 string World::toString() {
 	string output = "[";
@@ -174,8 +217,7 @@ string World::toString() {
 
 void World::refreshBeltAt(int x, int y, int direction) {
 	int dir[4][2] = { {-1,0},{1,0},{0,-1},{0,1} };
-	//std::cout << "----------------------------------------------" << std::endl;
-	//std::cout << "Refresh when adding belt " << maxBeltId << " at position (" << x << "," << y << ")" << std::endl;
+	int id = mapp[x][y].id;
 	for (int i = 0; i < 4; i++) {
 		int xx = x + dir[i][0];
 		int yy = y + dir[i][1];
@@ -198,58 +240,8 @@ void World::refreshBeltAt(int x, int y, int direction) {
 			targetDir = LEFT;
 			break;
 		}
-
-		//std::cout << "with target direction = ";
-		/*switch (targetDir) {
-		case UP:
-			std::cout << "UP" << std::endl;
-			break;
-		case DOWN:
-			std::cout << "DOWN" << std::endl;
-			break;
-		case LEFT:
-			std::cout << "LEFT" << std::endl;
-			break;
-		case RIGHT:
-			std::cout << "RIGHT" << std::endl;
-			break;
-		}*/
-
-		//std::cout << "find belt" << " at position (" << xx << "," << yy << ")" << " with direction ";
-		/*switch (belt[targetId].dir) {
-		case UP:
-			std::cout << "UP" << std::endl;
-			break;
-		case DOWN:
-			std::cout << "DOWN" << std::endl;
-			break;
-		case LEFT:
-			std::cout << "LEFT" << std::endl;
-			break;
-		case RIGHT:
-			std::cout << "RIGHT" << std::endl;
-			break;
-		}*/
-
-
 		if (belt[targetId].dir == targetDir) {
-			belt[targetId].idNxt = maxBeltId;
-			/*std::cout << "find previous belt " << targetId << " at position (" << xx << "," << yy << ")";
-			std::cout << " the expected direction is ";
-			switch (targetDir) {
-			case UP:
-				std::cout << "UP" << std::endl;
-				break;
-			case DOWN:
-				std::cout << "DOWN" << std::endl;
-				break;
-			case LEFT:
-				std::cout << "LEFT" << std::endl;
-				break;
-			case RIGHT:
-				std::cout << "RIGHT" << std::endl;
-				break;
-			}*/
+			belt[targetId].idNxt = id;
 		}
 
 	}
@@ -259,8 +251,39 @@ void World::refreshBeltAt(int x, int y, int direction) {
 	if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) return;
 
 	if (mapp[xx][yy].type == BELTID) {
-		belt[maxBeltId].idNxt = mapp[xx][yy].id;
-		//std::cout << "find next belt " << mapp[xx][yy].id << " at position (" << xx << "," << yy << ")" << std::endl;
+		belt[id].idNxt = mapp[xx][yy].id;
+	}
+}
+
+void World::deleteBeltLink(int id) {
+	int x = belt[id].pos[0], y = belt[id].pos[1];
+	int dir[4][2] = { {-1,0},{1,0},{0,-1},{0,1} };
+	for (int i = 0; i < 4; i++) {
+		int xx = x + dir[i][0];
+		int yy = y + dir[i][1];
+		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
+		if (mapp[xx][yy].type != BELTID) continue;
+		int targetId = mapp[xx][yy].id;
+
+		int targetDir = -1;
+		switch (i) {
+		case UP - 1:
+			targetDir = DOWN;
+			break;
+		case DOWN - 1:
+			targetDir = UP;
+			break;
+		case LEFT - 1:
+			targetDir = RIGHT;
+			break;
+		case RIGHT - 1:
+			targetDir = LEFT;
+			break;
+		}
+		if (belt[targetId].dir == targetDir) {
+			belt[targetId].idNxt = -1;
+		}
+
 	}
 }
 
@@ -292,7 +315,7 @@ Node::Node(int buildingType, int dataId, bool isMainBlock) {
 }
 
 Node::Node() {
-	type = -1;
+	type = GROUNDID;
 	id = -1;
 	isMain = false;
 }

@@ -15,6 +15,7 @@ IMAGE UIdivi;
 IMAGE UIcomp;
 IMAGE UIrota;
 IMAGE UIcolr;
+IMAGE UIdes;
 IMAGE UIBlight;
 IMAGE UIbdscr0;
 IMAGE UIbdscr1;
@@ -22,8 +23,10 @@ IMAGE UIbdscr2;
 IMAGE UIbdscr3;
 IMAGE UIbdscr4;
 IMAGE UIbdscr5;
+IMAGE UIbdscr6;
 IMAGE beltOO;
 IMAGE cuttOO;
+IMAGE des00;
 //Mouse
 IMAGE mouse1;
 IMAGE mouse2;
@@ -67,6 +70,7 @@ void loadImgRes() {
     loadimage(&UIcomp, _T("tex\\UI-Comp.png"));
     loadimage(&UIrota, _T("tex\\UI-Roto.png"));
     loadimage(&UIcolr, _T("tex\\UI-Colr.png"));
+    loadimage(&UIdes, _T("tex\\UI-Des.png"));
     loadimage(&UIBlight, _T("tex\\UI-Blight.png"));
     loadimage(&UIbdscr0, _T("tex\\UI-description0.png"));
     loadimage(&UIbdscr1, _T("tex\\UI-description1.png"));
@@ -74,8 +78,10 @@ void loadImgRes() {
     loadimage(&UIbdscr3, _T("tex\\UI-description3.png"));
     loadimage(&UIbdscr4, _T("tex\\UI-description4.png"));
     loadimage(&UIbdscr5, _T("tex\\UI-description5.png"));
+    loadimage(&UIbdscr6, _T("tex\\UI-description6.png"));
     loadimage(&beltOO, _T("tex\\beltOO.png"));
     loadimage(&cuttOO, _T("tex\\cuttOO.png"));
+    loadimage(&des00, _T("tex\\des00.png"));
     loadimage(&mouse1, _T("tex\\clickout.png"));
     loadimage(&mouse2, _T("tex\\clickin.png"));
     loadimage(&grnd, _T("tex\\grnd.png"));
@@ -380,6 +386,8 @@ void IntImg::putUI() {
         putImg(740, 435, &UIbdscr1); putImg(43, 440, &UIBlight); break;
     case UICUTTER: putImg(UIbX - 64 * screenScale, UIbY - 64 * screenScale, &cuttOO, scrollCase, screenScale);
         putImg(740, 435, &UIbdscr3); putImg(237, 440, &UIBlight); break;
+    case UIDELETER: putImg(UIbX, UIbY, &des00, scrollCase, screenScale);
+        putImg(740, 435, &UIbdscr6); putImg(237, 440, &UIBlight); break;
     }
     putImg(0, 0, &UIframe1);
     putImg(0, 396, &UIframe2);
@@ -388,12 +396,14 @@ void IntImg::putUI() {
     putImg(237, 443, &UIdivi);
     putImg(334, 443, &UIcomp);
     putImg(431, 443, &UIcolr);
+    putImg(528, 443, &UIdes);
     switch (hoverCase) {
     case UIBELT:putImg(740, 435, &UIbdscr1); putImg(43, 440, &UIBlight); break;
     case UIROTATOR:putImg(740, 435, &UIbdscr2); putImg(140, 440, &UIBlight); break;
     case UICUTTER: putImg(740, 435, &UIbdscr3); putImg(237, 440, &UIBlight); break;
     case UICOMPOSER: putImg(740, 435, &UIbdscr4); putImg(334, 440, &UIBlight); break;
     case UICOLORER: putImg(740, 435, &UIbdscr5); putImg(431, 440, &UIBlight); break;
+    case UIDELETER: putImg(740, 435, &UIbdscr6); putImg(431, 440, &UIBlight); break;
     }
     if (mouseCase == NORMALCASE && hoverCase == NORMALCASE) { putImg(740, 435, &UIbdscr0); }
 }
