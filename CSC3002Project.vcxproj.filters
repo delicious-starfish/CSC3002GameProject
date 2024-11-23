@@ -27,6 +27,15 @@
     <ClCompile Include="gameItem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="gameRender.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gameLogic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gameControl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameBuildings.h">
@@ -45,6 +54,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="gameItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gameControl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
