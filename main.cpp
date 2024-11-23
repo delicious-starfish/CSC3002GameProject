@@ -1,24 +1,40 @@
 #include <graphics.h>
 #include <conio.h>
 #include <iostream>
+#include<stdlib.h>
 #include <chrono>
 #include "gameCollection.h"
 #include "gameLogic.h"
 #include "gameRender.h"
+#include "gameControl.h"
 
-#define LOGIC_FPS 10
-#define RENDER_FPS 10
+#define LOGIC_FPS 2
+#define RENDER_FPS 32
 
 int currentTime;
 int currentRenderTime;
+int screenSizeX;
+int screenSizeY;
+double screenScale;
+double previousScreenScale;
+int cameraPositionX;
+int cameraPositionY;
+int mousePositionX;
+int mousePositionY;
+int controlPositionX;
+int controlPositionY;
+int mouseCase;
+int hoverCase;
+int scrollCase;
+int tickRender;
+bool isBuildingOperated;
 int totalScore;
-int BeltAMOUNT;
-int CutterAMOUNT;
-int AveragerAMOUNT;
-int PorterAMOUNT;
-int ComposerAMOUNT;
-int RotatorAMOUNT;
-int MinerAMOUNT;
+
+
+
+
+IntImg* intimg1 = new IntImg();
+GameButton* gameButton = new GameButton();
 
 long long getTime() {
     long long millisecSince1970 = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
@@ -29,35 +45,79 @@ long long getTime() {
     Input : nothing
     Output: a long long variable that tells how many milliseconds have passed since 1970
 */
+Game* game = new Game();
 
 int main() {
-    //initgraph(720, 640);
-    //setbkcolor(0Xcfd9eb);
-    //BeginBatchDraw();
-    Game game;
+
+    screenSizeX = 960;
+    screenSizeY = 540;
+    //set screen size (No larger than 1920*1080)
+    screenScale = 1;
+    //set screen scale (Better within 0.25~1.00)
+    previousScreenScale = 1;
+    
+    initgraph(screenSizeX, screenSizeY);
+    
+    setbkcolor(0Xcfd9eb);
+    BeginBatchDraw();
+
+    loadImgRes();
+    game->loadTestMap();
+    Item testItem = Item(QUARTERSQUARE, WHITEITEM);
+    testItem.colorId[0][1][1] = YELLOWITEM;
+    testItem.colorId[0][0][0] = REDITEM;
+    testItem.colorId[0][1][0] = BLUEITEM;
+    testItem.shapeId[0][1][0] = QUARTERWINDMILL;
+    testItem.shapeId[0][1][1] = QUARTERCIRCLE;
+    game->world.putItemAt(testItem, 0, 12);
+    game->world.putItemAt(testItem, 3, 12);
+    cameraPositionX = 0;
+    cameraPositionY = 0;
+    //The origin camera point
+
+    mousePositionX = 0;
+    mousePositionY = 0;
+    controlPositionX = 0;
+    controlPositionY = 0;
+    mouseCase = 0;
+    hoverCase = 0;
+    scrollCase = 1;
+    ExMessage mouseMessage;
+    //initialize the mouse
+
+    int nextLogic = getTime(), nextRender = getTime();
+    int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
+    int currentTime;
+    tickRender = 0;
+    isBuildingOperated = false;
 
 
-    game.loadTestMap();
+    while (true) {
+        currentTime = getTime();
 
-    std::cout << game.world.toString();
 
-    //int nextLogic = getTime(), nextRender = getTime();
-    //int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
-    //int currentTime;
+        //Logic operation
+        if (currentTime >= nextLogic) {
+            tickRender = 0;
+            if (isBuildingOperated) { isBuildingOperated = false; }
+            else { isBuildingOperated = true; }
+            logicTick(game->world);
+            nextLogic += logicInterval;
 
-    //while (true) {
-    //    currentTime = getTime();
-    //     // Monitor the mouse action
-    //    if (currentTime >= nextLogic) {
-    //        logicTick(game.world);
-    //        nextLogic += logicInterval;
-    //    }
-    //    if (currentTime >= nextRender) {
-    //        renderTick(game.world);
-    //        nextLogic += renderInterval;
-    //    }
+        }
+        // Render
+        if (currentTime >= nextRender) {
+            //runTick();
+            tickRender += 4;
+            intimg1->renderTick(game->world);
+            nextRender += renderInterval;
+        }
+        // Mouse Monitor
+        gameButton->operateTick(game->world, mouseMessage);
+        FlushBatchDraw();
+        //Sleep(0.05);
 
-    //}
-
-    //return 0;
+    }
+    delete game;
+    return 0;
 }
