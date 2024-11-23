@@ -89,7 +89,7 @@ int main() {
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
     int currentTime;
     tickRender = 0;
-    isBuildingOperated = false;
+    isBuildingOperated = true;
 
 
     while (true) {
@@ -99,8 +99,7 @@ int main() {
         //Logic operation
         if (currentTime >= nextLogic) {
             tickRender = 0;
-            if (isBuildingOperated) { isBuildingOperated = false; }
-            else { isBuildingOperated = true; }
+            isBuildingOperated ^= 1;
             logicTick(game->world);
             nextLogic += logicInterval;
 
