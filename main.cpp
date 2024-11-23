@@ -106,7 +106,6 @@ int main() {
         }
         // Render
         if (currentTime >= nextRender) {
-            //runTick();
             tickRender += 4;
             intimg1->renderTick(game->world);
             nextRender += renderInterval;
