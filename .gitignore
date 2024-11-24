@@ -1,0 +1,10 @@
+.vs/
+x64/
+[Dd]ebug/
+[Rr]elease/
+*.pdb
+*.log
+*.obj
+*.ilk
+*.idb
+*.tlog

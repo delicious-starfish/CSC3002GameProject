@@ -43,7 +43,10 @@ public:
     void log(LogLevel level, const std::string& message) {
         std::lock_guard<std::mutex> lock(logMutex);
         if (logFile.is_open()) {
-            logFile << getCurrentTime() << " [" << logLevelToString(level) << "] " << message << std::endl;
+            logFile << getCurrentTime() << 
+                " [" << logLevelToString(level) << "] " <<
+                "|" << __FILE__ << "|" << __LINE__ << "|" <<
+                 message << std::endl;
         }
     }
 
