@@ -60,6 +60,7 @@ void GameButton::operateTick(World& world,ExMessage& msg)
             case NORMALCASE:canBuild = true; break;
             case UICUTTER: 
             case UIROTATOR:
+            case UICOMPOSER:
             case UIBELT: mouseCase = hoverCase; break;
             case UIDELETER: mouseCase = hoverCase; break;
             }
@@ -69,6 +70,7 @@ void GameButton::operateTick(World& world,ExMessage& msg)
                 case NORMALCASE: break;
                 case UICUTTER:
                 case UIROTATOR:
+                case UICOMPOSER:
                 case UIBELT: world.buildAt(mouseCase - UIGROUND, UIbY, UIbX, scrollCase); mouseCase = NORMALCASE; break;
                 case UIDELETER: world.destoryAt(UIbY, UIbX); mouseCase = NORMALCASE; break;
                 }
@@ -86,7 +88,7 @@ void GameButton::operateTick(World& world,ExMessage& msg)
             previousScreenScale = screenScale;
             }
             //Change screenscale by scrolling mouse
-            if(mouseCase==UIBELT|| mouseCase == UIROTATOR || mouseCase == UICUTTER  ) {
+            if(mouseCase==UIBELT|| mouseCase == UIROTATOR || mouseCase == UICUTTER || mouseCase == UICOMPOSER) {
                 if (msg.wheel < 0) {
                     switch (scrollCase) {
                     case UP:scrollCase = RIGHT; break;

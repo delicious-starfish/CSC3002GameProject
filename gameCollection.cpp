@@ -45,15 +45,23 @@ void World::buildAt(int building, int x, int y, int direction) {
 			switch (direction) {
 				case UP:
 					mapp[x][y + 1] = Node(CUTTERID, maxCutterId, false);
+					buildAt(BELTID, x - 1, y, direction);
+					buildAt(BELTID, x - 1, y+1, direction);
 					break;
 				case DOWN:
 					mapp[x][y - 1] = Node(CUTTERID, maxCutterId, false);
+					buildAt(BELTID, x + 1, y, direction);
+					buildAt(BELTID, x + 1, y - 1, direction);
 					break;
 				case LEFT:
 					mapp[x - 1][y] = Node(CUTTERID, maxCutterId, false);
+					buildAt(BELTID, x, y - 1, direction);
+					buildAt(BELTID, x - 1, y - 1, direction);
 					break;
 				case RIGHT:
 					mapp[x + 1][y] = Node(CUTTERID, maxCutterId, false);
+					buildAt(BELTID, x, y + 1, direction);
+					buildAt(BELTID, x + 1, y + 1, direction);
 					break;
 			}
 			maxCutterId++;
@@ -71,15 +79,19 @@ void World::buildAt(int building, int x, int y, int direction) {
 			switch (direction) {
 			case UP:
 				mapp[x][y + 1] = Node(COMPOSERID, maxComposerId, false);
+				buildAt(BELTID, x - 1, y, direction);
 				break;
 			case DOWN:
 				mapp[x][y - 1] = Node(COMPOSERID, maxComposerId, false);
+				buildAt(BELTID, x + 1, y, direction);
 				break;
 			case LEFT:
 				mapp[x - 1][y] = Node(COMPOSERID, maxComposerId, false);
+				buildAt(BELTID, x, y - 1, direction);
 				break;
 			case RIGHT:
 				mapp[x + 1][y] = Node(COMPOSERID, maxComposerId, false);
+				buildAt(BELTID, x, y + 1, direction);
 				break;
 			}
 			composerNum++;
@@ -297,13 +309,14 @@ void Game::loadTestMap() {
 	world.buildAt(MINERID, 12, 0, RIGHT);
 	for (int i = 1; i < 12; i++) world.buildAt(BELTID, 12, i, RIGHT);
 	world.buildAt(CUTTERID, 12, 12, RIGHT);
-	for (int i = 13; i < 14; i++) world.buildAt(BELTID, 12, i, RIGHT);
+	//for (int i = 13; i < 14; i++) world.buildAt(BELTID, 12, i, RIGHT);
 	world.buildAt(COMPOSERID, 12, 14, RIGHT);
-	for (int i = 13; i < 14; i++) world.buildAt(BELTID, 13, i, RIGHT);
-	for (int i = 15; i < 19; i++) world.buildAt(BELTID, 13, i, RIGHT);
+	//world.buildAt(BELTID, 12, 15, RIGHT);
+	//for (int i = 13; i < 14; i++) world.buildAt(BELTID, 13, i, RIGHT);
+	for (int i = 16; i < 19; i++) world.buildAt(BELTID, 13, i, RIGHT);
 	world.buildAt(RUBBISHBINID, 13, 19, 0);
-	for (int i = 9; i < 13; i++) world.buildAt(BELTID, i, 15, UP);
-	world.buildAt(RUBBISHBINID, 8, 15, 0);
+	for (int i = 9; i < 13; i++) world.buildAt(BELTID, i, 16, UP);
+	world.buildAt(RUBBISHBINID, 8, 16, 0);
 }
 
 
