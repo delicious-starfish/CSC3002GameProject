@@ -69,8 +69,8 @@ int main() {
     testItem.colorId[0][1][0] = BLUEITEM;
     testItem.shapeId[0][1][0] = QUARTERWINDMILL;
     testItem.shapeId[0][1][1] = QUARTERCIRCLE;
-    game->world.putItemAt(testItem, 0, 12);
-    game->world.putItemAt(testItem, 3, 12);
+    game->world->putItemAt(testItem, 0, 12);
+    game->world->putItemAt(testItem, 3, 12);
     cameraPositionX = 0;
     cameraPositionY = 0;
     //The origin camera point
@@ -93,10 +93,10 @@ int main() {
 
 
     while (true) {
-        currentTime = getTime();
+       currentTime = getTime();
 
 
-        //Logic operation
+       //Logic operation
         if (currentTime >= nextLogic) {
             tickRender = 0;
             isBuildingOperated ^= 1;
@@ -110,7 +110,7 @@ int main() {
             intimg1->renderTick(game->world);
             nextRender += renderInterval;
         }
-        // Mouse Monitor
+    //    // Mouse Monitor
         gameButton->operateTick(game->world, mouseMessage);
         FlushBatchDraw();
         //Sleep(0.05);

@@ -18,8 +18,14 @@ class Belt {
 		int pos[2];
 		bool isEmpty;
 		// 传送带上是否有物品
-		int idNxt;
-		// idNxt : 在更新时会给该传送带传递物品的传送带编号
+		bool isStuck;
+		// 传送带是否卡住
+		bool nxtStuck;
+		// 下一个传送带是否卡住
+
+		int idBef[4];
+		// idBef 内最多存三个编号，指代在一次更新中会传给该传送带的传送带
+		// idBef[0] 描述长度
 		Belt(int direction, int x, int y);
 		/*
 			Build an empty belt at (x,y), with dir = direction

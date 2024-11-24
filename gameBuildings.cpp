@@ -8,9 +8,12 @@ Belt::Belt(int direction, int x, int y) {
 	dir = direction;
 	pos[0] = x;
 	pos[1] = y;
-	idNxt = -1;
+	for (int i = 0; i < 4; i++) idBef[i] = 0;
+	idBef[0] = 1;
+	isStuck = false;
 	itemNow = Item();
 	isEmpty = true;
+	nxtStuck = false;
 }
 
 Belt::Belt() {
@@ -19,7 +22,10 @@ Belt::Belt() {
 	pos[0] = -1;
 	itemNow = Item();
 	isEmpty = true;
-	idNxt = -1;
+	isStuck = false;
+	nxtStuck = false;
+	for (int i = 0; i < 4; i++) idBef[i] = 0;
+	idBef[0] = 1;
 }
 
 bool Belt::exist() {

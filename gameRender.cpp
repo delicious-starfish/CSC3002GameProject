@@ -269,14 +269,14 @@ void IntImg::putGrounds(){
     }
 }
 
-void IntImg::putBuildings(World& world){
+void IntImg::putBuildings(World * world){
     for (int i = upBound; i < dnBound; i++) {
         for (int j = leftBound; j < rightBound; j++) {
-            switch (world.mapp[i][j].type)
+            switch (world->mapp[i][j].type)
             {
             case(RUBBISHBINID)://No need to write anything here, it works
             case(ROTATORID):   //
-            case(CUTTERID): if (!world.mapp[i][j].isMain)break;   //
+            case(CUTTERID): if (!world->mapp[i][j].isMain)break;   //
             case(COMPOSERID):  //
             case(MINERID):     //
             case(BELTID):
@@ -287,31 +287,31 @@ void IntImg::putBuildings(World& world){
     }
     for (int i = upBound; i < dnBound; i++) {
         for (int j = leftBound; j < rightBound; j++) {
-            if(world.mapp[i][j].type==BELTID)
-                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &belt, world.belt[world.mapp[i][j].id].dir, screenScale);
+            if(world->mapp[i][j].type==BELTID)
+                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &belt, world->belt[world->mapp[i][j].id].dir, screenScale);
         }
     }
     for (int i = upBound; i < dnBound; i++) {
         for (int j = leftBound; j < rightBound; j++) {
-            switch (world.mapp[i][j].type)
+            switch (world->mapp[i][j].type)
             {
             case(BELTID):
-                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &belt, world.belt[world.mapp[i][j].id].dir, screenScale);
+                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &belt, world->belt[world->mapp[i][j].id].dir, screenScale);
                 break;
             case(ROTATORID):
                 putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &rota, 1, screenScale); break;
             case(CUTTERID):
-                if (world.mapp[i][j].isMain == true)
-                    putImg((j * 64-64) * screenScale + cameraPositionX, (i * 64-64) * screenScale + cameraPositionY, &cutt, world.cutter[world.mapp[i][j].id].dir, screenScale);
+                if (world->mapp[i][j].isMain == true)
+                    putImg((j * 64-64) * screenScale + cameraPositionX, (i * 64-64) * screenScale + cameraPositionY, &cutt, world->cutter[world->mapp[i][j].id].dir, screenScale);
                 break;
             
             case(COMPOSERID):
-                if (world.mapp[i][j].isMain == true)
-                    putImg((j * 64-64) * screenScale + cameraPositionX, (i * 64-64) * screenScale + cameraPositionY, &comp, world.composer[world.mapp[i][j].id].dir, screenScale);
+                if (world->mapp[i][j].isMain == true)
+                    putImg((j * 64-64) * screenScale + cameraPositionX, (i * 64-64) * screenScale + cameraPositionY, &comp, world->composer[world->mapp[i][j].id].dir, screenScale);
                 break;
 
             case(MINERID):
-                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &miner, world.miner[world.mapp[i][j].id].dir, screenScale); break;
+                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &miner, world->miner[world->mapp[i][j].id].dir, screenScale); break;
             case(RUBBISHBINID):
                 putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &bin, UP, screenScale); break;
             }
@@ -320,18 +320,22 @@ void IntImg::putBuildings(World& world){
     }
 }
 
-void IntImg::putItems(World& world) {
-    for (int i = 0; i < world.maxBeltId; i++) {
-        if (!world.belt[i].isEmpty) {
+void IntImg::putItems(World * world) {
+    for (int i = 0; i < world->maxBeltId; i++) {
+        if (!world->belt[i].isEmpty) {
             // The belt has item, start rendering
-            Item itemRender = world.belt[i].itemNow;
-            int y = world.belt[i].pos[0] * 64 * screenScale + cameraPositionY;
-            int x = world.belt[i].pos[1] * 64 * screenScale + cameraPositionX;
-            switch (world.belt[i].dir) {
-            case UP:y = y - tickRender * screenScale; break;
-            case DOWN:y += tickRender * screenScale; break;
-            case LEFT:x -= tickRender * screenScale; break;
-            case RIGHT:x += tickRender * screenScale; break;
+            Item itemRender = world->belt[i].itemNow;
+            int y = world->belt[i].pos[0] * 64 * screenScale + cameraPositionY;
+            int x = world->belt[i].pos[1] * 64 * screenScale + cameraPositionX;
+            int tempRender = tickRender;
+
+            if (world->belt[i].isStuck || world->belt[i].nxtStuck) tempRender = 0;
+
+            switch (world->belt[i].dir) {
+            case UP:y = y - tempRender * screenScale; break;
+            case DOWN:y += tempRender * screenScale; break;
+            case LEFT:x -= tempRender * screenScale; break;
+            case RIGHT:x += tempRender * screenScale; break;
             }
             int dir;
             int spANDcl;
@@ -349,13 +353,13 @@ void IntImg::putItems(World& world) {
 
         }
     }
-    for (int i = 0; i < world.maxMinerId; i++) {
-        if (!world.miner[i].isEmpty) {
+    for (int i = 0; i < world->maxMinerId; i++) {
+        if (!world->miner[i].isEmpty) {
             // The belt has item, start rendering
-            Item itemRender = world.miner[i].item;
-            int y = world.miner[i].pos[0] * 64 * screenScale + cameraPositionY;
-            int x = world.miner[i].pos[1] * 64 * screenScale + cameraPositionX;
-            switch (world.miner[i].dir) {
+            Item itemRender = world->miner[i].item;
+            int y = world->miner[i].pos[0] * 64 * screenScale + cameraPositionY;
+            int x = world->miner[i].pos[1] * 64 * screenScale + cameraPositionX;
+            switch (world->miner[i].dir) {
             case UP:y = y - tickRender * screenScale; break;
             case DOWN:y += tickRender * screenScale; break;
             case LEFT:x -= tickRender * screenScale; break;
@@ -376,12 +380,12 @@ void IntImg::putItems(World& world) {
 
         }
     }
-    for (int i = 0; i < world.maxCutterId; i++) {
-        if (!world.cutter[i].isEmptyMain) {
-            Item itemRender = world.cutter[i].OutputMain;
-            int y = world.cutter[i].pos[0] * 64 * screenScale + cameraPositionY;
-            int x = world.cutter[i].pos[1] * 64 * screenScale + cameraPositionX;
-            switch (world.cutter[i].dir) {
+    for (int i = 0; i < world->maxCutterId; i++) {
+        if (!world->cutter[i].isEmptyMain) {
+            Item itemRender = world->cutter[i].OutputMain;
+            int y = world->cutter[i].pos[0] * 64 * screenScale + cameraPositionY;
+            int x = world->cutter[i].pos[1] * 64 * screenScale + cameraPositionX;
+            switch (world->cutter[i].dir) {
             case UP:y = y - tickRender * screenScale; break;
             case DOWN:y += tickRender * screenScale; break;
             case LEFT:x -= tickRender * screenScale; break;
@@ -401,12 +405,12 @@ void IntImg::putItems(World& world) {
             }
 
         }
-        if (!world.cutter[i].isEmptySub) {
-            Item itemRender = world.cutter[i].OutputSub;
-            int y = world.cutter[i].pos[0] * 64 * screenScale + cameraPositionY;
-            int x = world.cutter[i].pos[1] * 64 * screenScale + cameraPositionX;
+        if (!world->cutter[i].isEmptySub) {
+            Item itemRender = world->cutter[i].OutputSub;
+            int y = world->cutter[i].pos[0] * 64 * screenScale + cameraPositionY;
+            int x = world->cutter[i].pos[1] * 64 * screenScale + cameraPositionX;
             int yd = 0; int xd = 0;
-            switch (world.cutter[i].dir) {
+            switch (world->cutter[i].dir) {
             case UP:y = y - tickRender * screenScale; xd = tickRender * screenScale; break;
             case DOWN:y += tickRender * screenScale; xd = -tickRender * screenScale; break;
             case LEFT:x -= tickRender * screenScale; yd = -tickRender * screenScale; break;
@@ -427,13 +431,13 @@ void IntImg::putItems(World& world) {
 
         }
     }
-    for (int i = 0; i < world.maxComposerId; i++) {
-        if (!world.composer[i].OutisEmpty) {
-            Item itemRender = world.composer[i].Output;
-            int y = world.composer[i].pos[0] * 64 * screenScale + cameraPositionY;
-            int x = world.composer[i].pos[1] * 64 * screenScale + cameraPositionX;
+    for (int i = 0; i < world->maxComposerId; i++) {
+        if (!world->composer[i].OutisEmpty) {
+            Item itemRender = world->composer[i].Output;
+            int y = world->composer[i].pos[0] * 64 * screenScale + cameraPositionY;
+            int x = world->composer[i].pos[1] * 64 * screenScale + cameraPositionX;
             int yd = 0; int xd = 0;
-            switch (world.composer[i].dir) {
+            switch (world->composer[i].dir) {
             case UP:y = y - tickRender * screenScale; xd = (64-tickRender) * screenScale; break;
             case DOWN:y += tickRender * screenScale; xd = tickRender * screenScale; break;
             case LEFT:x -= tickRender * screenScale; yd = tickRender * screenScale; break;
@@ -549,7 +553,7 @@ void IntImg::blur() {
     }
 }
 
-void IntImg::renderTick(World& world) {
+void IntImg::renderTick(World * world) {
     ClearImg();
     leftBound = -cameraPositionX / 64 / screenScale;
     rightBound = (-cameraPositionX + screenSizeX + 64) / screenScale / 64;

@@ -165,7 +165,7 @@ class Game {
 				function: setup the data of world, generate the map...
 		*/
 		
-		World world;
+		World * world;
 		void loadTestMap();
 		//void generateMap();
 	private:

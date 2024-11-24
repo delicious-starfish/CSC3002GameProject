@@ -26,7 +26,7 @@ bool Button::isHover()
     else { return false; }
 }
 
-void GameButton::operateTick(World& world,ExMessage& msg)
+void GameButton::operateTick(World * world,ExMessage& msg)
 {
     if (BTbelt.isHover()) { hoverCase = UIBELT; }
     else if (BTrota.isHover()) { hoverCase = UIROTATOR; }
@@ -71,8 +71,8 @@ void GameButton::operateTick(World& world,ExMessage& msg)
                 case UICUTTER:
                 case UIROTATOR:
                 case UICOMPOSER:
-                case UIBELT: world.buildAt(mouseCase - UIGROUND, UIbY, UIbX, scrollCase); mouseCase = NORMALCASE; break;
-                case UIDELETER: world.destoryAt(UIbY, UIbX); mouseCase = NORMALCASE; break;
+                case UIBELT: world->buildAt(mouseCase - UIGROUND, UIbY, UIbX, scrollCase); mouseCase = NORMALCASE; break;
+                case UIDELETER: world->destoryAt(UIbY, UIbX); mouseCase = NORMALCASE; break;
                 }
             //If mouseCase is about to build, and canBuild, then build a building
             break;

@@ -3,6 +3,7 @@
 #include "gameBuildings.h"
 #include <string>
 #include <stack>
+#include <iostream>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ World::World() {
 	for (int i = 0; i < MAPLENGTH; i++)
 		for (int j = 0; j < MAPLENGTH; j++)
 			mapp[i][j] = Node(GROUNDID, 0, false);
+	for (int i = 0; i < 2500; i++) belt[i] = Belt();
 }
 
 
@@ -402,70 +404,63 @@ void World::refreshBeltAt(int x, int y, int direction) {
 			break;
 		}
 		if (belt[targetId].dir == targetDir) {
-			belt[targetId].idNxt = id;
+			belt[id].idBef[belt[id].idBef[0]++] = targetId;
 		}
 
 	}
+
 
 	int xx = x + dir[direction - 1][0];
 	int yy = y + dir[direction - 1][1];
 	if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) return;
 
 	if (mapp[xx][yy].type == BELTID) {
-		belt[id].idNxt = mapp[xx][yy].id;
+		int idN = mapp[xx][yy].id;
+		belt[idN].idBef[belt[idN].idBef[0]++] = id;
 	}
 }
 
 void World::deleteBeltLink(int id) {
 	int x = belt[id].pos[0], y = belt[id].pos[1];
 	int dir[4][2] = { {-1,0},{1,0},{0,-1},{0,1} };
-	for (int i = 0; i < 4; i++) {
-		int xx = x + dir[i][0];
-		int yy = y + dir[i][1];
-		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
-		if (mapp[xx][yy].type != BELTID) continue;
-		int targetId = mapp[xx][yy].id;
+	int direction = belt[id].dir;
 
-		int targetDir = -1;
-		switch (i) {
-		case UP - 1:
-			targetDir = DOWN;
-			break;
-		case DOWN - 1:
-			targetDir = UP;
-			break;
-		case LEFT - 1:
-			targetDir = RIGHT;
-			break;
-		case RIGHT - 1:
-			targetDir = LEFT;
-			break;
-		}
-		if (belt[targetId].dir == targetDir) {
-			belt[targetId].idNxt = -1;
-		}
+	int xx = x + dir[direction - 1][0];
+	int yy = y + dir[direction - 1][1];
+	if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) return;
 
+	if (mapp[xx][yy].type == BELTID) {
+		int idN = mapp[xx][yy].id, indexDel = 0;
+		for (int i = 1; i < belt[idN].idBef[0]; i++) {
+			if (belt[idN].idBef[i] == id) { indexDel = i; break; }
+		}
+		belt[idN].idBef[0]--;
+		for (int i = 1; i < belt[idN].idBef[0]; i++) {
+			if (i >= indexDel) belt[idN].idBef[i] = belt[idN].idBef[i + 1];
+		}
+		
 	}
+
 }
 
 Game::Game() {
 
-	world = World();
+	world = new World();
 }
 
 
 void Game::loadTestMap() {
-	world.buildAt(MINERID, 12, 0, RIGHT);
-	for (int i = 1; i < 12; i++) world.buildAt(BELTID, 12, i, RIGHT);
-	world.buildAt(CUTTERID, 12, 12, RIGHT);
+	world->buildAt(MINERID, 12, 0, RIGHT);
+	for (int i = 1; i < 12; i++) world->buildAt(BELTID, 12, i, RIGHT);
+	world->buildAt(CUTTERID, 12, 12, RIGHT);
 	//for (int i = 13; i < 14; i++) world.buildAt(BELTID, 12, i, RIGHT);
-	world.buildAt(COMPOSERID, 12, 14, RIGHT);
+	world->buildAt(COMPOSERID, 12, 14, RIGHT);
 	//world.buildAt(BELTID, 12, 15, RIGHT);
 	//for (int i = 13; i < 14; i++) world.buildAt(BELTID, 13, i, RIGHT);
-	for (int i = 16; i < 19; i++) world.buildAt(BELTID, 13, i, RIGHT);
-	world.buildAt(RUBBISHBINID, 13, 19, 0);
-	for (int i = 9; i < 13; i++) world.buildAt(BELTID, i, 16, UP);
-	world.buildAt(RUBBISHBINID, 8, 16, 0);
+	for (int i = 16; i < 19; i++) world->buildAt(BELTID, 13, i, RIGHT);
+	world->buildAt(RUBBISHBINID, 13, 19, 0);
+	for (int i = 9; i < 13; i++) world->buildAt(BELTID, i, 16, UP);
+	world->buildAt(RUBBISHBINID, 8, 16, 0);
 }
 
 
