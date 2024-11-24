@@ -3,6 +3,9 @@
 
 #ifndef _gameLogic_h_
 #define _gameLogic_h_
+
+extern bool isBuildingOperated;
+
 void logicTick(World & world);
 /*
 *	Input: the World variable you need do logic calculation

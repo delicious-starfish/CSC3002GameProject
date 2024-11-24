@@ -8,8 +8,8 @@
 #include "gameRender.h"
 #include "gameControl.h"
 
-#define LOGIC_FPS 3
-#define RENDER_FPS 30
+#define LOGIC_FPS 2
+#define RENDER_FPS 32
 
 int currentTime;
 int currentRenderTime;
@@ -26,6 +26,8 @@ int controlPositionY;
 int mouseCase;
 int hoverCase;
 int scrollCase;
+int tickRender;
+bool isBuildingOperated;
 int totalScore;
 
 
@@ -66,7 +68,6 @@ int main() {
     testItem.colorId[0][0][0] = REDITEM;
     testItem.colorId[0][1][0] = BLUEITEM;
     testItem.shapeId[0][1][0] = QUARTERWINDMILL;
-    testItem.shapeId[0][0][1] = NOTHING;
     testItem.shapeId[0][1][1] = QUARTERCIRCLE;
     game->world.putItemAt(testItem, 0, 12);
     game->world.putItemAt(testItem, 3, 12);
@@ -87,6 +88,8 @@ int main() {
     int nextLogic = getTime(), nextRender = getTime();
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
     int currentTime;
+    tickRender = 0;
+    isBuildingOperated = true;
 
 
     while (true) {
@@ -95,12 +98,16 @@ int main() {
 
         //Logic operation
         if (currentTime >= nextLogic) {
-            logicTick(game -> world);
+            tickRender = 0;
+            isBuildingOperated ^= 1;
+            logicTick(game->world);
             nextLogic += logicInterval;
+
         }
         // Render
         if (currentTime >= nextRender) {
-            intimg1->renderTick(game-> world);
+            tickRender += 4;
+            intimg1->renderTick(game->world);
             nextRender += renderInterval;
         }
         // Mouse Monitor

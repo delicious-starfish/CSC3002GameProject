@@ -10,6 +10,7 @@ void logicTick(World& world) {
 
 	beltLogic(world);
 
+	if(isBuildingOperated)
 	buildingOutput(world);
 }
 
@@ -35,51 +36,51 @@ void beltLogic(World& world) {
 
 void buildingInput(World & world) {
 	int dir[4][2] = { {1,0},{-1,0},{0,1},{0,-1} };
-	//´¦ÀíÇÐ¸îÆ÷µÄÊäÈë
+	//å¤„ç†åˆ‡å‰²å™¨çš„è¾“å…¥
 	for (int i = 0; i < world.maxCutterId; i++) {
-		//std::cout << "-----------------------------------" << "\n²éÑ¯ÇÐ¸îÆ÷±àºÅ" << i << std::endl;
+		//std::cout << "-----------------------------------" << "\næŸ¥è¯¢åˆ‡å‰²å™¨ç¼–å? << i << std::endl;
 		if (world.cutter[i].dir == 0) continue;
 		// It means that the cutter hasn't been built or has just been removed
 
 		Cutter * cutter = &world.cutter[i];
 		int x = cutter->pos[0], y = cutter->pos[1];
 		int xx = x + dir[cutter->dir - 1][0], yy = y + dir[cutter->dir - 1][1];
-		//std::cout << "²éÑ¯×ø±ê(" << xx << "," << yy << ")µÄÊäÈë" << std::endl;
+		//std::cout << "æŸ¥è¯¢åæ ‡(" << xx << "," << yy << ")çš„è¾“å…? << std::endl;
 		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 		if (world.mapp[xx][yy].type == BELTID && world.belt[world.mapp[xx][yy].id].dir == cutter->dir) {
 			if (world.belt[world.mapp[xx][yy].id].isEmpty != true) {
-				// ÌáÈ¡ÊäÈë
+				// æå–è¾“å…¥
 				cutter->input(world.belt[world.mapp[xx][yy].id]);
-				//std::cout << "¼ì²âµ½ÊäÈë£¬×ø±ê(" << xx << "," << yy << ")" << std::endl;
+				//std::cout << "æ£€æµ‹åˆ°è¾“å…¥ï¼Œåæ ?" << xx << "," << yy << ")" << std::endl;
 			}
 		}
 	}
 
-	//´¦ÀíÀ¬»øÍ°µÄÊäÈë
+	//å¤„ç†åžƒåœ¾æ¡¶çš„è¾“å…¥
 	for (int i = 0; i < world.maxRubbishBinId; i++) {
 		if (world.rubbishBin[i].pos[0] == -1) continue;
 		RubbishBin* bin = &world.rubbishBin[i];
 		int x = bin->pos[0], y = bin->pos[1];
 
 		for (int d = 1; d <= 4; d++) {
-			// ËÑË÷ËÄ¸ö·½ÏòÖ¸ÏòÀ¬»øÍ°µÄ´«ËÍ´ø
+			// æœç´¢å››ä¸ªæ–¹å‘æŒ‡å‘åžƒåœ¾æ¡¶çš„ä¼ é€å¸¦
 
 			int xx = x + dir[d - 1][0], yy = y + dir[d - 1][1];
 			if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 
 			if (world.mapp[xx][yy].type == BELTID && world.belt[world.mapp[xx][yy].id].dir == d) {
 				if (world.belt[world.mapp[xx][yy].id].isEmpty != true) {
-					// ÌáÈ¡ÊäÈë
+					// æå–è¾“å…¥
 					bin->input(world.belt[world.mapp[xx][yy].id]);
 
 				}
 			}
 		}
 	}
-	//´¦ÀíºÏ³ÉÆ÷µÄÊäÈë
+	//å¤„ç†åˆæˆå™¨çš„è¾“å…¥
 
 	for (int i = 0; i < world.maxComposerId; i++) {
-		//std::cout << "-----------------------------------" << "\n²éÑ¯ÇÐ¸îÆ÷±àºÅ" << i << std::endl;
+		//std::cout << "-----------------------------------" << "\næŸ¥è¯¢åˆ‡å‰²å™¨ç¼–å? << i << std::endl;
 		if (world.composer[i].dir == 0) continue;
 		// It means that the cutter hasn't been built or has just been removed
 
@@ -87,24 +88,24 @@ void buildingInput(World & world) {
 		int x = composer->pos[0], y = composer->pos[1];
 		int xx = x + dir[composer->dir - 1][0], yy = y + dir[composer->dir - 1][1];
 		int inputBeltIdMain = -1, inputBeltIdSub = -1;
-		//std::cout << "²éÑ¯×ø±ê(" << xx << "," << yy << ")µÄÊäÈë" << std::endl;
+		//std::cout << "æŸ¥è¯¢åæ ‡(" << xx << "," << yy << ")çš„è¾“å…? << std::endl;
 		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 		if (world.mapp[xx][yy].type == BELTID && world.belt[world.mapp[xx][yy].id].dir == composer->dir) {
 			if (world.belt[world.mapp[xx][yy].id].isEmpty != true) {
-				// ÌáÈ¡ÊäÈë
+				// æå–è¾“å…¥
 				inputBeltIdMain = world.mapp[xx][yy].id;
-				//std::cout << "¼ì²âµ½ÊäÈë£¬×ø±ê(" << xx << "," << yy << ")" << std::endl;
+				//std::cout << "æ£€æµ‹åˆ°è¾“å…¥ï¼Œåæ ?" << xx << "," << yy << ")" << std::endl;
 			}
 		}
 
-		//´¦Àí¸±¸ñµÄÊäÈë
+		//å¤„ç†å‰¯æ ¼çš„è¾“å…?
 		xx = composer->getSubx() + dir[composer->dir - 1][0]; yy = composer->getSuby() + dir[composer->dir - 1][1];
 		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 		if (world.mapp[xx][yy].type == BELTID && world.belt[world.mapp[xx][yy].id].dir == composer->dir) {
 			if (world.belt[world.mapp[xx][yy].id].isEmpty != true) {
-				// ÌáÈ¡ÊäÈë
+				// æå–è¾“å…¥
 				inputBeltIdSub = world.mapp[xx][yy].id;
-				//std::cout << "¼ì²âµ½ÊäÈë£¬×ø±ê(" << xx << "," << yy << ")" << std::endl;
+				//std::cout << "æ£€æµ‹åˆ°è¾“å…¥ï¼Œåæ ?" << xx << "," << yy << ")" << std::endl;
 			}
 		}
 
@@ -115,65 +116,65 @@ void buildingInput(World & world) {
 
 void buildingOutput(World& world) {
 	int dir[4][2] = { {-1,0},{1,0},{0,-1},{0,1} };
-	// ´¦Àícutter
+	// å¤„ç†cutter
 	for (int i = 0; i < world.maxCutterId; i++) {
 		if (world.cutter[i].dir == 0) continue;
-		//std::cout << "-----------------------------------" << "\n²éÑ¯ÇÐ¸îÆ÷±àºÅ" << i << std::endl;
+		//std::cout << "-----------------------------------" << "\næŸ¥è¯¢åˆ‡å‰²å™¨ç¼–å? << i << std::endl;
 		Cutter* cutter = &world.cutter[i];
 
 		if(!cutter->isEmptyMain){
-			//Êä³ömainµÄ²¿·Ö
+			//è¾“å‡ºmainçš„éƒ¨åˆ?
 			int x = cutter->pos[0], y = cutter->pos[1];
 			int xx = x + dir[cutter->dir - 1][0], yy = y + dir[cutter->dir - 1][1];
 			if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 			if (world.mapp[xx][yy].type == BELTID) {
 				if (world.belt[world.mapp[xx][yy].id].isEmpty) {
-					// 1.ÕâÊÇÌõ´«ËÍ´ø
-					// 2.ÕâÌõ´ø×ÓÊÇ¿ÕµÄ		
+					// 1.è¿™æ˜¯æ¡ä¼ é€å¸¦
+					// 2.è¿™æ¡å¸¦å­æ˜¯ç©ºçš?	
 					cutter->outputMain(world.belt[world.mapp[xx][yy].id]);
 				}
 			}
 		}
 		if (!cutter->isEmptySub) {
-			//Êä³ösubµÄ²¿·Ö
+			//è¾“å‡ºsubçš„éƒ¨åˆ?
 			int x = cutter->getSubx(), y = cutter->getSuby();
 			int xx = x + dir[cutter->dir - 1][0], yy = y + dir[cutter->dir - 1][1];
 			if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 			if (world.mapp[xx][yy].type == BELTID) {
 				if (world.belt[world.mapp[xx][yy].id].isEmpty) {
-					// 1.ÕâÊÇÌõ´«ËÍ´ø
-					// 2.ÕâÌõ´ø×ÓÊÇ¿ÕµÄ		
+					// 1.è¿™æ˜¯æ¡ä¼ é€å¸¦
+					// 2.è¿™æ¡å¸¦å­æ˜¯ç©ºçš?	
 					cutter->outputSub(world.belt[world.mapp[xx][yy].id]);
 				}
 			}
 		}
 	}
 
-	//´¦ÀíMiner
+	//å¤„ç†Miner
 	for (int i = 0; i < world.maxMinerId; i++) {
 		if (world.miner[i].dir == 0) continue;
 		Miner* miner = &world.miner[i];
 
 		if (!miner->isEmpty) {
-			//Êä³ömainµÄ²¿·Ö
+			//è¾“å‡ºmainçš„éƒ¨åˆ?
 			int x = miner->pos[0], y = miner->pos[1];
 			int xx = x + dir[miner->dir - 1][0], yy = y + dir[miner->dir - 1][1];
 			if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 			if (world.mapp[xx][yy].type == BELTID) {
 				if (world.belt[world.mapp[xx][yy].id].isEmpty) {
-					// 1.ÕâÊÇÌõ´«ËÍ´ø
-					// 2.ÕâÌõ´ø×ÓÊÇ¿ÕµÄ		
+					// 1.è¿™æ˜¯æ¡ä¼ é€å¸¦
+					// 2.è¿™æ¡å¸¦å­æ˜¯ç©ºçš?	
 					miner->output(world.belt[world.mapp[xx][yy].id]);
 				}
 			}
 		}
 	
 	}
-	//´¦ÀíComposer
+	//å¤„ç†Composer
 
 	for (int i = 0; i < world.maxComposerId; i++) {
 		if (world.composer[i].dir == 0) continue;
-		//std::cout << "-----------------------------------" << "\n²éÑ¯ÇÐ¸îÆ÷±àºÅ" << i << std::endl;
+		//std::cout << "-----------------------------------" << "\næŸ¥è¯¢åˆ‡å‰²å™¨ç¼–å? << i << std::endl;
 		Composer* composer = &world.composer[i];
 
 		if (!composer->OutisEmpty) {
@@ -182,8 +183,8 @@ void buildingOutput(World& world) {
 			if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 			if (world.mapp[xx][yy].type == BELTID) {
 				if (world.belt[world.mapp[xx][yy].id].isEmpty) {
-					// 1.ÕâÊÇÌõ´«ËÍ´ø
-					// 2.ÕâÌõ´ø×ÓÊÇ¿ÕµÄ		
+					// 1.è¿™æ˜¯æ¡ä¼ é€å¸¦
+					// 2.è¿™æ¡å¸¦å­æ˜¯ç©ºçš?	
 					composer->output(world.belt[world.mapp[xx][yy].id]);
 				}
 			}
