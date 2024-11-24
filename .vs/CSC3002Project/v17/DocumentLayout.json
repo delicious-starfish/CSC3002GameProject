@@ -54,8 +54,7 @@
               "RelativeToolTip": "gameLogic.h",
               "ViewState": "AgIAADMAAAAAAAAAAAAAAEAAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-24T04:07:50.25Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-24T04:07:50.25Z"
             },
             {
               "$type": "Document",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "gameRender.cpp",
               "ViewState": "AgIAADgBAAAAAAAAAAAAAE4BAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-24T04:00:44.841Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-24T04:00:44.841Z"
             },
             {
               "$type": "Document",
@@ -78,7 +76,7 @@
               "RelativeDocumentMoniker": "gameLogic.cpp",
               "ToolTip": "C:\\GameProject\\CSC3002Project\\gameLogic.cpp",
               "RelativeToolTip": "gameLogic.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAAABQAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-24T03:56:53.977Z",
               "EditorCaption": ""
@@ -93,8 +91,7 @@
               "RelativeToolTip": "gameBuildings.cpp",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-24T03:56:26.033Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-24T03:56:26.033Z"
             },
             {
               "$type": "Document",
@@ -106,8 +103,7 @@
               "RelativeToolTip": "gameBuildings.h",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-24T03:55:54.938Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-24T03:55:54.938Z"
             },
             {
               "$type": "Document",
@@ -119,8 +115,7 @@
               "RelativeToolTip": "gameCollection.cpp",
               "ViewState": "AgIAAI8BAAAAAAAAAAAAAJYBAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-24T03:38:05.506Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-24T03:38:05.506Z"
             },
             {
               "$type": "Document",
@@ -132,8 +127,7 @@
               "RelativeToolTip": "gameCollection.h",
               "ViewState": "AgIAAEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-24T03:38:00.231Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-24T03:38:00.231Z"
             },
             {
               "$type": "Document",
@@ -145,8 +139,7 @@
               "RelativeToolTip": "main.cpp",
               "ViewState": "AgIAAFwAAAAAAAAAAAAUwHIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-13T11:58:07.343Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-13T11:58:07.343Z"
             }
           ]
         }
