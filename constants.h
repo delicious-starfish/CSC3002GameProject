@@ -87,6 +87,7 @@
 #define UICOLORER 111
 #define UIDELETER 666
 
+#define BUFFERSIZE 2048
 
 #endif // !_constant_h_
 

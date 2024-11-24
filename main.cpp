@@ -7,6 +7,8 @@
 #include "gameLogic.h"
 #include "gameRender.h"
 #include "gameControl.h"
+#include "gameConfig.h"
+#include "gameUtil.h"
 
 #define LOGIC_FPS 2
 #define RENDER_FPS 32
@@ -47,10 +49,35 @@ long long getTime() {
 */
 Game* game = new Game();
 
-int main() {
+std::string getAppFileNameNoExt()
+{
+    char path[MAX_PATH]; // 
+    HMODULE hModule = GetModuleHandle(NULL); // get the handle of current app 
+    if (hModule != NULL) {
+        // get the path and filename by the handle
+        GetModuleFileNameA(hModule, path, sizeof(path));
 
-    screenSizeX = 960;
-    screenSizeY = 540;
+        std::string StrAppName = std::string(path);
+        size_t pos = StrAppName.rfind(".exe");
+        if (pos != std::string::npos) {
+            return StrAppName.substr(0, pos);
+        }
+
+        return StrAppName; // the filename and path of current app (without file_ext_name)
+    }
+    return ""; // 
+}
+
+int main() {
+    /*
+    initialize the logger and configuration for the game
+    */
+    Logger::getInstance(getAppFileNameNoExt() + ".log");
+    GameConfig::getInstance(getAppFileNameNoExt() + ".ini");
+
+    screenSizeX = GameConfig::getInstance().get("Game", "ScreenWidth", 960);
+    screenSizeY = GameConfig::getInstance().get("Game", "ScreenHeight", 540);
+
     //set screen size (No larger than 1920*1080)
     screenScale = 1;
     //set screen scale (Better within 0.25~1.00)

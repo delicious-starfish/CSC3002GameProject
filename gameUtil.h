@@ -5,11 +5,15 @@
 #include <mutex>
 #include <ctime>
 #include <iomanip>
-#include "gameConfig.h"
+
+#ifndef GAME_LOGGER_H
+#define GAME_LOGGER_H
 
 /**
-* 用于日志输出
+* use it to print log
+* by X
 **/
+
 class Logger {
 public:
     enum LogLevel {
@@ -18,13 +22,13 @@ public:
         WARNING,
         ERR,
     };
-    // 获取单例实例
+    // Get a singleton instance
     static Logger& getInstance(const std::string& filename = "") {
         static Logger instance(filename);
         return instance;
     }
 
-    // 禁止拷贝构造和赋值操作
+    // prevent copy construction and assignment operations
     Logger(const GameConfig&) = delete;
     Logger& operator=(const Logger&) = delete;
 
@@ -107,3 +111,6 @@ int main() {
 }
 
 **/
+
+
+#endif GAME_LOGGER_H
