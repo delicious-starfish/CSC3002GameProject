@@ -53,7 +53,7 @@ class World {
 		Composer composer[250];
 		//Rotator rotator[2500];
 		Miner miner[2500];
-		std::stack<int> deletedBeltId;
+		std::stack<int> deletedBeltId,deletedCompId,deletedCutterId;
 		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0, minerNum = 0,rubbishBinNum = 0;
 		int maxBeltId = 0,maxCutterId = 0, maxComposerId = 0, maxMinerId = 0, maxRubbishBinId = 0;
 		int rotatorNum = 0;
@@ -143,6 +143,14 @@ private:
 		--------------------------
 		在你建造Id为building的id之前清空与之位置冲突的建筑
 		目前仅仅支持传送带
+		by kan bo yi
+	*/
+	void deleteAppendix(int building, int id);
+	/*
+		Method: deleteAppendix
+		Usage: world.deleteAppendix(COMPOSERID,10);
+		--------------------------
+		在建造切割器/合成器的时候会附带建造两个传送带，现在在删除的时候也应当一并删去
 		by kan bo yi
 	*/
 };
