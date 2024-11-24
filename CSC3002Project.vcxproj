@@ -139,10 +139,12 @@
     <ClInclude Include="constants.h" />
     <ClInclude Include="gameBuildings.h" />
     <ClInclude Include="gameCollection.h" />
+    <ClInclude Include="gameConfig.h" />
     <ClInclude Include="gameControl.h" />
     <ClInclude Include="gameItem.h" />
     <ClInclude Include="gameLogic.h" />
     <ClInclude Include="gameRender.h" />
+    <ClInclude Include="gameUtil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

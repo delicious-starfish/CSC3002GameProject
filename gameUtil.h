@@ -5,6 +5,7 @@
 #include <mutex>
 #include <ctime>
 #include <iomanip>
+#include "gameConfig.h"
 
 /**
 * 用于日志输出

@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\GameProject\\CSC3002Project\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameCollection.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameCollection.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameBuildings.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameBuildings.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameLogic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameLogic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameCollection.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|solutionrelative:gameCollection.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F052EF3-2576-4CB1-AB2F-DFE36EF46FB0}|CSC3002Project.vcxproj|C:\\GameProject\\CSC3002Project\\gameBuildings.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -34,11 +34,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "gameLogic.cpp",
               "DocumentMoniker": "C:\\GameProject\\CSC3002Project\\gameLogic.cpp",
               "RelativeDocumentMoniker": "gameLogic.cpp",
@@ -46,18 +46,17 @@
               "RelativeToolTip": "gameLogic.cpp",
               "ViewState": "AgIAAHUAAAAAAAAAAAAAAIQAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-21T11:49:01.04Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-21T11:49:01.04Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "gameBuildings.cpp",
               "DocumentMoniker": "C:\\GameProject\\CSC3002Project\\gameBuildings.cpp",
               "RelativeDocumentMoniker": "gameBuildings.cpp",
               "ToolTip": "C:\\GameProject\\CSC3002Project\\gameBuildings.cpp",
               "RelativeToolTip": "gameBuildings.cpp",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAAADcAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAAAHoAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-21T11:48:30.376Z",
               "EditorCaption": ""
@@ -72,18 +71,17 @@
               "RelativeToolTip": "gameBuildings.h",
               "ViewState": "AgIAAE8AAAAAAAAAAAAewEMAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-21T11:48:18.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-21T11:48:18.41Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "gameCollection.cpp",
               "DocumentMoniker": "C:\\GameProject\\CSC3002Project\\gameCollection.cpp",
               "RelativeDocumentMoniker": "gameCollection.cpp",
               "ToolTip": "C:\\GameProject\\CSC3002Project\\gameCollection.cpp",
               "RelativeToolTip": "gameCollection.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJMAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAOkAAAAAAAAAAAAAADcBAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-21T10:05:55.963Z",
               "EditorCaption": ""
