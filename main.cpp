@@ -8,7 +8,7 @@
 #include "gameRender.h"
 #include "gameControl.h"
 
-#define LOGIC_FPS 4
+#define LOGIC_FPS 2
 #define RENDER_FPS 32
 
 int currentTime;
@@ -106,7 +106,7 @@ int main() {
         }
         // Render
         if (currentTime >= nextRender) {
-            tickRender += 8;
+            tickRender += 4;
             intimg1->renderTick(game->world);
             nextRender += renderInterval;
         }
