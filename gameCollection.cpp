@@ -16,6 +16,7 @@ World::World() {
 
 void World::buildAt(int building, int x, int y, int direction) {
 	clearGround(building,x,y,direction);
+	int newId;
 	switch (building) {
 		case BELTID:
 			if (deletedBeltId.empty()) {
@@ -37,65 +38,82 @@ void World::buildAt(int building, int x, int y, int direction) {
 
 
 		case CUTTERID:
-			cutter[maxCutterId] = Cutter(direction, x, y);
+			if (deletedCutterId.empty()) {
+				newId = maxCutterId;
+				maxCutterId++;
+			}
+			else {
+				newId = deletedCutterId.top();
+				deletedCutterId.pop();
+			}
+			// 编号回收
+			cutterNum++;
+			cutter[newId] = Cutter(direction, x, y);
 
-			mapp[x][y] = Node(CUTTERID, maxCutterId, true);
+			mapp[x][y] = Node(CUTTERID, newId, true);
 			// Cutter length = 2, so two block will be set on mapp
 			// However, only one of them would be a mainblock (isMain = true)
 			switch (direction) {
 				case UP:
-					mapp[x][y + 1] = Node(CUTTERID, maxCutterId, false);
+					mapp[x][y + 1] = Node(CUTTERID, newId, false);
 					buildAt(BELTID, x - 1, y, direction);
 					buildAt(BELTID, x - 1, y+1, direction);
 					break;
 				case DOWN:
-					mapp[x][y - 1] = Node(CUTTERID, maxCutterId, false);
+					mapp[x][y - 1] = Node(CUTTERID, newId, false);
 					buildAt(BELTID, x + 1, y, direction);
 					buildAt(BELTID, x + 1, y - 1, direction);
 					break;
 				case LEFT:
-					mapp[x - 1][y] = Node(CUTTERID, maxCutterId, false);
+					mapp[x - 1][y] = Node(CUTTERID, newId, false);
 					buildAt(BELTID, x, y - 1, direction);
 					buildAt(BELTID, x - 1, y - 1, direction);
 					break;
 				case RIGHT:
-					mapp[x + 1][y] = Node(CUTTERID, maxCutterId, false);
+					mapp[x + 1][y] = Node(CUTTERID, newId, false);
 					buildAt(BELTID, x, y + 1, direction);
 					buildAt(BELTID, x + 1, y + 1, direction);
 					break;
 			}
-			maxCutterId++;
-			cutterNum++;
 			break;
 
 
 
 		case COMPOSERID:
-			composer[maxComposerId] = Composer(direction, x, y);
+			if (deletedCompId.empty()) {
+				newId = maxComposerId;
+				maxComposerId++;
+			}
+			else {
+				newId = deletedCompId.top();
+				deletedCompId.pop();
+			}
+			// 编号回收
+			composerNum++;
 
-			mapp[x][y] = Node(COMPOSERID, maxComposerId, true);
+			composer[newId] = Composer(direction, x, y);
+
+			mapp[x][y] = Node(COMPOSERID, newId, true);
 			// Cutter length = 2, so two block will be set on mapp
 			// However, only one of them would be a mainblock (isMain = true)
 			switch (direction) {
 			case UP:
-				mapp[x][y + 1] = Node(COMPOSERID, maxComposerId, false);
+				mapp[x][y + 1] = Node(COMPOSERID, newId, false);
 				buildAt(BELTID, x - 1, y, direction);
 				break;
 			case DOWN:
-				mapp[x][y - 1] = Node(COMPOSERID, maxComposerId, false);
+				mapp[x][y - 1] = Node(COMPOSERID, newId, false);
 				buildAt(BELTID, x + 1, y, direction);
 				break;
 			case LEFT:
-				mapp[x - 1][y] = Node(COMPOSERID, maxComposerId, false);
+				mapp[x - 1][y] = Node(COMPOSERID, newId, false);
 				buildAt(BELTID, x, y - 1, direction);
 				break;
 			case RIGHT:
-				mapp[x + 1][y] = Node(COMPOSERID, maxComposerId, false);
+				mapp[x + 1][y] = Node(COMPOSERID, newId, false);
 				buildAt(BELTID, x, y + 1, direction);
 				break;
 			}
-			composerNum++;
-			maxComposerId++;
 			break;
 
 		case MINERID:
@@ -120,10 +138,69 @@ void World::destoryAt(int x, int y) {
 
 	if (buildingType == BELTID) deleteBeltLink(buildingId);
 
-	deleteInArray(buildingType, buildingId);
+	//deleteAppendix(buildingType,buildingId);
 	deleteInMapp(buildingType, buildingId);
+	deleteInArray(buildingType, buildingId);
 
 	
+}
+
+void World::destroyAppendix(int x, int y)
+{
+	int Id = mapp[x][y].id;
+	if (mapp[x][y].type == BELTID) {
+		int delDir = belt[Id].dir;
+		switch (delDir) {
+		case UP:x += 1; break;
+		case DOWN:x -= 1; break;
+		case LEFT:y += 1; break;
+		case RIGHT:y -= 1; break;
+		}
+		switch (mapp[x][y].type) {
+		case CUTTERID:if (cutter[mapp[x][y].id].dir == delDir) { destroyAppendix(x, y); destoryAt(x, y); break; }
+		case COMPOSERID:if (composer[mapp[x][y].id].dir == delDir) { destroyAppendix(x, y); destoryAt(x, y); break; }
+		}
+	}
+	if (mapp[x][y].type == COMPOSERID) {
+		int direction = composer[Id].dir;
+		int x = composer[Id].pos[0], y = composer[Id].pos[1];
+		switch (direction) {
+		case UP:
+			destoryAt(x - 1, y);
+			break;
+		case DOWN:
+			destoryAt(x + 1, y);
+			break;
+		case LEFT:
+			destoryAt(x, y - 1);
+			break;
+		case RIGHT:
+			destoryAt(x, y + 1);
+			break;
+		}
+	}
+	if (mapp[x][y].type == CUTTERID) {
+		int direction = cutter[Id].dir;
+		int x = cutter[Id].pos[0], y = cutter[Id].pos[1];
+		switch (direction) {
+		case UP:
+			destoryAt(x - 1, y);
+			destoryAt(x - 1, y + 1);
+			break;
+		case DOWN:
+			destoryAt(x + 1, y);
+			destoryAt(x + 1, y - 1);
+			break;
+		case LEFT:
+			destoryAt(x, y - 1);
+			destoryAt(x - 1, y - 1);
+			break;
+		case RIGHT:
+			destoryAt(x, y + 1);
+			destoryAt(x + 1, y + 1);
+			break;
+		}
+	}
 }
 
 
@@ -148,9 +225,39 @@ void World::deleteInArray(int building, int id) {
 		belt[id].dir = 0;
 		belt[id].itemNow = Item();
 		beltNum--;
+		if (id == maxBeltId) {
+			//删的是末尾的，不用特意加指针了
+			maxBeltId--;
+			break;
+		}
 		deletedBeltId.push(id);
 		break;
+	case COMPOSERID:
+		composer[id].dir = 0;
+		composer[id].Output = Item();
+		composer[id].OutisEmpty = true;
+		composerNum--;
+		if (id == maxComposerId) {
+			maxComposerId--;
+			break;
+		}
+		deletedCompId.push(id);
+		break;
+	case CUTTERID:
+		cutter[id].dir = 0;
+		cutter[id].OutputMain = Item();
+		cutter[id].OutputSub = Item();
+		cutter[id].isEmptyMain = true;
+		cutter[id].isEmptySub = true;
+		cutterNum--;
+		if (id == maxCutterId) {
+			maxCutterId--;
+			break;
+		}
+		deletedCutterId.push(id);
+		break;
 	}
+
 }
 
 void World::deleteInMapp(int buildingType, int id) {
@@ -158,11 +265,70 @@ void World::deleteInMapp(int buildingType, int id) {
 		int xx = belt[id].pos[0], yy = belt[id].pos[1];
 		mapp[xx][yy] = Node();
 	}
+	if (buildingType == COMPOSERID) {
+
+		int xx = composer[id].pos[0], yy = composer[id].pos[1];
+		mapp[xx][yy] = Node();
+		int direction = composer[id].dir;
+		//删除另一部分
+		switch (direction) {
+		case UP:
+			mapp[xx][yy + 1] = Node();
+			break;
+		case DOWN:
+			mapp[xx][yy - 1] = Node();
+			break;
+		case LEFT:
+			mapp[xx - 1][yy] = Node();
+			break;
+		case RIGHT:
+			mapp[xx + 1][yy] = Node();
+			break;
+		}
+	}
+	if (buildingType == CUTTERID) {
+		int xx = cutter[id].pos[0], yy = cutter[id].pos[1];
+		mapp[xx][yy] = Node();
+		int direction = cutter[id].dir;
+		//删除另一部分
+		switch (direction) {
+		case UP:
+			mapp[xx][yy + 1] = Node();
+			break;
+		case DOWN:
+			mapp[xx][yy - 1] = Node();
+			break;
+		case LEFT:
+			mapp[xx - 1][yy] = Node();
+			break;
+		case RIGHT:
+			mapp[xx + 1][yy] = Node();
+			break;
+		}
+	}
 }
+
+//void World::deleteAppendix(int building, int id){}
 
 void World::clearGround(int building, int x, int y, int direction) {
 	if (building == BELTID) {
 		if (mapp[x][y].type != GROUNDID) destoryAt(x, y);
+	}
+	if (building == CUTTERID || building == COMPOSERID) {
+		switch (direction) {
+		case UP:
+			if (mapp[x][y + 1].type != GROUNDID) destoryAt(x, y + 1);
+			break;
+		case DOWN:
+			if (mapp[x][y - 1].type != GROUNDID) destoryAt(x, y - 1);
+			break;
+		case LEFT:
+			if (mapp[x - 1][y].type != GROUNDID) destoryAt(x - 1, y);
+			break;
+		case RIGHT:
+			if (mapp[x + 1][y].type != GROUNDID) destoryAt(x + 1, y);
+			break;
+		}
 	}
 }
 

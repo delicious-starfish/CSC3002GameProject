@@ -14,6 +14,13 @@ void logicTick(World & world);
 	This function change the value in the variable world. It will first calculate
 	the factories' logic, then calculate the belts' logic
 */
+void setPreItems(World& world);
+/*
+*  Record previous item before going to the next logic
+*  Reset building's isMoved
+*  The Animation will show the previous object's movement, which means it will be 1 logictick later than current logic
+*/
+
 
 void beltLogic(World & world);
 /*
@@ -58,8 +65,8 @@ void belt_FindEndAndUpdate(World& world, bool footprint[], int nowId);
 	Method belt_FindRowsAndUpdate
 	Usage: belt_FindRowsAndUpdate(world,book,i); This function is only used in method logicTick
 	--------------------------------
-	µÝ¹éµØÑ°ÕÒ¡°×îÄ©Î²µÄ´«ËÍ´ø¡±£¬²¢ÇÒÔÚ»ØËÝÊ±¸üÐÂÊý¾Ý
-	²»ÄÜ¹»´¦Àí»·
+	ï¿½Ý¹ï¿½ï¿½Ñ°ï¿½Ò¡ï¿½ï¿½ï¿½Ä©Î²ï¿½Ä´ï¿½ï¿½Í´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	made by Kanboyi
 */

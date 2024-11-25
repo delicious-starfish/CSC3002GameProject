@@ -72,7 +72,9 @@ void GameButton::operateTick(World& world,ExMessage& msg)
                 case UIROTATOR:
                 case UICOMPOSER:
                 case UIBELT: world.buildAt(mouseCase - UIGROUND, UIbY, UIbX, scrollCase); mouseCase = NORMALCASE; break;
-                case UIDELETER: world.destoryAt(UIbY, UIbX); mouseCase = NORMALCASE; break;
+                case UIDELETER:
+                    world.destroyAppendix(UIbY, UIbX);
+                    world.destoryAt(UIbY, UIbX); mouseCase = NORMALCASE; break;
                 }
             //If mouseCase is about to build, and canBuild, then build a building
             break;
