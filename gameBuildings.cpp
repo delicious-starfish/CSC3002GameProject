@@ -14,6 +14,8 @@ Belt::Belt(int direction, int x, int y) {
 	itemNow = Item();
 	isEmpty = true;
 	nxtStuck = false;
+	itemPre = Item();
+	isMoved = false;
 }
 
 Belt::Belt() {
@@ -26,6 +28,8 @@ Belt::Belt() {
 	nxtStuck = false;
 	for (int i = 0; i < 4; i++) idBef[i] = 0;
 	idBef[0] = 1;
+	itemPre = Item();
+	isMoved = false;
 }
 
 bool Belt::exist() {
@@ -44,6 +48,11 @@ Cutter::Cutter(int direction, int x, int y) {
 	OutputSub = Item();
 	isEmptyMain = true;
 	isEmptySub = true;
+	OutputMainPre = Item();
+	OutputSubPre = Item();
+	isMovedMain = false;
+	isMovedSub = false;
+	isOperated = false;
 }
 
 Cutter::Cutter() {
@@ -54,9 +63,15 @@ Cutter::Cutter() {
 	OutputSub = Item();
 	isEmptyMain = true;
 	isEmptySub = true;
+	OutputMainPre = Item();
+	OutputSubPre = Item();
+	isMovedMain = false;
+	isMovedSub = false;
+	isOperated = false;
 }
 
 bool Cutter::outputMain(Belt& output) {
+	isMovedMain = true;
 	if (isEmptyMain || !output.isEmpty) return false;
 
 	isEmptyMain = true;
@@ -70,6 +85,7 @@ bool Cutter::outputMain(Belt& output) {
 }
 
 bool Cutter::outputSub(Belt& output) {
+	isMovedSub = true;
 	if (isEmptySub || !output.isEmpty) return false;
 
 	isEmptySub = true;
@@ -113,6 +129,7 @@ bool Cutter::input(Belt & input) {
 	if (input.isEmpty) return false;
 	Item item = input.itemNow;
 	input.isEmpty = true;
+	isOperated = true;
 
 
 
@@ -138,6 +155,9 @@ Composer::Composer(int direction, int x, int y) {
 	pos[1] = y;
 	Output = Item();
 	OutisEmpty = true;
+	OutputPre = Item();
+	isMoved = false;
+	isOperated = false;
 }
 
 Composer::Composer() {
@@ -146,9 +166,13 @@ Composer::Composer() {
 	pos[1] = -1;
 	Output = Item();
 	OutisEmpty = true;
+	OutputPre = Item();
+	isMoved = false;
+	isOperated = false;
 }
 
 bool Composer::output(Belt& output) {
+	isMoved = true;
 	if (OutisEmpty || !output.isEmpty) return false;
 
 	OutisEmpty = true;
@@ -193,6 +217,9 @@ bool Composer::input(Belt& leftinput, Belt& rightinput) {
 	Item rightitem = rightinput.itemNow;
 	leftinput.isEmpty = true;
 	rightinput.isEmpty = true;
+	leftinput.itemNow = Item();
+	rightinput.itemNow = Item();
+	isOperated = true;
 
 	Item itemout = Item();
 	for (int x = 0; x < 2; x++)
@@ -215,6 +242,7 @@ Miner::Miner() {
 	produceStatus = 1;
 	isEmpty = true;
 	dir = 0;
+	isMoved = false;
 }
 
 Miner::Miner(int x, int y, int dir) {
@@ -223,6 +251,7 @@ Miner::Miner(int x, int y, int dir) {
 	produceStatus = 1;
 	isEmpty = true;
 	this->dir = dir;
+	isMoved = false;
 }
 
 void Miner::setProduct(Item product) {
@@ -242,6 +271,7 @@ bool Miner::output(Belt& output) {
 				newItem.shapeId[i][j][k] = item.shapeId[i][j][k];
 				newItem.colorId[i][j][k] = item.colorId[i][j][k];
 			}
+	this->isMoved = true;
 	produceStatus = 1;
 	output.grantItem(newItem);
 	output.isEmpty = false;

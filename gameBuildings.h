@@ -16,6 +16,11 @@ class Belt {
 		// the direction of the belt
 		// 1 stand for up, 2 stand for down, 3 stand for left, 4 stand for right
 		int pos[2];
+
+		bool isMoved;
+		//For Animation
+		//It is useless compare to isStuck, anyway. ---yyl
+
 		bool isEmpty;
 		// 传送带上是否有物品
 		bool isStuck;
@@ -67,6 +72,13 @@ class Cutter {
 		Item OutputMain,OutputSub;
 		// 前者对应为在地图“主方块”上面的输出，后者是“副方块”上面的输出
 		// “主方块”，“副方块”的定义详见gameCollection.cpp的buildAt函数
+
+		Item OutputMainPre, OutputSubPre;
+		//For Animation
+		bool isOperated;
+		//To stop the building for 1 step, mainly for animation
+		bool isMovedMain, isMovedSub;
+		//For Animation
 
 		int dir;
 		// same as that in Belt
@@ -169,6 +181,13 @@ class Composer {
 		int dir;
 		bool OutisEmpty;
 
+		Item OutputPre;
+		//For Animation
+		bool isOperated;
+		//To stop the building for 1 step, mainly for animation
+		bool isMoved;
+		//For Animation
+
 		Composer(int direction, int x, int y);
 		/*
 			Build an empty Composer at (x,y), with dir = direction
@@ -212,6 +231,9 @@ public:
 	int	dir;
 	int produceStatus;
 	//因为miner不是每一刻都在生产物品
+
+	bool isMoved;
+	//For Animation
 
 	bool isEmpty;
 	Item item;
