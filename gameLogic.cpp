@@ -6,35 +6,12 @@
 #include <iostream>
 
 void logicTick(World * world) {
-	setPreItems(world);
-
 	buildingInput(world);
 
 	beltLogic(world);
 
+	if(isBuildingOperated)
 	buildingOutput(world);
-}
-
-void setPreItems(World * world) {
-	for (int i = 0; i < world->maxBeltId; i++) {
-		if (world->belt[i].exist()) {
-			world->belt[i].isMoved = false;
-			world->belt[i].itemPre = world->belt[i].itemNow;
-		}
-	}
-	for (int i = 0; i < world->maxCutterId; i++) {
-		world->cutter[i].isMovedMain = false;
-		world->cutter[i].isMovedSub = false;
-		world->cutter[i].OutputMainPre = world->cutter[i].OutputMain;
-		world->cutter[i].OutputSubPre = world->cutter[i].OutputSub;
-	}
-	for (int i = 0; i < world->maxComposerId; i++) {
-		world->composer[i].isMoved = false;
-		world->composer[i].OutputPre = world->composer[i].Output;
-	}
-	for (int i = 0; i < world->maxMinerId; i++) {
-		world->miner[i].isMoved = false;
-	}
 }
 
 void beltLogic(World * world) {
@@ -151,7 +128,6 @@ void buildingOutput(World * world) {
 	// 处理cutter
 	for (int i = 0; i < world->maxCutterId; i++) {
 		if (world->cutter[i].dir == 0) continue;
-		if (world->cutter[i].isOperated) { world->cutter[i].isOperated = false; continue; }
 		//std::cout << "-----------------------------------" << "\n查询切割器编�? << i << std::endl;
 		Cutter* cutter = &world->cutter[i];
 
@@ -207,7 +183,6 @@ void buildingOutput(World * world) {
 
 	for (int i = 0; i < world->maxComposerId; i++) {
 		if (world->composer[i].dir == 0) continue;
-		if (world->composer[i].isOperated) { world->composer[i].isOperated = false; continue; }
 		//std::cout << "-----------------------------------" << "\n查询切割器编�? << i << std::endl;
 		Composer* composer = &world->composer[i];
 
@@ -251,7 +226,6 @@ void belt_FindEndAndUpdate(World * world, bool footprint[], int nowId) {
 					world->belt[idB].itemNow.shapeId[i][j][k] = 0;
 				}
 		world->belt[nowId].isEmpty = false;
-		world->belt[nowId].isMoved = true;
 		world->belt[idB].isEmpty = true;
 		belt_FindEndAndUpdate(world, footprint, idB);
 
