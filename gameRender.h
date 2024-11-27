@@ -105,7 +105,7 @@ public:
 	By Yao Yilin
 	*/
 
-	void putBuildings(World& world);
+	void putBuildings(World * world);
 	/*
 	Method: putBuildings
 	Usage: putBuildings(world);
@@ -113,9 +113,10 @@ public:
 --------------------------------
 	Output the layer of buildings
 	By Yao Yilin
+	// Change input from "World & world to World * world" by kby
 	*/
 
-	void putItems(World& world);
+	void putItems(World * world);
 	/*
 		Method: putItems
 		Usage: putItems(world);
@@ -126,6 +127,7 @@ public:
 
 		At present only render the first layer
 		Not Finished
+		// Change input from "World & world to World * world" by kby
 		*/
 
 	void putAnItem(int shape, int color, int x, int y, int dir);
@@ -152,12 +154,13 @@ public:
 		By Yao Yilin
 		*/
 
-	void renderTick(World& world);
+	void renderTick(World * world);
 	// This function will not change the value of world
 	// It use the value in world to render the screen
 	// input World world
 	// output nothing
 	//By Yao Yilin
+	// Change input from "World & world to World * world" by kby
 };
 
 void loadImgRes();

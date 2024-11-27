@@ -4,22 +4,28 @@
 #include <map>
 #include <sstream>
 #include <mutex>
-/**
-* 用于将可变参数放到外部配置中去
-**/
+
+#ifndef GAME_CONFIG_H
+#define GAME_CONFIG_H
+
+/*
+* put some game parameters into external configuration
+* By X  
+*/
+
 class GameConfig {
 public:
-    // 获取单例实例
+    // Get a singleton instance
     static GameConfig& getInstance(const std::string& filename = "") {
         static GameConfig instance(filename);
         return instance;
     }
 
-    // 禁止拷贝构造和赋值操作
+    // Prevent copy construction and assignment operations
     GameConfig(const GameConfig&) = delete;
     GameConfig& operator=(const GameConfig&) = delete;
 
-    // 获取配置项
+    // get configure items
     template<typename T>
     T get(const std::string& section, const std::string& key, const T& defaultValue) {
         std::lock_guard<std::mutex> lock(configMutex);
@@ -32,7 +38,7 @@ public:
         return defaultValue;
     }
 
-    // 设置配置项
+    // Set Configuration Items
     template<typename T>
     void set(const std::string& section, const std::string& key, const T& value) {
         std::lock_guard<std::mutex> lock(configMutex);
@@ -41,7 +47,7 @@ public:
         configMap[section][key] = oss.str();
     }
 
-    // 保存配置文件
+    // Save the configuration file
     void saveConfig() {
         std::lock_guard<std::mutex> lock(configMutex);
         std::ofstream file(filename);
@@ -51,11 +57,11 @@ public:
         }
 
         for (const auto& section : configMap) {
-            file << "[" << section.first << "]" << std::endl; // 写入 Section
+            file << "[" << section.first << "]" << std::endl; // write Section
             for (const auto& pair : section.second) {
-                file << pair.first << "=" << pair.second << std::endl; // 写入 Key=Value
+                file << pair.first << "=" << pair.second << std::endl; // write Key=Value
             }
-            file << std::endl; // Section 之间留空行
+            file << std::endl; // spaces between the Section 
         }
         file.close();
     }
@@ -65,12 +71,12 @@ private:
     std::map<std::string, std::map<std::string, std::string>> configMap; // Section -> Key-Value Map
     std::mutex configMutex;
 
-    // 私有构造函数
+    // private constructor
     GameConfig(const std::string& filename) : filename(filename) {
         loadConfig();
     }
 
-    // 加载配置文件
+    // load configuration
     void loadConfig() {
         std::lock_guard<std::mutex> lock(configMutex);
         std::ifstream file(filename);
@@ -83,16 +89,16 @@ private:
         std::string currentSection;
 
         while (std::getline(file, line)) {
-            // 忽略空行和注释
+            // ignore spaces and comments
             if (line.empty() || line[0] == '#') continue;
 
-            // 检测 Section
+            // check Section
             if (line[0] == '[' && line.back() == ']') {
                 currentSection = line.substr(1, line.size() - 2);
                 continue;
             }
 
-            // 处理 Key=Value
+            // process Key=Value
             size_t delimiterPos = line.find('=');
             if (delimiterPos != std::string::npos && !currentSection.empty()) {
                 std::string key = line.substr(0, delimiterPos);
@@ -104,3 +110,4 @@ private:
     }
 };
 
+#endif GAME_CONFIG_H

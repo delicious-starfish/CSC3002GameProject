@@ -4,9 +4,8 @@
 #ifndef _gameLogic_h_
 #define _gameLogic_h_
 
-extern bool isBuildingOperated;
 
-void logicTick(World & world);
+void logicTick(World * world);
 /*
 *	Input: the World variable you need do logic calculation
 *	Output: Nothing, but the World variable will be changed
@@ -15,7 +14,15 @@ void logicTick(World & world);
 	the factories' logic, then calculate the belts' logic
 */
 
-void beltLogic(World & world);
+void setPreItems(World * world);
+/*
+*  Record previous item before going to the next logic
+*  Reset building's isMoved
+*  The Animation will show the previous object's movement, which means it will be 1 logictick later than current logic
+* ---Yilin Yao
+*/
+
+void beltLogic(World * world);
 /*
 	Method beltLogic
 	Usage: beltLogic(world); This function is only used in method logicTick
@@ -25,7 +32,7 @@ void beltLogic(World & world);
 	made by Kanboyi
 */
 
-void buildingInput(World& world);
+void buildingInput(World * world);
 /*
 	Method buildingInput
 	Usage: buildingInput(world); This function is only used in method logicTick
@@ -39,7 +46,7 @@ void buildingInput(World& world);
 	
 */
 
-void buildingOutput(World& world);
+void buildingOutput(World * world);
 /*
 	Method buildingOutput
 	Usage: buildingOutput(world); This function is only used in method logicTick
@@ -53,13 +60,21 @@ void buildingOutput(World& world);
 
 */
 
-void belt_FindEndAndUpdate(World& world, bool footprint[], int nowId);
+void belt_FindEndAndUpdate(World * world, bool footprint[], int nowId);
 /*
 	Method belt_FindRowsAndUpdate
 	Usage: belt_FindRowsAndUpdate(world,book,i); This function is only used in method logicTick
 	--------------------------------
-	递归地寻找“最末尾的传送带”，并且在回溯时更新数据
-	不能够处理环
+	能够处理环
+
+	made by Kanboyi
+*/
+void expand_nxtStuck(World* world, int id);
+/*
+	Method expand_nxtStuck
+	Usage: expand_nxtStuck(world,i); This function is only used in method logicTick
+	--------------------------------
+	用于动画，如果前面的传送带堵住了，那么也不能播放传递物品的动画了
 
 	made by Kanboyi
 */
