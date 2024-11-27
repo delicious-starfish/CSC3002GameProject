@@ -60,7 +60,7 @@
 
 
 //Basic Game Settings
-#define MINERTICKCOST 2
+#define MINERTICKCOST 3
 
 
 

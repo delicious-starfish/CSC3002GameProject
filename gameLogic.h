@@ -4,7 +4,6 @@
 #ifndef _gameLogic_h_
 #define _gameLogic_h_
 
-extern bool isBuildingOperated;
 
 void logicTick(World * world);
 /*
@@ -13,6 +12,14 @@ void logicTick(World * world);
 *	-----
 	This function change the value in the variable world. It will first calculate
 	the factories' logic, then calculate the belts' logic
+*/
+
+void setPreItems(World * world);
+/*
+*  Record previous item before going to the next logic
+*  Reset building's isMoved
+*  The Animation will show the previous object's movement, which means it will be 1 logictick later than current logic
+* ---Yilin Yao
 */
 
 void beltLogic(World * world);

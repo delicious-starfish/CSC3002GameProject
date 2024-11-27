@@ -74,6 +74,18 @@ class World {
 			by Kan Bo Yi
 		*/
 
+		void destroyAppendix(int x, int y);
+		/*
+		Method: deleteAppendix
+		Usage: world.deleteAppendix(COMPOSERID,10);
+		--------------------------
+		在建造切割器/合成器的时候会附带建造两个传送带，现在在删除的时候也应当一并删去
+		by kan bo yi
+		删除相应的传送带也可以删去切割器/合成器
+		When using it, first destroy Appendix, and then destroy building itself
+		by Yilin Yao
+		*/
+
 		std::string toString();
 		/*
 			outPut: a simplized visualized version of the world
@@ -145,14 +157,8 @@ private:
 		目前仅仅支持传送带
 		by kan bo yi
 	*/
-	void deleteAppendix(int building, int id);
-	/*
-		Method: deleteAppendix
-		Usage: world.deleteAppendix(COMPOSERID,10);
-		--------------------------
-		在建造切割器/合成器的时候会附带建造两个传送带，现在在删除的时候也应当一并删去
-		by kan bo yi
-	*/
+	//void deleteAppendix(int building, int id);
+	//   Not Used, Moved to destroyAppendix(int x,int y);
 };
 
 class Game {
