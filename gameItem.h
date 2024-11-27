@@ -12,8 +12,8 @@ class Item {
 		ingredients and output of factories
 	*/
 	public:
-	short shapeId[2][2][2];
-	short colorId[2][2][2];
+	int shapeId[2][2][2];
+	int colorId[2][2][2];
 
 	Item();
 	/*
@@ -23,13 +23,13 @@ class Item {
 		create an Item object, this item is empty in shapeId (all zeros) and in colorId (all zeros)
 	*/
 
-	Item(short assignedShapeId, short assignedColorId);
+	Item(int assignedShapeId, int assignedColorId);
 	/*
 	* Constructor: Item
 	* Usage Item item = item(shapeId, colorId);
 	* -----------------------------------------
 	* create an Item with all the same shape, and a same color.
-	* 鏁翠釜鐗╁搧鍏ㄧ敱鐩稿悓鐨勫浘褰㈠拰棰滆壊鏋勬垚
+	* 整个物品全由相同的图形和颜色构成
 		by kan bo yi
 	*/
 

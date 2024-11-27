@@ -10,9 +10,7 @@ Belt::Belt(int direction, int x, int y) {
 	pos[1] = y;
 	idNxt = -1;
 	itemNow = Item();
-	itemPre = Item();
 	isEmpty = true;
-	isMoved = false;
 }
 
 Belt::Belt() {
@@ -20,9 +18,7 @@ Belt::Belt() {
 	pos[0] = -1;
 	pos[0] = -1;
 	itemNow = Item();
-	itemPre = Item();
 	isEmpty = true;
-	isMoved = false;
 	idNxt = -1;
 }
 
@@ -40,10 +36,6 @@ Cutter::Cutter(int direction, int x, int y) {
 	pos[1] = y;
 	OutputMain = Item();
 	OutputSub = Item();
-	OutputMainPre = Item();
-	OutputSubPre = Item();
-	isMovedMain = false;
-	isMovedSub = false;
 	isEmptyMain = true;
 	isEmptySub = true;
 }
@@ -54,10 +46,6 @@ Cutter::Cutter() {
 	pos[0] = -1;
 	OutputMain = Item();
 	OutputSub = Item();
-	OutputMainPre = Item();
-	OutputSubPre = Item();
-	isMovedMain = false;
-	isMovedSub = false;
 	isEmptyMain = true;
 	isEmptySub = true;
 }
@@ -119,7 +107,6 @@ bool Cutter::input(Belt & input) {
 	if (input.isEmpty) return false;
 	Item item = input.itemNow;
 	input.isEmpty = true;
-	input.isMoved = true;
 
 
 
@@ -144,8 +131,6 @@ Composer::Composer(int direction, int x, int y) {
 	pos[0] = x;
 	pos[1] = y;
 	Output = Item();
-	OutputPre = Item();
-	isMoved = false;
 	OutisEmpty = true;
 }
 
@@ -154,8 +139,6 @@ Composer::Composer() {
 	pos[0] = -1;
 	pos[1] = -1;
 	Output = Item();
-	OutputPre = Item();
-	isMoved = false;
 	OutisEmpty = true;
 }
 
@@ -204,10 +187,6 @@ bool Composer::input(Belt& leftinput, Belt& rightinput) {
 	Item rightitem = rightinput.itemNow;
 	leftinput.isEmpty = true;
 	rightinput.isEmpty = true;
-	leftinput.isMoved = true;
-	rightinput.isMoved = true;
-	leftinput.itemNow = Item();
-	rightinput.itemNow = Item();
 
 	Item itemout = Item();
 	for (int x = 0; x < 2; x++)
@@ -229,7 +208,6 @@ Miner::Miner() {
 	pos[1] = -1;
 	produceStatus = 1;
 	isEmpty = true;
-	isMoved = false;
 	dir = 0;
 }
 
@@ -238,7 +216,6 @@ Miner::Miner(int x, int y, int dir) {
 	pos[1] = y;
 	produceStatus = 1;
 	isEmpty = true;
-	isMoved = false;
 	this->dir = dir;
 }
 
@@ -259,7 +236,6 @@ bool Miner::output(Belt& output) {
 				newItem.shapeId[i][j][k] = item.shapeId[i][j][k];
 				newItem.colorId[i][j][k] = item.colorId[i][j][k];
 			}
-	this->isMoved = true;
 	produceStatus = 1;
 	output.grantItem(newItem);
 	output.isEmpty = false;
@@ -281,7 +257,6 @@ bool RubbishBin::input(Belt& input) {
 
 	input.isEmpty = true;
 	input.itemNow = Item();
-	input.isMoved = true;
 
 	return true;
 }
