@@ -34,7 +34,6 @@ int totalScore;
 
 
 
-
 IntImg* intimg1 = new IntImg();
 GameButton* gameButton = new GameButton();
 
@@ -122,18 +121,22 @@ int main() {
     while (true) {
        currentTime = getTime();
 
+       if (!game->world->isPause()) { // the game is not under pause state
+           //Logic operation
+           if (currentTime >= nextLogic) {
+               tickRender = 0;
+               isBuildingOperated ^= 1;
+               logicTick(game->world);
+               nextLogic += logicInterval;
 
-       //Logic operation
-        if (currentTime >= nextLogic) {
-            tickRender = 0;
-            isBuildingOperated ^= 1;
-            logicTick(game->world);
-            nextLogic += logicInterval;
-
-        }
+           }
+       }
         // Render
         if (currentTime >= nextRender) {
-            tickRender += 4;
+            if (!game->world->isPause()) {
+                tickRender += 4;
+            }
+            
             intimg1->renderTick(game->world);
             nextRender += renderInterval;
         }

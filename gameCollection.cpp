@@ -8,7 +8,7 @@
 using namespace std;
 
 World::World() {
-
+	worldPaused = false;
 	for (int i = 0; i < MAPLENGTH; i++)
 		for (int j = 0; j < MAPLENGTH; j++)
 			mapp[i][j] = Node(GROUNDID, 0, false);

@@ -29,7 +29,7 @@ public:
     }
 
     // prevent copy construction and assignment operations
-    Logger(const GameConfig&) = delete;
+    Logger(const Logger&) = delete;
     Logger& operator=(const Logger&) = delete;
 
     Logger(const std::string& filename) : logFile(filename, std::ios::app) {

@@ -6,7 +6,7 @@
 #include <conio.h>
 #include <cmath>
 
-
+#include "gameUtil.h"
 
 Button::Button(int lf, int rt, int up, int dn)
 {
@@ -34,6 +34,7 @@ void GameButton::operateTick(World * world,ExMessage& msg)
     else if (BTcomp.isHover()) { hoverCase = UICOMPOSER; }
     else if (BTcolr.isHover()) { hoverCase = UICOLORER; }
     else if (BTdelete.isHover()) { hoverCase = UIDELETER; }
+    else if (BTpause.isHover()) { hoverCase = PAUSE; } //pause
     else { hoverCase = NORMALCASE; }
     //Check where is the mouse hovering currently
     int scrscl64 = screenScale * 64;
@@ -56,6 +57,10 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             controlPositionX = msg.x - cameraPositionX; controlPositionY = msg.y - cameraPositionY;
             break;
         case WM_RBUTTONDOWN:
+            // 
+            Logger::getInstance().log(Logger::DEBUG,
+                "CX:"+std::to_string(controlPositionX) + ",CY:" + std::to_string(controlPositionY) +
+                "MX:"+std::to_string(msg.x) + ",MY:" + std::to_string(msg.y));
             switch (hoverCase) {
             case NORMALCASE:canBuild = true; break;
             case UICUTTER: 
@@ -63,6 +68,12 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             case UICOMPOSER:
             case UIBELT: mouseCase = hoverCase; break;
             case UIDELETER: mouseCase = hoverCase; break;
+            case PAUSE: //pause
+                mouseCase = hoverCase; 
+                world->setPause();
+                Logger::getInstance().log(Logger::DEBUG, 
+                    "set pause="+std::to_string(world->isPause()));
+                break;
             }
             //Check where it hovers, and assign mouseCase when clicking right button
             if (canBuild)

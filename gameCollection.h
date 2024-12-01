@@ -43,7 +43,6 @@ class World {
 			by kan bo yi
 		*/
 
-	
 		Node mapp[MAPLENGTH][MAPLENGTH];// the map that shows what is at a specific point
 		Belt belt[2500];
 		Cutter cutter[2500];
@@ -107,6 +106,7 @@ class World {
 		Not finished, only support adding item to belts
 		by kan bo yi
 		*/
+
 private:
 	void refreshBeltAt(int x, int y, int direction);
 	/*
@@ -159,6 +159,12 @@ private:
 	*/
 	//void deleteAppendix(int building, int id);
 	//   Not Used, Moved to destroyAppendix(int x,int y);
+
+	private:
+		bool worldPaused = false;
+	public:
+		void setPause() { worldPaused = !worldPaused; }
+		bool isPause() { return worldPaused; }
 };
 
 class Game {
