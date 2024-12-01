@@ -121,16 +121,18 @@ int main() {
     while (true) {
        currentTime = getTime();
 
-       if (!game->world->isPause()) { // the game is not under pause state
+        // the game is not under pause state
            //Logic operation
            if (currentTime >= nextLogic) {
-               tickRender = 0;
-               isBuildingOperated ^= 1;
-               logicTick(game->world);
+               if (!game->world->isPause()) {
+                   tickRender = 0;
+                   isBuildingOperated ^= 1;
+                   logicTick(game->world);
+               }
                nextLogic += logicInterval;
 
            }
-       }
+       
         // Render
         if (currentTime >= nextRender) {
             if (!game->world->isPause()) {
