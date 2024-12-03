@@ -296,3 +296,81 @@ bool RubbishBin::input(Belt& input) {
 
 	return true;
 }
+
+Rotator::Rotator(int x, int y, int direction) {
+	dir = direction;
+	pos[0] = x;
+	pos[1] = y;
+	Output = Item();
+	OutisEmpty = true;
+	OutputPre = Item();
+	isMoved = false;
+	isOperated = false;
+}
+
+Rotator::Rotator() {
+	dir = 0;
+	pos[0] = -1;
+	pos[1] = -1;
+	Output = Item();
+	OutisEmpty = true;
+	OutputPre = Item();
+	isMoved = false;
+	isOperated = false;
+}
+
+bool Rotator::output(Belt& output) {
+	isMoved = true;
+	if (OutisEmpty || !output.isEmpty) return false;
+
+	OutisEmpty = true;
+
+	output.grantItem(Output);
+	Output = Item();
+	output.isEmpty = false;
+
+	return true;
+}
+
+int Rotator::getSubx() {
+	switch (dir) {
+	case UP:
+		return pos[0];
+	case DOWN:
+		return pos[0];
+	case LEFT:
+		return pos[0] - 1;
+	case RIGHT:
+		return pos[0] + 1;
+	}
+}
+
+int Rotator::getSuby() {
+	switch (dir) {
+	case UP:
+		return pos[1] + 1;
+	case DOWN:
+		return pos[1] - 1;
+	case LEFT:
+		return pos[1];
+	case RIGHT:
+		return pos[1];
+	}
+}
+
+bool Rotator::input(Belt& input) {
+	if (input.isEmpty) return false;
+	if (!(OutisEmpty)) return false;
+	Item item = input.itemNow;
+	input.isEmpty = true;
+	input.itemNow = Item();
+	isOperated = true;
+	Item itemout = Item();
+	itemout.shapeId[0][0][0] = item.shapeId[0][0][1]; itemout.shapeId[0][0][0] = item.shapeId[0][0][1];
+	itemout.shapeId[0][1][0] = item.shapeId[0][0][0]; itemout.shapeId[0][1][0] = item.shapeId[0][0][0];
+	itemout.shapeId[0][1][1] = item.shapeId[0][1][0]; itemout.shapeId[0][1][1] = item.shapeId[0][1][0];
+	itemout.shapeId[0][0][1] = item.shapeId[0][1][1]; itemout.shapeId[0][0][1] = item.shapeId[0][1][1];
+	Output = itemout;
+	OutisEmpty = false;
+	return true;
+}
