@@ -316,6 +316,7 @@ void World::deleteInMapp(int buildingType, int id) {
 //void World::deleteAppendix(int building, int id) 
 
 void World::clearGround(int building, int x, int y, int direction) {
+	destroyAppendix(x, y);
 	if (building == BELTID) {
 		if (mapp[x][y].type != GROUNDID) destoryAt(x, y);
 	}
