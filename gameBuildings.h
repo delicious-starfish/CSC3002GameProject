@@ -22,15 +22,15 @@ class Belt {
 		//It is useless compare to isStuck, anyway. ---yyl
 
 		bool isEmpty;
-		// ´«ËÍ´øÉÏÊÇ·ñÓĞÎïÆ·
+		// ä¼ é€å¸¦ä¸Šæ˜¯å¦æœ‰ç‰©å“
 		bool isStuck;
-		// ´«ËÍ´øÊÇ·ñ¿¨×¡
+		// ä¼ é€å¸¦æ˜¯å¦å¡ä½
 		bool nxtStuck;
-		// ÏÂÒ»¸ö´«ËÍ´øÊÇ·ñ¿¨×¡
+		// ä¸‹ä¸€ä¸ªä¼ é€å¸¦æ˜¯å¦å¡ä½
 
 		int idBef[4];
-		// idBef ÄÚ×î¶à´æÈı¸ö±àºÅ£¬Ö¸´úÔÚÒ»´Î¸üĞÂÖĞ»á´«¸ø¸Ã´«ËÍ´øµÄ´«ËÍ´ø
-		// idBef[0] ÃèÊö³¤¶È
+		// idBef å†…æœ€å¤šå­˜ä¸‰ä¸ªç¼–å·ï¼ŒæŒ‡ä»£åœ¨ä¸€æ¬¡æ›´æ–°ä¸­ä¼šä¼ ç»™è¯¥ä¼ é€å¸¦çš„ä¼ é€å¸¦
+		// idBef[0] æè¿°é•¿åº¦
 		Belt(int direction, int x, int y);
 		/*
 			Build an empty belt at (x,y), with dir = direction
@@ -70,8 +70,8 @@ class Cutter {
 	*/
 	public:
 		Item OutputMain,OutputSub;
-		// Ç°Õß¶ÔÓ¦ÎªÔÚµØÍ¼¡°Ö÷·½¿é¡±ÉÏÃæµÄÊä³ö£¬ºóÕßÊÇ¡°¸±·½¿é¡±ÉÏÃæµÄÊä³ö
-		// ¡°Ö÷·½¿é¡±£¬¡°¸±·½¿é¡±µÄ¶¨ÒåÏê¼ûgameCollection.cppµÄbuildAtº¯Êı
+		// å‰è€…å¯¹åº”ä¸ºåœ¨åœ°å›¾â€œä¸»æ–¹å—â€ä¸Šé¢çš„è¾“å‡ºï¼Œåè€…æ˜¯â€œå‰¯æ–¹å—â€ä¸Šé¢çš„è¾“å‡º
+		// â€œä¸»æ–¹å—â€ï¼Œâ€œå‰¯æ–¹å—â€çš„å®šä¹‰è¯¦è§gameCollection.cppçš„buildAtå‡½æ•°
 
 		Item OutputMainPre, OutputSubPre;
 		//For Animation
@@ -84,7 +84,7 @@ class Cutter {
 		// same as that in Belt
 		int pos[2];
 		bool isEmptyMain,isEmptySub;
-		//ÕâÁ½¸ö·Ö±ğÒâÎ¶×ÅOutputMainÓëOutputSubÎª¿ÕµÄ
+		//è¿™ä¸¤ä¸ªåˆ†åˆ«æ„å‘³ç€OutputMainä¸OutputSubä¸ºç©ºçš„
 
 		int getSubx();
 		int getSuby();
@@ -92,7 +92,7 @@ class Cutter {
 			Method:getSubx/getSuby
 			Usage int xx = cutter.getSubx(),yy = cutter.getSuby();
 			---------------------------------------------------
-			µÃµ½cutterµÄ¸±ÖĞĞÄ£¨¼´ÁíÒ»¸öÊä³ö¿Ú£©µÄ×ø±ê
+			å¾—åˆ°cutterçš„å‰¯ä¸­å¿ƒï¼ˆå³å¦ä¸€ä¸ªè¾“å‡ºå£ï¼‰çš„åæ ‡
 			by Kan bo yi
 		*/
 
@@ -216,12 +216,31 @@ class Rotator {
 	/*
 		A Rotator rotate the item by 90 degrees clockwise
 	*/
-	Item item;
-	// The item to be rotated
+public:
+	Item Output;
 	int pos[2];
 	int dir;
-};
+	bool OutisEmpty;
 
+	Item OutputPre;
+	//For Animation
+	bool isOperated;
+	//To stop the building for 1 step, mainly for animation
+	bool isMoved;
+	//For Animation
+
+	Rotator(int x, int y, int direction);
+
+	Rotator();
+
+	int getSubx();
+	int getSuby();
+
+	bool output(Belt& output);
+	bool input(Belt& input);
+	// The item to be rotated
+
+};
 class Miner {
 	/*
 		A Miner produce certain kind of item
@@ -230,7 +249,7 @@ public:
 	int pos[2];
 	int	dir;
 	int produceStatus;
-	//ÒòÎªminer²»ÊÇÃ¿Ò»¿Ì¶¼ÔÚÉú²úÎïÆ·
+	//å› ä¸ºminerä¸æ˜¯æ¯ä¸€åˆ»éƒ½åœ¨ç”Ÿäº§ç‰©å“
 
 	bool isMoved;
 	//For Animation
@@ -247,7 +266,7 @@ public:
 		Method: setProduct
 		Usage: miner.setProduct(product);
 		------------------------------
-		ÉèÖÃ¿ª²ÉÆ÷Ã¿MINERTICKCOSTÉú²ú³öÀ´µÄÊÇÊ²Ã´ÎïÆ·
+		è®¾ç½®å¼€é‡‡å™¨æ¯MINERTICKCOSTç”Ÿäº§å‡ºæ¥çš„æ˜¯ä»€ä¹ˆç‰©å“
 		by Kan bo yi
 	*/
 
@@ -256,11 +275,11 @@ public:
 		Method: outPut
 		Usage: miner.outPut(belt)
 		------------------------------
-		Ïò´«µİµÄ´«ËÍ´øÖĞÊä³ö²úÎï£¬Èç¹û´«ËÍ´ø´ËÊ±ÎªÂú»òÕß¿ª²ÉÆ÷µÄÉú²úCD»¹Ã»¹ı£¬ÄÇÃ´·µ»Øfalse
-		Êä³ö³É¹ûÔò·µ»Øtrue
+		å‘ä¼ é€’çš„ä¼ é€å¸¦ä¸­è¾“å‡ºäº§ç‰©ï¼Œå¦‚æœä¼ é€å¸¦æ­¤æ—¶ä¸ºæ»¡æˆ–è€…å¼€é‡‡å™¨çš„ç”Ÿäº§CDè¿˜æ²¡è¿‡ï¼Œé‚£ä¹ˆè¿”å›false
+		è¾“å‡ºæˆæœåˆ™è¿”å›true
 
-		Èç¹û·µ»Øfalse produceStatus = min(MINERTICKCOST, produceStatus + 1) (ÎªÁË´¦Àí¶ÂÈûËùÒÔ²ÅÕâÑù)
-		Èç¹û·µ»Øtrue produceStatus = 1
+		å¦‚æœè¿”å›false produceStatus = min(MINERTICKCOST, produceStatus + 1) (ä¸ºäº†å¤„ç†å µå¡æ‰€ä»¥æ‰è¿™æ ·)
+		å¦‚æœè¿”å›true produceStatus = 1
 		by Kan bo yi
 	*/
 
@@ -279,7 +298,7 @@ public:
 			Method: input
 			Usage: bool flag = rubbishBin.input(belt);
 			--------------------------------------
-			À¬»øÍ°»áÉ¾³ı´«Èë´«ËÍ´øÉÏÃæµÄÎïÆ·
+			åƒåœ¾æ¡¶ä¼šåˆ é™¤ä¼ å…¥ä¼ é€å¸¦ä¸Šé¢çš„ç‰©å“
 			by kan bo yi
 
 	*/
