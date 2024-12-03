@@ -51,11 +51,11 @@ class World {
 		//Averager averager[2500];
 		//Porter porter[2500];
 		Composer composer[250];
-		//Rotator rotator[2500];
+		Rotator rotator[2500];
 		Miner miner[2500];
 		std::stack<int> deletedBeltId,deletedCompId,deletedCutterId;
 		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0, minerNum = 0,rubbishBinNum = 0;
-		int maxBeltId = 0,maxCutterId = 0, maxComposerId = 0, maxMinerId = 0, maxRubbishBinId = 0;
+		int maxBeltId = 0,maxCutterId = 0, maxComposerId = 0, maxMinerId = 0, maxRubbishBinId = 0ï¼Œ maxRotatorId = 0;
 		int rotatorNum = 0;
 
 		void buildAt(int building, int x, int y, int direction);
@@ -79,9 +79,9 @@ class World {
 		Method: deleteAppendix
 		Usage: world.deleteAppendix(COMPOSERID,10);
 		--------------------------
-		ÔÚ½¨ÔìÇĞ¸îÆ÷/ºÏ³ÉÆ÷µÄÊ±ºò»á¸½´ø½¨ÔìÁ½¸ö´«ËÍ´ø£¬ÏÖÔÚÔÚÉ¾³ıµÄÊ±ºòÒ²Ó¦µ±Ò»²¢É¾È¥
+		åœ¨å»ºé€ åˆ‡å‰²å™¨/åˆæˆå™¨çš„æ—¶å€™ä¼šé™„å¸¦å»ºé€ ä¸¤ä¸ªä¼ é€å¸¦ï¼Œç°åœ¨åœ¨åˆ é™¤çš„æ—¶å€™ä¹Ÿåº”å½“ä¸€å¹¶åˆ å»
 		by kan bo yi
-		É¾³ıÏàÓ¦µÄ´«ËÍ´øÒ²¿ÉÒÔÉ¾È¥ÇĞ¸îÆ÷/ºÏ³ÉÆ÷
+		åˆ é™¤ç›¸åº”çš„ä¼ é€å¸¦ä¹Ÿå¯ä»¥åˆ å»åˆ‡å‰²å™¨/åˆæˆå™¨
 		When using it, first destroy Appendix, and then destroy building itself
 		by Yilin Yao
 		*/
@@ -113,8 +113,8 @@ private:
 		Method: refreshBeltAt
 		Usage: world.refreshBeltAt(1,0,LEFT,4);
 		--------------------------
-		ÔÚmappºÍbeltÖĞÌí¼ÓÍê´«ËÍ´øÖ®ºó£¬»¹ĞèÒªË¢ĞÂ´«ËÍ´øµÄidNxt±äÁ¿ÒÔ±ãÓÚ¸üĞÂ.
-		Ä¬ÈÏĞÂÌí¼ÓµÄ´«ËÍ´ø¾ÍÊÇbelt[maxBeltId]
+		åœ¨mappå’Œbeltä¸­æ·»åŠ å®Œä¼ é€å¸¦ä¹‹åï¼Œè¿˜éœ€è¦åˆ·æ–°ä¼ é€å¸¦çš„idNxtå˜é‡ä»¥ä¾¿äºæ›´æ–°.
+		é»˜è®¤æ–°æ·»åŠ çš„ä¼ é€å¸¦å°±æ˜¯belt[maxBeltId]
 
 		by kan bo yi
 		*/
@@ -124,8 +124,8 @@ private:
 		Method: deleteInArray
 		Usage: world.deleteInArray(BELTID,10);
 		--------------------------
-		ÔÚbelt[],composer[],rubbishBin[],cutter[]µÈÖĞÉ¾³ıÄ¿±ê½¨Öş
-		²¢ÇÒ»á°Ñ¸Ã½¨ÖşId¼ÓÈë»ØÊÕÕ»ÖĞ¡£ÔÚÏÂ´Î½¨ÔìÊ±»áÓÅÏÈÊ¹ÓÃ»ØÊÕÕ»ÖĞµÄ½¨ÖşId
+		åœ¨belt[],composer[],rubbishBin[],cutter[]ç­‰ä¸­åˆ é™¤ç›®æ ‡å»ºç­‘
+		å¹¶ä¸”ä¼šæŠŠè¯¥å»ºç­‘IdåŠ å…¥å›æ”¶æ ˆä¸­ã€‚åœ¨ä¸‹æ¬¡å»ºé€ æ—¶ä¼šä¼˜å…ˆä½¿ç”¨å›æ”¶æ ˆä¸­çš„å»ºç­‘Id
 
 		by kan bo yi
 	*/
@@ -135,7 +135,7 @@ private:
 		Method: deleteInMapp
 		Usage: world.deleteInMapp(BELTID,10);
 		--------------------------
-		ÔÚmappÖĞ°Ñ¸Ã½¨ÖşÕ¼¾İµÄËùÓĞµØ·½È«²¿ÖØĞÂÉèÖÃÎªµØÃæ
+		åœ¨mappä¸­æŠŠè¯¥å»ºç­‘å æ®çš„æ‰€æœ‰åœ°æ–¹å…¨éƒ¨é‡æ–°è®¾ç½®ä¸ºåœ°é¢
 
 		by kan bo yi
 	*/
@@ -144,7 +144,7 @@ private:
 		Method: deleteBeltLink
 		Usage: world.deleteBeltLink(10);
 		--------------------------
-		ÈÃ¸Ã´«ËÍ´øÖÜÎ§µÄ´«ËÍ´øÓëÆäÈ«²¿ÍÑ¹³
+		è®©è¯¥ä¼ é€å¸¦å‘¨å›´çš„ä¼ é€å¸¦ä¸å…¶å…¨éƒ¨è„±é’©
 
 		by kan bo yi
 	*/
@@ -153,8 +153,8 @@ private:
 		Method: clearGround
 		Usage: world.clearGround(BELTID,10,10,UP);
 		--------------------------
-		ÔÚÄã½¨ÔìIdÎªbuildingµÄidÖ®Ç°Çå¿ÕÓëÖ®Î»ÖÃ³åÍ»µÄ½¨Öş
-		Ä¿Ç°½ö½öÖ§³Ö´«ËÍ´ø
+		åœ¨ä½ å»ºé€ Idä¸ºbuildingçš„idä¹‹å‰æ¸…ç©ºä¸ä¹‹ä½ç½®å†²çªçš„å»ºç­‘
+		ç›®å‰ä»…ä»…æ”¯æŒä¼ é€å¸¦
 		by kan bo yi
 	*/
 	//void deleteAppendix(int building, int id);
