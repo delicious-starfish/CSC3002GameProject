@@ -13,6 +13,19 @@ World::World() {
 		for (int j = 0; j < MAPLENGTH; j++)
 			mapp[i][j] = Node(GROUNDID, 0, false);
 	for (int i = 0; i < 2500; i++) belt[i] = Belt();
+	deletedRotatorId = new stack <int>;
+	rotator = new Rotator[2500];
+	//belt = new Belt[2500];
+	//cutter = new Cutter[2500];
+	//rubbishBin = new RubbishBin[2500];
+	//composer = new Composer[2500];
+	//miner = new Miner[2500];
+	for (int i = 0; i < 2500; i++) belt[i] = Belt();
+	for (int i = 0; i < 2500; i++) cutter[i] = Cutter();
+	for (int i = 0; i < 2500; i++) rubbishBin[i] = RubbishBin();
+	for (int i = 0; i < 2500; i++) composer[i] = Composer();
+	for (int i = 0; i < 2500; i++) miner[i] = Miner();
+	for (int i = 0; i < 2500; i++) rotator[i] = Rotator();
 }
 
 
@@ -37,7 +50,19 @@ void World::buildAt(int building, int x, int y, int direction) {
 
 			break;
 
-
+		case ROTATORID:
+			if (deletedRotatorId->empty()) {
+				newId = maxRotatorId;
+				maxRotatorId++;
+			}
+			else {
+				newId = deletedRotatorId->top();
+				deletedRotatorId->pop();
+			}
+			rotatorNum++;
+			rotator[newId] = Rotator(x, y, direction);
+			mapp[x][y] = Node(ROTATORID, newId, true);
+			break;
 
 		case CUTTERID:
 			if (deletedCutterId.empty()) {
@@ -234,6 +259,16 @@ void World::deleteInArray(int building, int id) {
 		}
 		deletedBeltId.push(id);
 		break;
+	case ROTATORID:
+		rotator[id].dir = 0;
+		rotator[id].Output = Item();
+		rotatorNum--;
+		if (id == maxRotatorId) {
+			maxRotatorId--;
+			break;
+		}
+		deletedRotatorId->push(id);
+		break;
 	case COMPOSERID:
 		composer[id].dir = 0;
 		composer[id].Output = Item();
@@ -268,6 +303,10 @@ void World::deleteInArray(int building, int id) {
 void World::deleteInMapp(int buildingType, int id) {
 	if (buildingType == BELTID) {
 		int xx = belt[id].pos[0], yy = belt[id].pos[1];
+		mapp[xx][yy] = Node();
+	}
+	if (buildingType == ROTATORID) {
+		int xx = rotator[id].pos[0], yy = rotator[id].pos[1];
 		mapp[xx][yy] = Node();
 	}
 	if (buildingType == COMPOSERID) {
@@ -317,7 +356,7 @@ void World::deleteInMapp(int buildingType, int id) {
 
 void World::clearGround(int building, int x, int y, int direction) {
 	destroyAppendix(x, y);
-	if (building == BELTID) {
+	if (building == BELTID || building == ROTATORID) {
 		if (mapp[x][y].type != GROUNDID) destoryAt(x, y);
 	}
 	if (building == CUTTERID || building == COMPOSERID) {
@@ -482,6 +521,7 @@ void Game::loadTestMap() {
 	world->buildAt(RUBBISHBINID, 13, 19, 0);
 	for (int i = 9; i < 13; i++) world->buildAt(BELTID, i, 16, UP);
 	world->buildAt(RUBBISHBINID, 8, 16, 0);
+	world->buildAt(ROTATORID, 14, 14, DOWN);
 }
 
 

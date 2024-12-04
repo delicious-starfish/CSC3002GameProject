@@ -341,7 +341,7 @@ void IntImg::putBuildings(World * world){
             switch (world->mapp[i][j].type)
             {
             case(ROTATORID):
-                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &rota, 1, screenScale); break;
+                putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &rota, world->rotator[world->mapp[i][j].id].dir, screenScale); break;
             case(CUTTERID):
                 if (world->mapp[i][j].isMain == true) {
                     putImg((j * 64 - 64) * screenScale + cameraPositionX, (i * 64 - 64) * screenScale + cameraPositionY, &cutt, world->cutter[world->mapp[i][j].id].dir, screenScale);
@@ -366,6 +366,7 @@ void IntImg::putBuildings(World * world){
             case(RUBBISHBINID):
                 putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &bin, UP, screenScale); break;
             }
+            
             
         }
     }

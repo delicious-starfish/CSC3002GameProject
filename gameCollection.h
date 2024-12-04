@@ -50,10 +50,11 @@ class World {
 		RubbishBin rubbishBin[2500];
 		//Averager averager[2500];
 		//Porter porter[2500];
-		Composer composer[250];
-		Rotator rotator[2500];
+		Composer composer[2500];
+		Rotator * rotator;
 		Miner miner[2500];
 		std::stack<int> deletedBeltId,deletedCompId,deletedCutterId;
+		std::stack<int> * deletedRotatorId;
 		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0, minerNum = 0,rubbishBinNum = 0;
 		int maxBeltId = 0,maxCutterId = 0, maxComposerId = 0, maxMinerId = 0, maxRubbishBinId = 0,maxRotatorId = 0;
 		int rotatorNum = 0;
