@@ -143,25 +143,16 @@ void buildingInput(World * world) {
 
 		if (inputBeltIdMain != -1 && inputBeltIdSub != -1) composer->input(world->belt[inputBeltIdMain], world->belt[inputBeltIdSub]);
 	}
-	return;
 
 		//Rotator
 	for (int i = 0; i < world->maxRotatorId; i++) {
 		if (world->rotator[i].dir == 0) continue;
 		// It means that the rotator hasn't been built or has just been removed
 
-		Rotator* rotator = &world->rotator[i];
+		Rotator * rotator = &world->rotator[i];
 		int x = rotator->pos[0], y = rotator->pos[1];
 		int xx = x + dir[rotator->dir - 1][0], yy = y + dir[rotator->dir - 1][1];
 		int inputBeltId = -1;
-		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
-		if (world->mapp[xx][yy].type == BELTID && world->belt[world->mapp[xx][yy].id].dir == rotator->dir) {
-			if (world->belt[world->mapp[xx][yy].id].isEmpty != true) {
-				inputBeltId = world->mapp[xx][yy].id;
-			}
-		}
-
-		xx = rotator->getSubx() + dir[rotator->dir - 1][0]; yy = rotator->getSuby() + dir[rotator->dir - 1][1];
 		if (xx < 0 || xx >= MAPLENGTH || yy < 0 || yy >= MAPLENGTH) continue;
 		if (world->mapp[xx][yy].type == BELTID && world->belt[world->mapp[xx][yy].id].dir == rotator->dir) {
 			if (world->belt[world->mapp[xx][yy].id].isEmpty != true) {

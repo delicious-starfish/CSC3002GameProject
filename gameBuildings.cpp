@@ -320,6 +320,7 @@ Rotator::Rotator() {
 }
 
 bool Rotator::output(Belt& output) {
+
 	isMoved = true;
 	if (OutisEmpty || !output.isEmpty) return false;
 
@@ -363,14 +364,20 @@ bool Rotator::input(Belt& input) {
 	if (!(OutisEmpty)) return false;
 	Item item = input.itemNow;
 	input.isEmpty = true;
-	input.itemNow = Item();
+	
 	isOperated = true;
 	Item itemout = Item();
 	itemout.shapeId[0][0][0] = item.shapeId[0][0][1]; itemout.shapeId[0][0][0] = item.shapeId[0][0][1];
 	itemout.shapeId[0][1][0] = item.shapeId[0][0][0]; itemout.shapeId[0][1][0] = item.shapeId[0][0][0];
 	itemout.shapeId[0][1][1] = item.shapeId[0][1][0]; itemout.shapeId[0][1][1] = item.shapeId[0][1][0];
 	itemout.shapeId[0][0][1] = item.shapeId[0][1][1]; itemout.shapeId[0][0][1] = item.shapeId[0][1][1];
+
+	itemout.colorId[0][0][0] = item.colorId[0][0][1]; itemout.colorId[0][0][0] = item.colorId[0][0][1];
+	itemout.colorId[0][1][0] = item.colorId[0][0][0]; itemout.colorId[0][1][0] = item.colorId[0][0][0];
+	itemout.colorId[0][1][1] = item.colorId[0][1][0]; itemout.colorId[0][1][1] = item.colorId[0][1][0];
+	itemout.colorId[0][0][1] = item.colorId[0][1][1]; itemout.colorId[0][0][1] = item.colorId[0][1][1];
 	Output = itemout;
 	OutisEmpty = false;
+	input.itemNow = Item();
 	return true;
 }
