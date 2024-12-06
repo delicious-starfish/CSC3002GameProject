@@ -14,11 +14,12 @@
 #define RENDER_FPS 32
 
 int currentTime;
-int currentRenderTime;
+int startTime;
 int screenSizeX;
 int screenSizeY;
 double screenScale;
 double previousScreenScale;
+int pScale;
 int cameraPositionX;
 int cameraPositionY;
 int mousePositionX;
@@ -31,6 +32,9 @@ int scrollCase;
 int tickRender;
 bool isBuildingOperated;
 int totalScore;
+bool isPause;
+bool preSpeedup;
+bool isSpeedup;
 
 
 
@@ -82,10 +86,11 @@ int main() {
     screenScale = 1;
     //set screen scale (Better within 0.25~1.00)
     previousScreenScale = 1;
+    pScale = 0;
     
     initgraph(screenSizeX, screenSizeY);
     
-    setbkcolor(0Xcfd9eb);
+    setbkcolor(0X608096);
     BeginBatchDraw();
 
     loadImgRes();
@@ -112,36 +117,55 @@ int main() {
     ExMessage mouseMessage;
     //initialize the mouse
 
+    isPause = false;
+    preSpeedup = false;
+    isSpeedup = false;
     int nextLogic = getTime(), nextRender = getTime();
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
-    int currentTime;
     tickRender = 0;
-    isBuildingOperated = true;
+
+    totalScore = 114514;
+    startTime = getTime();
+    settextcolor(0Xdbeef5);
 
 
     while (true) {
-       currentTime = getTime();
+        currentTime = getTime();
+        cameraPositionX = (cameraPositionX < 21* screenScale) ? cameraPositionX : 21* screenScale;
+        cameraPositionX = (cameraPositionX > (-MAPLENGTH*64.0-21)*screenScale+screenSizeX) ? cameraPositionX : (-MAPLENGTH*64.0-21) * screenScale + screenSizeX;
+        cameraPositionY = (cameraPositionY < 21* screenScale) ? cameraPositionY : 21* screenScale;
+        cameraPositionY = (cameraPositionY > (-MAPLENGTH * 64.0) * screenScale + screenSizeY- 144) ? cameraPositionY : (-MAPLENGTH * 64.0) * screenScale + screenSizeY - 144;
 
-
-       //Logic operation
+        // the game is not under pause state
+           //Logic operation
         if (currentTime >= nextLogic) {
-            tickRender = 0;
-            isBuildingOperated ^= 1;
-            logicTick(game->world);
+            if (!isPause) {
+                tickRender = 0;
+                if (preSpeedup) { isSpeedup = true; logicInterval = 500 / LOGIC_FPS; }
+                else { isSpeedup = false; logicInterval = 1000 / LOGIC_FPS; }
+                isBuildingOperated ^= 1;
+                logicTick(game->world);
+            }
             nextLogic += logicInterval;
 
         }
+
         // Render
         if (currentTime >= nextRender) {
-            tickRender += 4;
+            if (!isPause) {
+                if(!isSpeedup)
+                    tickRender += 4;
+                else 
+                    tickRender += 8;
+            }
+
             intimg1->renderTick(game->world);
             nextRender += renderInterval;
+
         }
-    //    // Mouse Monitor
+        //    // Mouse Monitor
         gameButton->operateTick(game->world, mouseMessage);
         FlushBatchDraw();
-        //Sleep(0.05);
-
     }
     delete game;
     return 0;

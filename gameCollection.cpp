@@ -62,6 +62,20 @@ void World::buildAt(int building, int x, int y, int direction) {
 			rotatorNum++;
 			rotator[newId] = Rotator(x, y, direction);
 			mapp[x][y] = Node(ROTATORID, newId, true);
+			switch (direction) {
+			case UP:
+				buildAt(BELTID, x - 1, y, direction);
+				break;
+			case DOWN:
+				buildAt(BELTID, x + 1, y, direction);
+				break;
+			case LEFT:
+				buildAt(BELTID, x, y - 1, direction);
+				break;
+			case RIGHT:
+				buildAt(BELTID, x, y + 1, direction);
+				break;
+			}
 			break;
 
 		case CUTTERID:
@@ -186,6 +200,25 @@ void World::destroyAppendix(int x, int y)
 		switch (mapp[x][y].type) {
 		case CUTTERID:if (cutter[mapp[x][y].id].dir == delDir) { destroyAppendix(x, y); destoryAt(x, y); break; }
 		case COMPOSERID:if (composer[mapp[x][y].id].dir == delDir) { destroyAppendix(x, y); destoryAt(x, y); break; }
+		case ROTATORID:if (rotator[mapp[x][y].id].dir == delDir) { destroyAppendix(x, y); destoryAt(x, y); break; }
+		}
+	}
+	if (mapp[x][y].type == ROTATORID) {
+		int direction = rotator[Id].dir;
+		int x = rotator[Id].pos[0], y = rotator[Id].pos[1];
+		switch (direction) {
+		case UP:
+			destoryAt(x - 1, y);
+			break;
+		case DOWN:
+			destoryAt(x + 1, y);
+			break;
+		case LEFT:
+			destoryAt(x, y - 1);
+			break;
+		case RIGHT:
+			destoryAt(x, y + 1);
+			break;
 		}
 	}
 	if (mapp[x][y].type == COMPOSERID) {
@@ -262,6 +295,7 @@ void World::deleteInArray(int building, int id) {
 	case ROTATORID:
 		rotator[id].dir = 0;
 		rotator[id].Output = Item();
+		rotator[id].OutputPre = Item();
 		rotatorNum--;
 		if (id == maxRotatorId) {
 			maxRotatorId--;
@@ -511,8 +545,10 @@ Game::Game() {
 
 void Game::loadTestMap() {
 	world->buildAt(MINERID, 12, 0, RIGHT);
-	for (int i = 1; i < 12; i++) world->buildAt(BELTID, 12, i, RIGHT);
+	for (int i = 1; i < 6; i++) world->buildAt(BELTID, 12, i, RIGHT);
+	for (int i = 8; i < 12; i++) world->buildAt(BELTID, 12, i, RIGHT);
 	world->buildAt(CUTTERID, 12, 12, RIGHT);
+	world->buildAt(ROTATORID, 12, 6, RIGHT);
 	//for (int i = 13; i < 14; i++) world.buildAt(BELTID, 12, i, RIGHT);
 	world->buildAt(COMPOSERID, 12, 14, RIGHT);
 	//world.buildAt(BELTID, 12, 15, RIGHT);
@@ -521,7 +557,6 @@ void Game::loadTestMap() {
 	world->buildAt(RUBBISHBINID, 13, 19, 0);
 	for (int i = 9; i < 13; i++) world->buildAt(BELTID, i, 16, UP);
 	world->buildAt(RUBBISHBINID, 8, 16, 0);
-	world->buildAt(ROTATORID, 14, 14, DOWN);
 }
 
 

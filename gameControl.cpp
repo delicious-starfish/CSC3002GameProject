@@ -34,6 +34,8 @@ void GameButton::operateTick(World * world,ExMessage& msg)
     else if (BTcomp.isHover()) { hoverCase = UICOMPOSER; }
     else if (BTcolr.isHover()) { hoverCase = UICOLORER; }
     else if (BTdelete.isHover()) { hoverCase = UIDELETER; }
+    else if (BTpause.isHover()) { hoverCase = PAUSE; } //pause
+    else if (BTspeed.isHover()) { hoverCase = SPEEDUP; } //2X
     else { hoverCase = NORMALCASE; }
     //Check where is the mouse hovering currently
     int scrscl64 = screenScale * 64;
@@ -54,6 +56,14 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             break;
         case WM_LBUTTONDOWN:
             controlPositionX = msg.x - cameraPositionX; controlPositionY = msg.y - cameraPositionY;
+            switch (hoverCase) {
+            case PAUSE: //pause
+                isPause ^= 1;
+                break;
+            case SPEEDUP: //2X
+                preSpeedup ^= 1;
+                break;
+            }
             break;
         case WM_RBUTTONDOWN:
             switch (hoverCase) {
@@ -63,6 +73,12 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             case UICOMPOSER:
             case UIBELT: mouseCase = hoverCase; break;
             case UIDELETER: mouseCase = hoverCase; break;
+            case PAUSE: //pause
+                isPause ^= 1;
+                break;
+            case SPEEDUP: //2X
+                preSpeedup ^= 1;
+                break;
             }
             //Check where it hovers, and assign mouseCase when clicking right button
             if (canBuild)
@@ -82,8 +98,8 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             break;
         case WM_MOUSEWHEEL:
             if (mouseCase == NORMALCASE) {
-                if (msg.wheel > 0 && screenScale < 1)screenScale += 0.0625;
-                else if (msg.wheel < 0 && screenScale>0.375)screenScale -= 0.0625;
+                if (msg.wheel > 0 && screenScale < 1) { screenScale += 0.0625; pScale--; }
+                else if (msg.wheel < 0 && screenScale>0.375) { screenScale -= 0.0625; pScale++; }
             //Reset camera position to Realize mouse-centered scaling
             cameraPositionX = mousePositionX - (mousePositionX - cameraPositionX) * screenScale / previousScreenScale;
             cameraPositionY = mousePositionY - (mousePositionY - cameraPositionY) * screenScale / previousScreenScale;
