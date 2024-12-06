@@ -10,11 +10,11 @@
 #define _gameControl_h_
 
 extern int currentTime;
-extern int currentRenderTime;
 extern int screenSizeX;
 extern int screenSizeY;
 extern double screenScale;
 extern double previousScreenScale;
+extern int pScale;
 extern int cameraPositionX;
 extern int cameraPositionY;
 extern int mousePositionX;
@@ -25,6 +25,9 @@ extern int mouseCase;
 extern int hoverCase;
 extern int scrollCase;
 extern int totalScore;
+extern bool isPause;
+extern bool preSpeedup;
+extern bool isSpeedup;
 
 class Button {
 public:
@@ -48,6 +51,8 @@ public:
 	Button BTcomp = Button(334, 431, 443, 540);
 	Button BTcolr = Button(431, 528, 443, 540);
 	Button BTdelete = Button(528, 625, 443, 540);
+	Button BTpause = Button(843, 914, 20, 80);
+	Button BTspeed = Button(772, 843, 20, 80);
 	//后面还会加按钮
     void operateTick(World * world,ExMessage& msg);
 	//Left click and drag to move the screen
