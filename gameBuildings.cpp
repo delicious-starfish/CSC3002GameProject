@@ -211,7 +211,7 @@ int Composer::getSuby() {
 }
 
 bool Composer::input(Belt& leftinput, Belt& rightinput) {
-	if (leftinput.isEmpty || rightinput.isEmpty) return false;
+	if (leftinput.isEmpty && rightinput.isEmpty) return false;
 	if (!(OutisEmpty)) return false;
 	Item leftitem = leftinput.itemNow;
 	Item rightitem = rightinput.itemNow;
