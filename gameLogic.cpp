@@ -166,6 +166,50 @@ void buildingInput(World * world) {
 
 		if (inputBeltId != -1) rotator->input(world->belt[inputBeltId]);
 	}
+
+	// FOR ACCEPTOR, by Xin Cao, 1207
+	for (int i = 0; i < world->maxAcceptorId; i++) {
+		if (world->acceptor[i].pos[0] == -1) continue;
+		Acceptor* acc = &world->acceptor[i];
+		int cx = acc->pos[0] + 1;
+		int cy = acc->pos[1] + 1;
+
+		// Wrote four directions, two blocks away:
+
+		// Up direction source: (cx-2, cy), belt must be DOWN(2)
+		if (cx - 2 >= 0 && world->mapp[cx - 2][cy].type == BELTID) {
+			int bId = world->mapp[cx - 2][cy].id;
+			if (!world->belt[bId].isEmpty && world->belt[bId].dir == DOWN) {
+				acc->input(world->belt[bId]);
+			}
+		}
+
+		// Down direction source: (cx+2, cy), belt must be UP(1)
+		if (cx + 2 < MAPLENGTH && world->mapp[cx + 2][cy].type == BELTID) {
+			int bId = world->mapp[cx + 2][cy].id;
+			if (!world->belt[bId].isEmpty && world->belt[bId].dir == UP) {
+				acc->input(world->belt[bId]);
+			}
+		}
+
+		// Left direction source: (cx, cy-2), belt must be RIGHT(4)
+		if (cy - 2 >= 0 && world->mapp[cx][cy - 2].type == BELTID) {
+			int bId = world->mapp[cx][cy - 2].id;
+			if (!world->belt[bId].isEmpty && world->belt[bId].dir == RIGHT) {
+				acc->input(world->belt[bId]);
+			}
+		}
+
+		// Right direction source: (cx, cy+2), belt must be LEFT(3)
+		if (cy + 2 < MAPLENGTH && world->mapp[cx][cy + 2].type == BELTID) {
+			int bId = world->mapp[cx][cy + 2].id;
+			if (!world->belt[bId].isEmpty && world->belt[bId].dir == LEFT) {
+				acc->input(world->belt[bId]);
+			}
+		}
+	}
+	// Over
+
 	return;
 }
 

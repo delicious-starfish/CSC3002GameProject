@@ -26,6 +26,7 @@ World::World() {
 	for (int i = 0; i < 2500; i++) composer[i] = Composer();
 	for (int i = 0; i < 2500; i++) miner[i] = Miner();
 	for (int i = 0; i < 2500; i++) rotator[i] = Rotator();
+	for (int i = 0; i < 2500; i++) acceptor[i] = Acceptor();
 }
 
 
@@ -169,6 +170,33 @@ void World::buildAt(int building, int x, int y, int direction) {
 			maxRubbishBinId++;
 			
 			break;
+
+		// ADDING THE ACCEPTOR BUIDING STEPS, 1207 by Xin Cao
+		case ACCEPTORID:
+			clearGround(ACCEPTORID, x, y, direction);
+			int newId;
+			if (deletedAcceptorId.empty()) {
+				newId = maxAcceptorId;
+				maxAcceptorId++;
+			}
+			else {
+				newId = deletedAcceptorId.top();
+				deletedAcceptorId.pop();
+			}
+			acceptorNum++;
+			acceptor[newId] = Acceptor(x, y);
+
+			// Fill 3x3 area in the map:
+			// The main block is at (x+1, y+1)
+			for (int dx = 0; dx < 3; dx++) {
+				for (int dy = 0; dy < 3; dy++) {
+					bool mainBlock = (dx == 1 && dy == 1);
+					mapp[x + dx][y + dy] = Node(ACCEPTORID, newId, mainBlock);
+				}
+			}
+			break;
+		// Over
+
 	}
 }
 
@@ -330,6 +358,20 @@ void World::deleteInArray(int building, int id) {
 		}
 		deletedCutterId.push(id);
 		break;
+
+	// FOR ACCEPTOR, by Xin Cao on 1207
+	case ACCEPTORID:
+		acceptor[id].isEmpty = true;
+		acceptor[id].storedItem = Item();
+		acceptorNum--;
+		if (id == maxAcceptorId - 1) {
+			maxAcceptorId--;
+		}
+		else {
+			deletedAcceptorId.push(id);
+		}
+		break;
+	// Over
 	}
 
 }
@@ -384,6 +426,16 @@ void World::deleteInMapp(int buildingType, int id) {
 			break;
 		}
 	}
+	// FOR ACCEPTOR, by Xin Cao on 1207
+	if (buildingType == ACCEPTORID) {
+		int xx = acceptor[id].pos[0], yy = acceptor[id].pos[1];
+		for (int dx = 0; dx < 3; dx++) {
+			for (int dy = 0; dy < 3; dy++) {
+				mapp[xx + dx][yy + dy] = Node();
+			}
+		}
+	}
+	// Over
 }
 
 //void World::deleteAppendix(int building, int id) 
@@ -557,6 +609,17 @@ void Game::loadTestMap() {
 	world->buildAt(RUBBISHBINID, 13, 19, 0);
 	for (int i = 9; i < 13; i++) world->buildAt(BELTID, i, 16, UP);
 	world->buildAt(RUBBISHBINID, 8, 16, 0);
+
+	// TEST THE ACCEPTOR
+	// Build some belts
+	for (int i = 3; i < 7; i++)
+		world->buildAt(BELTID, 8, i, RIGHT);
+
+	for (int i = 9; i < 12; i++)
+		world->buildAt(BELTID, i, 3, UP);
+	// Add another belt with dir=UP manually
+
+	world->buildAt(ACCEPTORID, 7, 7, 0);
 }
 
 

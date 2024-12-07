@@ -24,7 +24,7 @@
 
 #define RUBBISHBINID 8
 
-
+#define ACCEPTORID 9
 
 
 //ID for item
@@ -79,6 +79,8 @@
 #define BUILDROTATE 7
 #define BUILDINVERSE 8
 #define BUILDDRAG 9
+
+//UI ID
 #define UIGROUND 100
 #define UIBELT 101
 #define UIROTATOR 106
@@ -86,6 +88,7 @@
 #define UICOMPOSER 105
 #define UICOLORER 111
 #define UIDELETER 666
+#define UIACCEPTOR 777
 
 #define BUFFERSIZE 2048
 

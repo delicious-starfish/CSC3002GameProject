@@ -380,3 +380,32 @@ bool Rotator::input(Belt& input) {
 	input.itemNow = Item();
 	return true;
 }
+
+// IMPLEMENT THE ACCEPTOR CLASS ...
+Acceptor::Acceptor() {
+	pos[0] = -1;
+	pos[1] = -1;
+	isEmpty = true;
+	storedItem = Item();
+}
+
+Acceptor::Acceptor(int x, int y) {
+	pos[0] = x;
+	pos[1] = y;
+	isEmpty = true;
+	storedItem = Item();
+}
+
+bool Acceptor::input(Belt& input) {
+	// Can only accept if the belt has an item and acceptor is ready (which it always is)
+	if (input.isEmpty) return false;
+	// Store the item
+	storedItem = input.itemNow;
+	isEmpty = false;
+	// Clear the belt
+	input.itemNow = Item();
+	input.isEmpty = true;
+	return true;
+}
+
+// Over

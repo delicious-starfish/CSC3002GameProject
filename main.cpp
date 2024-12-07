@@ -102,7 +102,9 @@ int main() {
     testItem.shapeId[0][1][0] = QUARTERWINDMILL;
     testItem.shapeId[0][1][1] = QUARTERCIRCLE;
     game->world->putItemAt(testItem, 0, 12);
-    game->world->putItemAt(testItem, 3, 12);
+
+    //game->world->putItemAt(testItem, 3, 12);
+
     cameraPositionX = 0;
     cameraPositionY = 0;
     //The origin camera point

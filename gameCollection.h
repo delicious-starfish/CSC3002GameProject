@@ -53,6 +53,14 @@ class World {
 		Composer composer[2500];
 		Rotator * rotator;
 		Miner miner[2500];
+
+		// Added on 1207 for Acceptor, by Xin Cao:
+		Acceptor acceptor[2500];
+		std::stack<int> deletedAcceptorId;
+		int acceptorNum = 0;
+		int maxAcceptorId = 0;
+		// Over
+
 		std::stack<int> deletedBeltId,deletedCompId,deletedCutterId;
 		std::stack<int> * deletedRotatorId;
 		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0, minerNum = 0,rubbishBinNum = 0;

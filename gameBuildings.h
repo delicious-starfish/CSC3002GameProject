@@ -303,4 +303,30 @@ public:
 
 	*/
 };
+
+// DECLARE THE ACCEPTOR CLASS ...
+class Acceptor {
+public:
+	int pos[2];
+
+	// pos[0], pos[1] is the top-left corner of the 3x3 area.
+	// The main block (isMain) cell is at (pos[0]+1, pos[1]+1).
+
+	bool isEmpty;
+	// True if no item currently stored. Once it accepts an item, set isEmpty = false.
+
+	Item storedItem;
+	// The last accepted item. After input, we have this item stored here for detection.
+
+	Acceptor();
+	Acceptor(int x, int y);
+
+	bool input(Belt& input);
+	/*
+	  input: tries to take an item from a belt adjacent to its center cell.
+	  If successful, it stores the item and clears the belt, returning true.
+	  Otherwise returns false.
+	*/
+};
+
 #endif 
