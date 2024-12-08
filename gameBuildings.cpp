@@ -128,6 +128,10 @@ bool Cutter::input(Belt & input) {
 	if (!(isEmptyMain && isEmptySub)) return false;
 	if (input.isEmpty) return false;
 	Item item = input.itemNow;
+	bool valid = false;
+	if ((item.shapeId[0][0][0] != 0 || item.shapeId[0][1][0] != 0) && (item.shapeId[0][0][1] != 0 || item.shapeId[0][1][1] != 0)) valid = true;
+	if (!valid) return false;
+
 	input.isEmpty = true;
 	isOperated = true;
 
@@ -214,6 +218,11 @@ bool Composer::input(Belt& leftinput, Belt& rightinput) {
 	if (!(OutisEmpty)) return false;
 	Item leftitem = leftinput.itemNow;
 	Item rightitem = rightinput.itemNow;
+	bool inputAValid = false, inputBValid = false;
+	if ((leftitem.shapeId[0][0][1] == 0 && leftitem.shapeId[0][1][1] == 0) || (leftitem.shapeId[0][0][0] == 0 && leftitem.shapeId[0][1][0] == 0)) inputAValid = true;
+	if ((rightitem.shapeId[0][0][1] == 0 && rightitem.shapeId[0][1][1] == 0) || (rightitem.shapeId[0][0][0] == 0 && rightitem.shapeId[0][1][0] == 0)) inputBValid = true;
+
+	if (!(inputAValid && inputBValid)) return false;
 	leftinput.isEmpty = true;
 	rightinput.isEmpty = true;
 	leftinput.itemNow = Item();
@@ -405,6 +414,7 @@ bool Acceptor::input(Belt& input) {
 	// Clear the belt
 	input.itemNow = Item();
 	input.isEmpty = true;
+	totalScore++;
 	return true;
 }
 

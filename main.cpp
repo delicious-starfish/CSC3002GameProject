@@ -13,6 +13,8 @@
 #define LOGIC_FPS 2
 #define RENDER_FPS 32
 
+#define SCOREREQUEST_TEST 20
+
 int currentTime;
 int startTime;
 int screenSizeX;
@@ -126,7 +128,7 @@ int main() {
     int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
     tickRender = 0;
 
-    totalScore = 114514;
+    totalScore = 0;
     startTime = getTime();
     settextcolor(0Xdbeef5);
 
@@ -167,6 +169,13 @@ int main() {
         }
         //    // Mouse Monitor
         gameButton->operateTick(game->world, mouseMessage);
+
+        if (totalScore >= SCOREREQUEST_TEST) {
+            totalScore = 0;
+            Game* oldGame = game;
+            delete oldGame;
+            game = new Game();
+        }
         FlushBatchDraw();
     }
     delete game;

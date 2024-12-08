@@ -7,6 +7,8 @@
 #ifndef _gameBuildings_h_
 #define _gameBuildings_h_
 
+extern int totalScore;
+
 class Belt {
 	public:
 		Item itemNow,itemPre;

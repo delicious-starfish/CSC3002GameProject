@@ -88,6 +88,28 @@ void World::buildAt(int building, int x, int y, int direction) {
 				newId = deletedCutterId.top();
 				deletedCutterId.pop();
 			}
+			switch (direction) {
+			case UP:
+				buildAt(BELTID, x - 1, y, direction);
+				buildAt(BELTID, x - 1, y + 1, direction);
+				mapp[x][y + 1] = Node(CUTTERID, newId, false);
+				break;
+			case DOWN:
+				buildAt(BELTID, x + 1, y, direction);
+				buildAt(BELTID, x + 1, y - 1, direction);
+				mapp[x][y - 1] = Node(CUTTERID, newId, false);
+				break;
+			case LEFT:
+				buildAt(BELTID, x, y - 1, direction);
+				buildAt(BELTID, x - 1, y - 1, direction);
+				mapp[x - 1][y] = Node(CUTTERID, newId, false);
+				break;
+			case RIGHT:
+				buildAt(BELTID, x, y + 1, direction);
+				buildAt(BELTID, x + 1, y + 1, direction);
+				mapp[x + 1][y] = Node(CUTTERID, newId, false);
+				break;
+			}
 			// 编号回收
 			cutterNum++;
 			cutter[newId] = Cutter(direction, x, y);
@@ -95,28 +117,6 @@ void World::buildAt(int building, int x, int y, int direction) {
 			mapp[x][y] = Node(CUTTERID, newId, true);
 			// Cutter length = 2, so two block will be set on mapp
 			// However, only one of them would be a mainblock (isMain = true)
-			switch (direction) {
-				case UP:
-					mapp[x][y + 1] = Node(CUTTERID, newId, false);
-					buildAt(BELTID, x - 1, y, direction);
-					buildAt(BELTID, x - 1, y+1, direction);
-					break;
-				case DOWN:
-					mapp[x][y - 1] = Node(CUTTERID, newId, false);
-					buildAt(BELTID, x + 1, y, direction);
-					buildAt(BELTID, x + 1, y - 1, direction);
-					break;
-				case LEFT:
-					mapp[x - 1][y] = Node(CUTTERID, newId, false);
-					buildAt(BELTID, x, y - 1, direction);
-					buildAt(BELTID, x - 1, y - 1, direction);
-					break;
-				case RIGHT:
-					mapp[x + 1][y] = Node(CUTTERID, newId, false);
-					buildAt(BELTID, x, y + 1, direction);
-					buildAt(BELTID, x + 1, y + 1, direction);
-					break;
-			}
 			break;
 
 
@@ -130,7 +130,32 @@ void World::buildAt(int building, int x, int y, int direction) {
 				newId = deletedCompId.top();
 				deletedCompId.pop();
 			}
+
 			// 编号回收
+
+			switch (direction) {
+			case UP:
+				buildAt(BELTID, x - 1, y, direction);
+				mapp[x][y + 1] = Node(COMPOSERID, newId, false);
+				
+				break;
+			case DOWN:
+				buildAt(BELTID, x + 1, y, direction);
+				mapp[x][y - 1] = Node(COMPOSERID, newId, false);
+				
+				break;
+			case LEFT:
+				buildAt(BELTID, x, y - 1, direction);
+				mapp[x - 1][y] = Node(COMPOSERID, newId, false);
+				
+				break;
+			case RIGHT:
+				buildAt(BELTID, x, y + 1, direction);
+				mapp[x + 1][y] = Node(COMPOSERID, newId, false);
+				
+				break;
+			}
+
 			composerNum++;
 
 			composer[newId] = Composer(direction, x, y);
@@ -138,24 +163,6 @@ void World::buildAt(int building, int x, int y, int direction) {
 			mapp[x][y] = Node(COMPOSERID, newId, true);
 			// Cutter length = 2, so two block will be set on mapp
 			// However, only one of them would be a mainblock (isMain = true)
-			switch (direction) {
-			case UP:
-				mapp[x][y + 1] = Node(COMPOSERID, newId, false);
-				buildAt(BELTID, x - 1, y, direction);
-				break;
-			case DOWN:
-				mapp[x][y - 1] = Node(COMPOSERID, newId, false);
-				buildAt(BELTID, x + 1, y, direction);
-				break;
-			case LEFT:
-				mapp[x - 1][y] = Node(COMPOSERID, newId, false);
-				buildAt(BELTID, x, y - 1, direction);
-				break;
-			case RIGHT:
-				mapp[x + 1][y] = Node(COMPOSERID, newId, false);
-				buildAt(BELTID, x, y + 1, direction);
-				break;
-			}
 			break;
 
 		case MINERID:
@@ -442,22 +449,26 @@ void World::deleteInMapp(int buildingType, int id) {
 
 void World::clearGround(int building, int x, int y, int direction) {
 	destroyAppendix(x, y);
-	if (building == BELTID || building == ROTATORID) {
-		if (mapp[x][y].type != GROUNDID) destoryAt(x, y);
-	}
+	if (mapp[x][y].type != GROUNDID) { destoryAt(x, y);  }
+	
 	if (building == CUTTERID || building == COMPOSERID) {
 		switch (direction) {
 		case UP:
-			if (mapp[x][y + 1].type != GROUNDID) destoryAt(x, y + 1);
+			if (mapp[x][y + 1].type != GROUNDID) { destoryAt(x, y + 1);}
 			break;
 		case DOWN:
-			if (mapp[x][y - 1].type != GROUNDID) destoryAt(x, y - 1);
+			if (mapp[x][y - 1].type != GROUNDID) { destoryAt(x, y - 1);}
+			
 			break;
 		case LEFT:
-			if (mapp[x - 1][y].type != GROUNDID) destoryAt(x - 1, y);
+			if (mapp[x - 1][y].type != GROUNDID) {
+				destoryAt(x - 1, y);
+			}
 			break;
 		case RIGHT:
-			if (mapp[x + 1][y].type != GROUNDID) destoryAt(x + 1, y);
+			if (mapp[x + 1][y].type != GROUNDID) {
+				destoryAt(x + 1, y);
+			}
 			break;
 		}
 	}
