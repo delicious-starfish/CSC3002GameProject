@@ -18,6 +18,7 @@ IMAGE UIcomp;
 IMAGE UIrota;
 IMAGE UIcolr;
 IMAGE UIdes;
+IMAGE UIacc;
 IMAGE UIBlight;
 IMAGE UIbdscr0;
 IMAGE UIbdscr1;
@@ -75,6 +76,9 @@ IMAGE rotai;
 IMAGE miner;
 IMAGE mineri;
 IMAGE bin;
+IMAGE acceptorPreview; // Preview image for UI
+IMAGE acceptorImg;      // Actual Acceptor image
+
 //Items
 IMAGE SqR;
 IMAGE SqY;
@@ -147,6 +151,7 @@ void loadImgRes() {
     loadimage(&UIrota, StrToTchar(StrTexPath + "UI-Roto.png"));
     loadimage(&UIcolr, StrToTchar(StrTexPath + "UI-Colr.png"));
     loadimage(&UIdes, StrToTchar(StrTexPath + "UI-Dstr.png"));
+    loadimage(&UIacc, StrToTchar(StrTexPath + "UI-Acc.png")); // Acceptor UI AWAITING ...
     loadimage(&UIBlight, StrToTchar(StrTexPath + "UI-Blight.png"));
     loadimage(&UIbdscr0, StrToTchar(StrTexPath + "UI-description0.png"));
     loadimage(&UIbdscr1, StrToTchar(StrTexPath + "UI-description1.png"));
@@ -155,6 +160,7 @@ void loadImgRes() {
     loadimage(&UIbdscr4, StrToTchar(StrTexPath + "UI-description4.png"));
     loadimage(&UIbdscr5, StrToTchar(StrTexPath + "UI-description5.png"));
     loadimage(&UIbdscr6, StrToTchar(StrTexPath + "UI-description6.png"));
+    // Acceptor UI DESC AWAITING ...
     loadimage(&UIbdscrE, StrToTchar(StrTexPath + "UI-descriptionE.png"));
     loadimage(&UIbdscrT, StrToTchar(StrTexPath + "UI-descriptionT.png"));
     loadimage(&beltOO, StrToTchar(StrTexPath + "beltOO.png"));
@@ -192,6 +198,9 @@ void loadImgRes() {
     loadimage(&compD, StrToTchar(StrTexPath + "compD.png"));
     loadimage(&compL, StrToTchar(StrTexPath + "compL.png"));
     loadimage(&compR, StrToTchar(StrTexPath + "compR.png"));
+    // Add Acceptor UI images
+    loadimage(&acceptorPreview, StrToTchar(StrTexPath + "acceptor.png")); // Preview image
+    loadimage(&acceptorImg, StrToTchar(StrTexPath + "acceptor.png")); // Actual building image
     loadimage(&compi, StrToTchar(StrTexPath + "compi.png"));
     loadimage(&rota, StrToTchar(StrTexPath + "rota.png"));
     loadimage(&rotaU, StrToTchar(StrTexPath + "rotaU.png"));
@@ -516,6 +525,29 @@ void IntImg::putBuildings(World* world) {
                         putImg((j * 64 - 64) * screenScale + cameraPositionX, (i * 64 - 64) * screenScale + cameraPositionY, &compi, world->composer[world->mapp[i][j].id].dir, screenScale);
                 }
                 break;
+
+            // ACCEPTOR IMAGE NEEDS TO BE RE-NEWED ...
+            case (ACCEPTORID):
+                if (world->mapp[i][j].isMain) {
+                    // Render the Acceptor using acceptorImg
+                    putImg1((j - 1) * 64 * screenScale + cameraPositionX, (i - 1) * 64 * screenScale + cameraPositionY, &acceptorImg);
+
+                    // If Acceptor has stored items, render them
+                    if (!world->acceptor[world->mapp[i][j].id].isEmpty) {
+                        Item storedItem = world->acceptor[world->mapp[i][j].id].storedItem;
+                        // Assuming storedItem has a method to get item images
+                        // Adjust positions within the 3x3 grid as needed
+                        // Example rendering at center
+                        for (int m = 0; m < 2; m++) {
+                            for (int n = 0; n < 2; n++) {
+                                putAnItem(storedItem.shapeId[0][m][n], storedItem.colorId[0][m][n], (j - 0) * 64 * screenScale + cameraPositionX + n*24, (i - 0) * 64 * screenScale + cameraPositionY + m*24, 1);
+                            }
+                        }
+                    }
+                }
+                break;
+
+
             }
 
         }
@@ -790,6 +822,13 @@ void IntImg::putUI() {
         putImg(740, 435, &UIbdscr2); putImg(140, 440, &UIBlight); break;
     case UIDELETER: putImg(UIbX, UIbY, &dstrOO, scrollCase, screenScale);
         putImg(740, 435, &UIbdscr6); putImg(528, 440, &UIBlight); break;
+    case UIACCEPTOR:
+        // Render Acceptor preview (3x3 grid)
+            // Use the acceptor preview image
+        putImg(UIbX - 64 * screenScale, UIbY - 64 * screenScale, &acceptorPreview, 1, screenScale); // Direction is irrelevant since non-rotatable
+        putImg(740, 435, &UIbdscr4); // Acceptor UI DESC AWAITING ...
+        putImg(625, 440, &UIBlight);
+        break;
     }
     putImg(0, 0, &UIframe1);
     putImg(0, 396, &UIframe2);
@@ -799,6 +838,7 @@ void IntImg::putUI() {
     putImg(334, 443, &UIcomp);
     putImg(431, 443, &UIcolr);
     putImg(528, 443, &UIdes);
+    putImg(625, 443, &UIacc);
     switch (hoverCase) {
     case UIBELT:putImg(740, 435, &UIbdscr1); putImg(43, 440, &UIBlight); break;
     case UIROTATOR:putImg(740, 435, &UIbdscr2); putImg(140, 440, &UIBlight); break;
@@ -806,6 +846,11 @@ void IntImg::putUI() {
     case UICOMPOSER: putImg(740, 435, &UIbdscr4); putImg(334, 440, &UIBlight); break;
     case UICOLORER: putImg(740, 435, &UIbdscr5); putImg(431, 440, &UIBlight); break;
     case UIDELETER: putImg(740, 435, &UIbdscr6); putImg(528, 440, &UIBlight); break;
+    case UIACCEPTOR:
+        // ACCEPTOR: TO BE RE-ADJUSTED
+        putImg(740, 435, &UIbdscr4); // Adjust description image
+        putImg(625, 440, &UIBlight); // need adjustment
+        break;
     case PAUSE: putImg(740, 435, &UIbdscrT); putImg(851, 15, &pauseBT); break;
     case SPEEDUP: putImg(740, 435, &UIbdscrE); putImg(772, 15, &speedBT); break;
     }

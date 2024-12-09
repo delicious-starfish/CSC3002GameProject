@@ -34,6 +34,7 @@ void GameButton::operateTick(World * world,ExMessage& msg)
     else if (BTcomp.isHover()) { hoverCase = UICOMPOSER; }
     else if (BTcolr.isHover()) { hoverCase = UICOLORER; }
     else if (BTdelete.isHover()) { hoverCase = UIDELETER; }
+    else if (BTacceptor.isHover()) { hoverCase = UIACCEPTOR; } // Handle Acceptor Hover
     else if (BTpause.isHover()) { hoverCase = PAUSE; } //pause
     else if (BTspeed.isHover()) { hoverCase = SPEEDUP; } //2X
     else { hoverCase = NORMALCASE; }
@@ -72,6 +73,9 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             case UIROTATOR:
             case UICOMPOSER:
             case UIBELT: mouseCase = hoverCase; break;
+            case UIACCEPTOR: // Handle Acceptor Selection
+                mouseCase = hoverCase;
+                break;
             case UIDELETER: mouseCase = hoverCase; break;
             case PAUSE: //pause
                 isPause ^= 1;
@@ -91,6 +95,18 @@ void GameButton::operateTick(World * world,ExMessage& msg)
                 case UIDELETER:
                     world->destroyAppendix(UIbY, UIbX);
                     world->destoryAt(UIbY, UIbX); mouseCase = NORMALCASE; break;
+                case UIACCEPTOR: { // Handle Acceptor Building
+                    int buildX = UIbY - (mouseCase == UIACCEPTOR ? 1 : 0); // Adjust for 3x3
+                    int buildY = UIbX - (mouseCase == UIACCEPTOR ? 1 : 0); // Adjust for 3x3
+                    world->buildAt(
+                        mouseCase == UIACCEPTOR ? ACCEPTORID : (mouseCase - UIBELT + BELTID),
+                        buildX,
+                        buildY,
+                        scrollCase
+                    );
+                    mouseCase = NORMALCASE;
+                    break;
+                }
                 }
             //If mouseCase is about to build, and canBuild, then build a building
             break;

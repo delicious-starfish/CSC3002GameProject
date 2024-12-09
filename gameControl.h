@@ -51,9 +51,14 @@ public:
 	Button BTcomp = Button(334, 431, 443, 540);
 	Button BTcolr = Button(431, 528, 443, 540);
 	Button BTdelete = Button(528, 625, 443, 540);
+	Button BTacceptor = Button(625, 722, 443, 540); // To be adjusted ...
+
+	// Buttons on the top right corner:
 	Button BTpause = Button(843, 914, 20, 80);
 	Button BTspeed = Button(772, 843, 20, 80);
-	//后面还会加按钮
+    ///后面还会加按钮
+
+
     void operateTick(World * world,ExMessage& msg);
 	//Left click and drag to move the screen
 	//Scroll to change the screen scale
