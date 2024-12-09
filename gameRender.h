@@ -9,10 +9,11 @@
 #define _gameRender_h_
 
 extern int currentTime;
-extern int currentRenderTime;
+extern int startTime;
 extern int screenSizeX;
 extern int screenSizeY;
 extern double screenScale;
+extern int pScale;
 extern int cameraPositionX;
 extern int cameraPositionY;
 extern int mousePositionX;
@@ -23,6 +24,8 @@ extern int scrollCase;
 extern int tick21;
 extern int tickRender;
 extern int totalScore;
+extern bool isPause;
+extern bool isSpeedup;
 
 
 class IntImg {
@@ -34,8 +37,17 @@ public:
 
 	int shade[1920][1080];
 
+	int mask[1920][1080];
+
 	int leftBound; int rightBound;
 	int upBound; int dnBound;
+
+	int mullist[257][11][5];
+	//mullist [ix-x] [vScale] [0:1 1:64 2:128 3:192 4:256]
+	//A multiplication list prepared for putImg1
+
+	//float mouseTk
+	float dScale;
 
 	IntImg();
 	//Initialize
@@ -47,6 +59,13 @@ public:
 
 	-------------------------------------------
 		Write the values to the array from an image
+		By Yao Yilin
+		*/
+
+	void putImg1(int x, int y, IMAGE* srcimg);
+	/*
+		A faster way to put image.
+		Only for 64*64  128*128  192*192  256*256 size building images in map
 		By Yao Yilin
 		*/
 
@@ -105,7 +124,7 @@ public:
 	By Yao Yilin
 	*/
 
-	void putBuildings(World * world);
+	void putBuildings(World* world);
 	/*
 	Method: putBuildings
 	Usage: putBuildings(world);
@@ -116,7 +135,18 @@ public:
 	// Change input from "World & world to World * world" by kby
 	*/
 
-	void putItems(World * world);
+	void putBuildings2(World* world);
+	/*
+	Method: putBuildings
+	Usage: putBuildings(world);
+			it is a sub function in method renderTick, only use in renderTick
+--------------------------------
+	Output the layer of buildings
+	By Yao Yilin
+	// Change input from "World & world to World * world" by kby
+	*/
+
+	void putItems(World* world);
 	/*
 		Method: putItems
 		Usage: putItems(world);
@@ -154,13 +184,19 @@ public:
 		By Yao Yilin
 		*/
 
-	void renderTick(World * world);
+	void putIllum(World* world);
+
+	void renderTick(World* world);
 	// This function will not change the value of world
 	// It use the value in world to render the screen
 	// input World world
 	// output nothing
 	//By Yao Yilin
 	// Change input from "World & world to World * world" by kby
+	void putmskImg(int x, int y, double r, IMAGE* srcimg);
+    void loadMask();
+	void renderMenu();
+	
 };
 
 void loadImgRes();
@@ -169,5 +205,7 @@ void loadImgRes();
 	Must be loaded first
 		By Yao Yilin
 */
+void putNumbers();
+
 
 #endif

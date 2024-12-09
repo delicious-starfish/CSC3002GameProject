@@ -5,7 +5,8 @@
 #include <graphics.h>
 #include <conio.h>
 #include <cmath>
-
+#include "menu.h"
+#include "game.h"
 
 
 Button::Button(int lf, int rt, int up, int dn)
@@ -34,6 +35,9 @@ void GameButton::operateTick(World * world,ExMessage& msg)
     else if (BTcomp.isHover()) { hoverCase = UICOMPOSER; }
     else if (BTcolr.isHover()) { hoverCase = UICOLORER; }
     else if (BTdelete.isHover()) { hoverCase = UIDELETER; }
+    else if (BTpause.isHover()) { hoverCase = PAUSE; } //pause
+    else if (BTspeed.isHover()) { hoverCase = SPEEDUP; } //2X
+    else if (BTesc.isHover()) { hoverCase = QUIT; } //Escape
     else { hoverCase = NORMALCASE; }
     //Check where is the mouse hovering currently
     int scrscl64 = screenScale * 64;
@@ -54,6 +58,17 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             break;
         case WM_LBUTTONDOWN:
             controlPositionX = msg.x - cameraPositionX; controlPositionY = msg.y - cameraPositionY;
+            switch (hoverCase) {
+            case PAUSE: //pause
+                isPause ^= 1;
+                break;
+            case SPEEDUP: //2X
+                preSpeedup ^= 1;
+                break;
+            case QUIT:
+                SCENE = SCENEMENU;
+                break;
+            }
             break;
         case WM_RBUTTONDOWN:
             switch (hoverCase) {
@@ -63,6 +78,15 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             case UICOMPOSER:
             case UIBELT: mouseCase = hoverCase; break;
             case UIDELETER: mouseCase = hoverCase; break;
+            case PAUSE: //pause
+                isPause ^= 1;
+                break;
+            case SPEEDUP: //2X
+                preSpeedup ^= 1;
+                break;
+            case QUIT:
+                SCENE = SCENEMENU;
+                break;
             }
             //Check where it hovers, and assign mouseCase when clicking right button
             if (canBuild)
@@ -82,8 +106,8 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             break;
         case WM_MOUSEWHEEL:
             if (mouseCase == NORMALCASE) {
-                if (msg.wheel > 0 && screenScale < 1)screenScale += 0.0625;
-                else if (msg.wheel < 0 && screenScale>0.375)screenScale -= 0.0625;
+                if (msg.wheel > 0 && screenScale < 1) { screenScale += 0.0625; pScale--; }
+                else if (msg.wheel < 0 && screenScale>0.375) { screenScale -= 0.0625; pScale++; }
             //Reset camera position to Realize mouse-centered scaling
             cameraPositionX = mousePositionX - (mousePositionX - cameraPositionX) * screenScale / previousScreenScale;
             cameraPositionY = mousePositionY - (mousePositionY - cameraPositionY) * screenScale / previousScreenScale;
@@ -122,6 +146,33 @@ void GameButton::operateTick(World * world,ExMessage& msg)
                 } break;
             }
             //stop
+            break;
+        }
+    }
+}
+
+void MenuButton::operateMenu(ExMessage& msg)
+{
+    if (BTstart.isHover()) { hoverCase = MENUSTART; }
+    else if (BTsetting.isHover()) { hoverCase = MENUSETTING; }
+    else { hoverCase = NORMALCASE; }
+    while (peekmessage(&msg, EM_MOUSE | EM_KEY))
+    {
+        //Mouse Operation
+        switch (msg.message)
+        {
+        case WM_MOUSEMOVE:
+            mousePositionX = msg.x; mousePositionY = msg.y;
+            break;
+        case WM_LBUTTONDOWN:
+            if (hoverCase == MENUSTART){
+                SCENE = SCENEGAME;
+                initGame(currentTime);
+            }
+            break;
+        case WM_RBUTTONDOWN:
+            break;
+        case WM_LBUTTONUP:
             break;
         }
     }

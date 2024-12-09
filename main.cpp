@@ -9,34 +9,44 @@
 #include "gameControl.h"
 #include "gameConfig.h"
 #include "gameUtil.h"
+#include "game.h"
+#include "menu.h"
 
-#define LOGIC_FPS 2
-#define RENDER_FPS 32
-
-int currentTime;
-int currentRenderTime;
+int LOGIC_FPS;
+int RENDER_FPS;
+int SCENE;
+int mouseCase;
+int hoverCase;
 int screenSizeX;
 int screenSizeY;
+
+int nextLogic;
+int nextRender;
+int logicInterval;
+int renderInterval;
+
+int currentTime;
+int startTime;
 double screenScale;
 double previousScreenScale;
+int pScale;
 int cameraPositionX;
 int cameraPositionY;
 int mousePositionX;
 int mousePositionY;
 int controlPositionX;
 int controlPositionY;
-int mouseCase;
-int hoverCase;
 int scrollCase;
 int tickRender;
 bool isBuildingOperated;
 int totalScore;
-
-
-
+bool isPause;
+bool preSpeedup;
+bool isSpeedup;
 
 IntImg* intimg1 = new IntImg();
 GameButton* gameButton = new GameButton();
+MenuButton* menuButton = new MenuButton();
 
 long long getTime() {
     long long millisecSince1970 = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
@@ -77,18 +87,13 @@ int main() {
 
     screenSizeX = GameConfig::getInstance().get("Game", "ScreenWidth", 960);
     screenSizeY = GameConfig::getInstance().get("Game", "ScreenHeight", 540);
-
-    //set screen size (No larger than 1920*1080)
-    screenScale = 1;
-    //set screen scale (Better within 0.25~1.00)
-    previousScreenScale = 1;
     
     initgraph(screenSizeX, screenSizeY);
     
-    setbkcolor(0Xcfd9eb);
     BeginBatchDraw();
 
     loadImgRes();
+    intimg1->loadMask();
     game->loadTestMap();
     Item testItem = Item(QUARTERSQUARE, WHITEITEM);
     testItem.colorId[0][1][1] = YELLOWITEM;
@@ -98,51 +103,32 @@ int main() {
     testItem.shapeId[0][1][1] = QUARTERCIRCLE;
     game->world->putItemAt(testItem, 0, 12);
     game->world->putItemAt(testItem, 3, 12);
-    cameraPositionX = 0;
-    cameraPositionY = 0;
-    //The origin camera point
 
-    mousePositionX = 0;
-    mousePositionY = 0;
-    controlPositionX = 0;
-    controlPositionY = 0;
-    mouseCase = 0;
-    hoverCase = 0;
-    scrollCase = 1;
-    ExMessage mouseMessage;
+    ExMessage mouseMessage{};
     //initialize the mouse
 
-    int nextLogic = getTime(), nextRender = getTime();
-    int logicInterval = 1000 / LOGIC_FPS, renderInterval = 1000 / RENDER_FPS;
-    int currentTime;
-    tickRender = 0;
-    isBuildingOperated = true;
+    SCENE = SCENEMENU;
 
+    initGame(getTime());
 
+    startTime = getTime();
+    nextLogic = getTime(); nextRender = getTime();
+    logicInterval = 1000 / LOGIC_FPS; renderInterval = 1000 / RENDER_FPS;
     while (true) {
-       currentTime = getTime();
-
-
-       //Logic operation
-        if (currentTime >= nextLogic) {
-            tickRender = 0;
-            isBuildingOperated ^= 1;
-            logicTick(game->world);
-            nextLogic += logicInterval;
-
+        currentTime = getTime();
+        switch (SCENE) {
+        case SCENEMENU:
+            playMenu(mouseMessage);
+            break;
+        case SCENESETTING:
+            break;
+        case SCENEGAME:
+            playGame(mouseMessage);
+            break;
         }
-        // Render
-        if (currentTime >= nextRender) {
-            tickRender += 4;
-            intimg1->renderTick(game->world);
-            nextRender += renderInterval;
-        }
-    //    // Mouse Monitor
-        gameButton->operateTick(game->world, mouseMessage);
-        FlushBatchDraw();
-        //Sleep(0.05);
-
+        
     }
+    
     delete game;
     return 0;
 }
