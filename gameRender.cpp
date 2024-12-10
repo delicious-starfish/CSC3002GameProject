@@ -125,7 +125,7 @@ bool fileExist(const std::string& filePath)
     return (fileAttr != INVALID_FILE_ATTRIBUTES && !(fileAttr & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-//温馨提示：这里一大堆资源，没事别动这个函数，不然IDE可能会变得有点卡
+//娓╅Θ鎻愮ず锛氳繖閲屼竴澶у爢璧勬簮锛屾病浜嬪埆鍔ㄨ繖涓嚱鏁帮紝涓嶇劧IDE鍙兘浼氬彉寰楁湁鐐瑰崱
 void loadImgRes() {
 
     // solve the question of loading the image resources without the VS IDE
@@ -666,8 +666,11 @@ void IntImg::putItems(World* world) {
                 case RIGHT:x += tickRender * screenScale; yd = tickRender * screenScale; break;
                 }
             int dir;
+            bool isHorizontal = (world->cutter[i].dir == LEFT || world->cutter[i].dir == RIGHT);
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 2; k++) {
+                    int renderedJ = isHorizontal ? k : j;
+                    int renderedK = isHorizontal ? j : k;
                     switch (2 * j + k) {
                     case 0:dir = 1; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir); break;
                     case 1:dir = 4; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x + xd, y + yd, dir); break;
