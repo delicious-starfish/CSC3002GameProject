@@ -10,8 +10,13 @@
 #include "gameUtil.h"
 
 //UI
+IMAGE menu1;
+IMAGE menuBTstart;
+IMAGE menuBTsetting;
 IMAGE UIframe1;
 IMAGE UIframe2;
+IMAGE UIframe3;
+IMAGE UIframe4;
 IMAGE UIbelt;
 IMAGE UIdivi;
 IMAGE UIcomp;
@@ -27,8 +32,11 @@ IMAGE UIbdscr3;
 IMAGE UIbdscr4;
 IMAGE UIbdscr5;
 IMAGE UIbdscr6;
+IMAGE UIbdscr7;
 IMAGE UIbdscrE;
 IMAGE UIbdscrT;
+IMAGE UIbdscrESC;
+IMAGE UISCALER;
 IMAGE beltOO;
 IMAGE cuttOO;
 IMAGE compOO;
@@ -36,6 +44,7 @@ IMAGE rotaOO;
 IMAGE dstrOO;
 IMAGE pauseBT;
 IMAGE speedBT;
+IMAGE escBT;
 IMAGE speedBT2x;
 IMAGE speedBT2xR;
 IMAGE pauseTX;
@@ -66,6 +75,10 @@ IMAGE compU;
 IMAGE compD;
 IMAGE compL;
 IMAGE compR;
+IMAGE compU2;
+IMAGE compD2;
+IMAGE compL2;
+IMAGE compR2;
 IMAGE compi;
 IMAGE rota;
 IMAGE rotaU;
@@ -77,7 +90,7 @@ IMAGE miner;
 IMAGE mineri;
 IMAGE bin;
 IMAGE acceptorPreview; // Preview image for UI
-IMAGE acceptorImg;      // Actual Acceptor image
+IMAGE acpt;      // Actual Acceptor image
 
 //Items
 IMAGE SqR;
@@ -108,6 +121,9 @@ IMAGE shadowD;
 IMAGE shadowRU;
 IMAGE shadowRD;
 IMAGE shadowR;
+//Mask
+IMAGE Mask1;
+IMAGE clickMask;
 
 
 TCHAR* StrToTchar(const std::string& str)
@@ -143,8 +159,13 @@ void loadImgRes() {
             "Resource load failed=" + StrTexPath + "UI-02-up.png");
     }
 
+    loadimage(&menu1, StrToTchar(StrTexPath + "menu1.png"));
+    loadimage(&menuBTstart, StrToTchar(StrTexPath + "menuBTstart.png"));
+    loadimage(&menuBTsetting, StrToTchar(StrTexPath + "menuBTsetting.png"));
     loadimage(&UIframe1, StrToTchar(StrTexPath + "UI-03-up.png"));
     loadimage(&UIframe2, StrToTchar(StrTexPath + "UI-02-dn.png"));
+    loadimage(&UIframe3, StrToTchar(StrTexPath + "UI-01-lf.png"));
+    loadimage(&UIframe4, StrToTchar(StrTexPath + "UI-01-rt.png"));
     loadimage(&UIbelt, StrToTchar(StrTexPath + "UI-Belt.png"));
     loadimage(&UIdivi, StrToTchar(StrTexPath + "UI-Divi.png"));
     loadimage(&UIcomp, StrToTchar(StrTexPath + "UI-Comp.png"));
@@ -160,9 +181,12 @@ void loadImgRes() {
     loadimage(&UIbdscr4, StrToTchar(StrTexPath + "UI-description4.png"));
     loadimage(&UIbdscr5, StrToTchar(StrTexPath + "UI-description5.png"));
     loadimage(&UIbdscr6, StrToTchar(StrTexPath + "UI-description6.png"));
-    // Acceptor UI DESC AWAITING ...
+    loadimage(&UIbdscr7, StrToTchar(StrTexPath + "UI-description7.png"));
     loadimage(&UIbdscrE, StrToTchar(StrTexPath + "UI-descriptionE.png"));
     loadimage(&UIbdscrT, StrToTchar(StrTexPath + "UI-descriptionT.png"));
+    loadimage(&UIbdscrESC, StrToTchar(StrTexPath + "UI-descriptionESC.png"));
+    loadimage(&UISCALER, StrToTchar(StrTexPath + "UI-SCALER2.png"));
+    loadimage(&acceptorPreview, StrToTchar(StrTexPath + "acptOO.png"));
     loadimage(&beltOO, StrToTchar(StrTexPath + "beltOO.png"));
     loadimage(&cuttOO, StrToTchar(StrTexPath + "cuttOO.png"));
     loadimage(&compOO, StrToTchar(StrTexPath + "compOO.png"));
@@ -170,12 +194,14 @@ void loadImgRes() {
     loadimage(&dstrOO, StrToTchar(StrTexPath + "dstrOO.png"));
     loadimage(&pauseBT, StrToTchar(StrTexPath + "UI-pauseBT.png"));
     loadimage(&speedBT, StrToTchar(StrTexPath + "UI-speedBT.png"));
+    loadimage(&escBT, StrToTchar(StrTexPath + "UI-esc.png"));
     loadimage(&speedBT2x, StrToTchar(StrTexPath + "UI-speedBT2x.png"));
     loadimage(&speedBT2xR, StrToTchar(StrTexPath + "UI-speedBT2x-R.png"));
     loadimage(&pauseTX, StrToTchar(StrTexPath + "UI-pause.png"));
     loadimage(&mouse1, StrToTchar(StrTexPath + "clickout.png"));
     loadimage(&mouse2, StrToTchar(StrTexPath + "clickin.png"));
     loadimage(&grnd, StrToTchar(StrTexPath + "grnd.png"));
+    loadimage(&acpt, StrToTchar(StrTexPath + "acpt.png"));
     loadimage(&belt, StrToTchar(StrTexPath + "belt.png"));
     loadimage(&beltU, StrToTchar(StrTexPath + "beltU.png"));
     loadimage(&beltD, StrToTchar(StrTexPath + "beltD.png"));
@@ -198,9 +224,10 @@ void loadImgRes() {
     loadimage(&compD, StrToTchar(StrTexPath + "compD.png"));
     loadimage(&compL, StrToTchar(StrTexPath + "compL.png"));
     loadimage(&compR, StrToTchar(StrTexPath + "compR.png"));
-    // Add Acceptor UI images
-    loadimage(&acceptorPreview, StrToTchar(StrTexPath + "acceptor.png")); // Preview image
-    loadimage(&acceptorImg, StrToTchar(StrTexPath + "acceptor.png")); // Actual building image
+    loadimage(&compU2, StrToTchar(StrTexPath + "compU2.png"));
+    loadimage(&compD2, StrToTchar(StrTexPath + "compD2.png"));
+    loadimage(&compL2, StrToTchar(StrTexPath + "compL2.png"));
+    loadimage(&compR2, StrToTchar(StrTexPath + "compR2.png"));
     loadimage(&compi, StrToTchar(StrTexPath + "compi.png"));
     loadimage(&rota, StrToTchar(StrTexPath + "rota.png"));
     loadimage(&rotaU, StrToTchar(StrTexPath + "rotaU.png"));
@@ -238,6 +265,8 @@ void loadImgRes() {
     loadimage(&shadowLD, StrToTchar(StrTexPath + "shadowLD.png"));
     loadimage(&shadowRU, StrToTchar(StrTexPath + "shadowRU.png"));
     loadimage(&shadowRD, StrToTchar(StrTexPath + "shadowRD.png"));
+    loadimage(&Mask1, StrToTchar(StrTexPath + "MASK1.png"));
+    loadimage(&clickMask, StrToTchar(StrTexPath + "clickMASK.png"));
 }
 
 void putNumbers()
@@ -252,6 +281,68 @@ void putNumbers()
     sstime.str(_T(""));
 }
 
+void IntImg::putmskImg(int x, int y, double r, IMAGE* srcimg)
+{
+    DWORD* src = GetImageBuffer(srcimg);
+    int src_width = srcimg->getwidth();
+    int src_height = srcimg->getheight();
+    float cosr = cos(r);
+    float sinr = sin(r);
+    int center_width;
+    int center_height;
+    int lx = (x > 0) ? x : 0;
+    int ly = (y > 0) ? y : 0;
+    int Mx = (x + src_width > screenSizeX) ? screenSizeX : x + src_width;
+    int My = (y + src_height > screenSizeY) ? screenSizeY : y + src_height;
+    center_width = src_width / 2;
+    center_height = src_height / 2;
+    int i = 0; int irx = 0; int iry = 0;
+    int src_X = src_width * src_height;
+    for (int iy = ly; iy < My; iy++) {
+        for (int ix = lx; ix < Mx; ix++) {
+            irx = (int)((ix - x - center_width) * cosr - (iy - y - center_height) * sinr + center_width);
+            iry = (int)((iy - y - center_height) * cosr + (ix - x - center_width) * sinr + center_height);
+            irx = (irx >= 0 && irx < src_width) ? irx : 0;
+            iry = (iry >= 0 && iry < src_height) ? iry : 0;
+            i = (int)(iry)*src_width + irx;
+            i = (i < src_X && i >= 0) ? i : 0;
+            int mskR = ((mask[ix][iy] & 0xff0000) >> 16);
+            int sa = ((src[i] & 0xff000000) >> 24);
+            sa = sa * (mskR / 390.0);
+            if (sa != 0) {
+                if (sa == 255) {
+                    pixel[ix][iy] = src[i];
+                }
+                else {
+                    int sr = ((src[i] & 0xff0000) >> 16) * sa;
+                    int sg = ((src[i] & 0xff00) >> 8) * sa;
+                    int sb = (src[i] & 0xff) * sa;
+                    int dr = ((pixel[ix][iy] & 0xff0000) >> 16) * (255 - sa);
+                    int dg = ((pixel[ix][iy] & 0xff00) >> 8) * (255 - sa);
+                    int db = (pixel[ix][iy] & 0xff) * (255 - sa);
+                    pixel[ix][iy] = (((sr + dr) >> 8) << 16) | (((sg + dg) >> 8) << 8) | ((sb + db) >> 8);
+                }
+            }
+        }
+    }
+}
+
+
+void IntImg::loadMask()
+{
+    IMAGE* srcimg = &Mask1;
+    DWORD* src = GetImageBuffer(srcimg);
+    int src_width = srcimg->getwidth();
+    int src_height = srcimg->getheight();
+    int i = 0;
+    for (int iy = 0; iy < src_height; iy++) {
+        for (int ix = 0; ix < src_width; ix++) {
+            i = (int)iy * src_width + ix;
+            mask[ix][iy] = src[i];
+        }
+    }
+}
+
 IntImg::IntImg() {
     leftBound = cameraPositionX / 64 - 32 * screenScale;
     rightBound = cameraPositionX / 64 + 32 * screenScale;
@@ -261,6 +352,7 @@ IntImg::IntImg() {
         for (int ix = 0; ix < screenSizeX; ix++) {
             pixel[ix][iy] = 0;
             shade[ix][iy] = 0;
+            mask[ix][iy] = 0;
         }
     }
     for (int i = 0; i < 257; i++) {
@@ -275,6 +367,7 @@ IntImg::IntImg() {
             mullist[i][j][4] = (int)(i * vscale) * 256;
         }
     }
+    dScale = 1;
 }
 
 
@@ -442,7 +535,7 @@ void IntImg::RenderImg() {
 void IntImg::ClearImg() {
     for (int iy = 0; iy < screenSizeY; iy++) {
         for (int ix = 0; ix < screenSizeX; ix++) {
-            pixel[ix][iy] = 13594431;
+            pixel[ix][iy] = 4208712+mousePositionX*mousePositionY/16384;
             shade[ix][iy] = 0;
         }
     }
@@ -489,13 +582,13 @@ void IntImg::putBuildings(World* world) {
                 switch (world->rotator[world->mapp[i][j].id].dir) {
                 case UP:putImg((j * 64 - 32) * screenScale + cameraPositionX, (i - 1) * 64 * screenScale + cameraPositionY, &rotaU, 1, screenScale); break;
                 case DOWN:putImg((j * 64 - 32) * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &rotaD, 1, screenScale); break;
-                case LEFT:putImg((j - 1) * 64 * screenScale + cameraPositionX, (i * 64-32) * screenScale + cameraPositionY, &rotaL, 1, screenScale); break;
+                case LEFT:putImg((j - 1) * 64 * screenScale + cameraPositionX, (i * 64 - 32) * screenScale + cameraPositionY, &rotaL, 1, screenScale); break;
                 case RIGHT:putImg(j * 64 * screenScale + cameraPositionX, (i * 64 - 32) * screenScale + cameraPositionY, &rotaR, 1, screenScale); break;
                 }
-                if(world->rotator[world->mapp[i][j].id].isMoved)
+                if (world->rotator[world->mapp[i][j].id].isMoved)
                     switch (world->rotator[world->mapp[i][j].id].dir) {
-                    case UP:putImg((j * 64 ) * screenScale + cameraPositionX, (i * 64-32) * screenScale + cameraPositionY, &rotai, 1, screenScale); break;
-                    case DOWN:putImg((j * 64) * screenScale + cameraPositionX, (i * 64+32) * screenScale + cameraPositionY, &rotai, 2, screenScale); break;
+                    case UP:putImg((j * 64) * screenScale + cameraPositionX, (i * 64 - 32) * screenScale + cameraPositionY, &rotai, 1, screenScale); break;
+                    case DOWN:putImg((j * 64) * screenScale + cameraPositionX, (i * 64 + 32) * screenScale + cameraPositionY, &rotai, 2, screenScale); break;
                     case LEFT:putImg((j * 64 - 32) * 64 * screenScale + cameraPositionX, (i * 64) * screenScale + cameraPositionY, &rotai, 3, screenScale); break;
                     case RIGHT:putImg((j * 64 + 32) * screenScale + cameraPositionX, (i * 64) * screenScale + cameraPositionY, &rotai, 4, screenScale); break;
                     }
@@ -525,29 +618,6 @@ void IntImg::putBuildings(World* world) {
                         putImg((j * 64 - 64) * screenScale + cameraPositionX, (i * 64 - 64) * screenScale + cameraPositionY, &compi, world->composer[world->mapp[i][j].id].dir, screenScale);
                 }
                 break;
-
-            // ACCEPTOR IMAGE NEEDS TO BE RE-NEWED ...
-            case (ACCEPTORID):
-                if (world->mapp[i][j].isMain) {
-                    // Render the Acceptor using acceptorImg
-                    putImg1((j - 1) * 64 * screenScale + cameraPositionX, (i - 1) * 64 * screenScale + cameraPositionY, &acceptorImg);
-
-                    // If Acceptor has stored items, render them
-                    if (!world->acceptor[world->mapp[i][j].id].isEmpty) {
-                        Item storedItem = world->acceptor[world->mapp[i][j].id].storedItem;
-                        // Assuming storedItem has a method to get item images
-                        // Adjust positions within the 3x3 grid as needed
-                        // Example rendering at center
-                        for (int m = 0; m < 2; m++) {
-                            for (int n = 0; n < 2; n++) {
-                                putAnItem(storedItem.shapeId[0][m][n], storedItem.colorId[0][m][n], (j - 0) * 64 * screenScale + cameraPositionX + n*24, (i - 0) * 64 * screenScale + cameraPositionY + m*24, 1);
-                            }
-                        }
-                    }
-                }
-                break;
-
-
             }
 
         }
@@ -566,6 +636,37 @@ void IntImg::putBuildings2(World* world) {
                 break;
             case(RUBBISHBINID):
                 putImg(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &bin, UP, screenScale); break;
+            case(COMPOSERID):
+                if (world->mapp[i][j].isMain == true) {
+                    switch (world->composer[world->mapp[i][j].id].dir) {
+                    case UP:putImg1((j * 64 - 64) * screenScale + cameraPositionX, (i * 64 - 64) * screenScale + cameraPositionY, &compU2); break;
+                    case DOWN:putImg1((j * 64 - 64) * screenScale + cameraPositionX, (i * 64 - 64) * screenScale + cameraPositionY, &compD2); break;
+                    case LEFT:putImg1((j * 64 - 64) * screenScale + cameraPositionX, (i * 64 - 64) * screenScale + cameraPositionY, &compL2); break;
+                    case RIGHT:putImg1((j * 64 - 64) * screenScale + cameraPositionX, (i * 64 - 64) * screenScale + cameraPositionY, &compR2); break;
+                    }
+                    if (world->composer[world->mapp[i][j].id].isMoved)
+                        putImg((j * 64 - 64) * screenScale + cameraPositionX, (i * 64 - 64) * screenScale + cameraPositionY, &compi, world->composer[world->mapp[i][j].id].dir, screenScale);
+                }
+                break;
+            case (ACCEPTORID):
+                if (world->mapp[i][j].isMain) {
+                    // Render the Acceptor using acceptorImg
+                    putImg1((j * 64-96) * screenScale + cameraPositionX, (i * 64-96) * screenScale + cameraPositionY, &acpt);
+
+                    // If Acceptor has stored items, render them
+                    if (!world->acceptor[world->mapp[i][j].id].isEmpty) {
+                        Item storedItem = world->acceptor[world->mapp[i][j].id].storedItem;
+                        // Assuming storedItem has a method to get item images
+                        // Adjust positions within the 3x3 grid as needed
+                        // Example rendering at center
+                        for (int m = 0; m < 2; m++) {
+                            for (int n = 0; n < 2; n++) {
+                                putAnItem(storedItem.shapeId[0][m][n], storedItem.colorId[0][m][n], (j - 0) * 64 * screenScale + cameraPositionX + n * 24, (i - 0) * 64 * screenScale + cameraPositionY + m * 24, 1);
+                            }
+                        }
+                    }
+                }
+                break;
             }
 
         }
@@ -684,29 +785,22 @@ void IntImg::putItems(World* world) {
             Item itemRender = world->composer[i].OutputPre;
             int y = world->composer[i].pos[0] * 64 * screenScale + cameraPositionY;
             int x = world->composer[i].pos[1] * 64 * screenScale + cameraPositionX;
-            int yd = 0; int xd = 0;
-            if (world->composer[i].isMoved)
-                switch (world->composer[i].dir) {
-                case UP:y -= tickRender * screenScale; xd = (64 - tickRender) * screenScale; break;
-                case DOWN:y += tickRender * screenScale; xd = (tickRender - 64) * screenScale; break;
-                case LEFT:x -= tickRender * screenScale; yd = (tickRender - 64) * screenScale; break;
-                case RIGHT:x += tickRender * screenScale; yd = (64 - tickRender) * screenScale; break;
-                }
-            else
-                switch (world->composer[i].dir) {
-                case UP:xd = (64) * screenScale; break;
-                case DOWN:xd = -(64) * screenScale; break;
-                case RIGHT:yd = (64) * screenScale; break;
-                }
+            switch (world->composer[i].dir) {
+            case UP:y = y - tickRender * screenScale; break;
+            case DOWN:y += tickRender * screenScale; break;
+            case LEFT:x -= tickRender * screenScale; break;
+            case RIGHT:x += tickRender * screenScale; break;
+            }
             int dir;
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 2; k++) {
                     switch (2 * j + k) {
-                    case 0:dir = 1; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir); break;
-                    case 1:dir = 4; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x + xd, y + yd, dir); break;
-                    case 2:dir = 3; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir); break;
-                    case 3:dir = 2; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x + xd, y + yd, dir); break;
+                    case 0:dir = 1; break;
+                    case 1:dir = 4; break;
+                    case 2:dir = 3; break;
+                    case 3:dir = 2; break;
                     }
+                    putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir);
                 }
             }
 
@@ -740,29 +834,29 @@ void IntImg::putItems(World* world) {
                     else r += 1.57;
                     switch (code) {
                     case 9:
-                        putImg(x, y,r, &CcR, screenScale); break;
+                        putImg(x, y, r, &CcR, screenScale); break;
                     case 10:
-                        putImg(x, y,r, &CcY, screenScale); break;
+                        putImg(x, y, r, &CcY, screenScale); break;
                     case 11:
-                        putImg(x, y,r, &CcB, screenScale); break;
+                        putImg(x, y, r, &CcB, screenScale); break;
                     case 12:
-                        putImg(x, y,r, &CcW, screenScale); break;
+                        putImg(x, y, r, &CcW, screenScale); break;
                     case 17:
-                        putImg(x, y,r, &SqR, screenScale); break;
+                        putImg(x, y, r, &SqR, screenScale); break;
                     case 18:
-                        putImg(x, y,r, &SqY, screenScale); break;
+                        putImg(x, y, r, &SqY, screenScale); break;
                     case 19:
-                        putImg(x, y,r, &SqB, screenScale); break;
+                        putImg(x, y, r, &SqB, screenScale); break;
                     case 20:
-                        putImg(x, y,r, &SqW, screenScale); break;
+                        putImg(x, y, r, &SqW, screenScale); break;
                     case 25:
-                        putImg(x, y,r, &MlR, screenScale); break;
+                        putImg(x, y, r, &MlR, screenScale); break;
                     case 26:
-                        putImg(x, y,r, &MlY, screenScale); break;
+                        putImg(x, y, r, &MlY, screenScale); break;
                     case 27:
-                        putImg(x, y,r, &MlB, screenScale); break;
+                        putImg(x, y, r, &MlB, screenScale); break;
                     case 28:
-                        putImg(x, y,r, &MlW, screenScale); break;
+                        putImg(x, y, r, &MlW, screenScale); break;
                     }
                     //putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir);
                 }
@@ -809,8 +903,8 @@ void IntImg::putUI() {
     int UIbY = ((mousePositionY - cameraPositionY) / scrscl64) * scrscl64 + cameraPositionY;
     switch (mouseCase) {
     case NORMALCASE: {
-        putImg(mousePositionX - 32 * screenScale, mousePositionY - 32 * screenScale, mousePositionY / 14.5 - screenScale, &mouse1, screenScale);
-        putImg(mousePositionX - 32 * (screenScale / 2 + 0.5), mousePositionY - 32 * (screenScale / 2 + 0.5), -mousePositionX / 28.5 + screenScale, &mouse2, screenScale / 2 + 0.5); break;
+        putImg(mousePositionX - 32 * screenScale, mousePositionY - 32 * screenScale, mousePositionY / 28.5 / dScale, &mouse1, screenScale);
+        putImg(mousePositionX - 32 * (screenScale / 2 + 0.5), mousePositionY - 32 * (screenScale / 2 + 0.5), -mousePositionX / 43.5 / dScale, &mouse2, screenScale / 2 + 0.5); break;
     }
     case UIBELT: putImg(UIbX - 32 * screenScale, UIbY - 32 * screenScale, &beltOO, scrollCase, screenScale);
         putImg(740, 435, &UIbdscr1); putImg(43, 440, &UIBlight); break;
@@ -826,10 +920,12 @@ void IntImg::putUI() {
         // Render Acceptor preview (3x3 grid)
             // Use the acceptor preview image
         putImg(UIbX - 64 * screenScale, UIbY - 64 * screenScale, &acceptorPreview, 1, screenScale); // Direction is irrelevant since non-rotatable
-        putImg(740, 435, &UIbdscr4); // Acceptor UI DESC AWAITING ...
+        putImg(740, 435, &UIbdscr7); // Acceptor UI DESC AWAITING ...
         putImg(625, 440, &UIBlight);
         break;
     }
+    putImg(0, 0, &UIframe3);
+    putImg(900, 0, &UIframe4);
     putImg(0, 0, &UIframe1);
     putImg(0, 396, &UIframe2);
     putImg(43, 443, &UIbelt);
@@ -839,6 +935,7 @@ void IntImg::putUI() {
     putImg(431, 443, &UIcolr);
     putImg(528, 443, &UIdes);
     putImg(625, 443, &UIacc);
+    putmskImg(-430, 0, dScale * 3.14 - 2.15, &UISCALER);
     switch (hoverCase) {
     case UIBELT:putImg(740, 435, &UIbdscr1); putImg(43, 440, &UIBlight); break;
     case UIROTATOR:putImg(740, 435, &UIbdscr2); putImg(140, 440, &UIBlight); break;
@@ -848,14 +945,15 @@ void IntImg::putUI() {
     case UIDELETER: putImg(740, 435, &UIbdscr6); putImg(528, 440, &UIBlight); break;
     case UIACCEPTOR:
         // ACCEPTOR: TO BE RE-ADJUSTED
-        putImg(740, 435, &UIbdscr4); // Adjust description image
+        putImg(740, 435, &UIbdscr7); // Adjust description image
         putImg(625, 440, &UIBlight); // need adjustment
         break;
     case PAUSE: putImg(740, 435, &UIbdscrT); putImg(851, 15, &pauseBT); break;
     case SPEEDUP: putImg(740, 435, &UIbdscrE); putImg(772, 15, &speedBT); break;
+    case QUIT: putImg(740, 435, &UIbdscrESC); putImg(0, 0, &escBT); break;
     }
     if (mouseCase == NORMALCASE && hoverCase == NORMALCASE) { putImg(740, 435, &UIbdscr0); }
-    if (preSpeedup) { putImg(772, 15, &speedBT2x); putImg(772, 15,tickRender/10.19, &speedBT2xR);}
+    if (preSpeedup) { putImg(772, 15, &speedBT2x); putImg(772, 15, tickRender / 10.19, &speedBT2xR); }
     if (isPause) { putImg(380, 200, &pauseTX); putImg(851, 15, &pauseBT); }
 }
 
@@ -863,21 +961,54 @@ void IntImg::blur() {
     int sum;
     int sr, sg, sb;
     int tr, tg, tb;
-    int r = 6;
-    for (int i = 45; i < screenSizeX - 235; i += 2) {
-        for (int j = 442; j < screenSizeY - 4; j += 2) {
+    int r = 8;
+    int mskR;
+    int mskG;
+    for (int i = 1; i < screenSizeX - 8; i += 2) {
+        for (int j = 1; j < screenSizeY - 8; j += 2) {
+            mskR = ((mask[i][j] & 0xff0000) >> 16);
+            mskG = ((mask[i][j] & 0xff00) >> 8);
+            if (mskG < 255)continue;
+            if (mskR == 0)continue;
             tr = 0; tg = 0; tb = 0;
-            for (int ir = -3; ir < 3; ir++) {
-                for (int jr = -3; jr < 3; jr++) {
-                    tr += ((pixel[i + ir][j + jr] & 0xff0000) >> 16);
-                    tg += ((pixel[i + ir][j + jr] & 0xff00) >> 8);
-                    tb += (pixel[i + ir][j + jr] & 0xff);
+
+
+            if (mskR > 192) {
+                for (int ir = -8; ir < 8; ir++) {
+                    tr = tr + ((pixel[i + ir][j + ir] & 0xff0000) >> 16) + ((pixel[i + ir][j - ir] & 0xff0000) >> 16);
+                    tg = tg + ((pixel[i + ir][j + ir] & 0xff00) >> 8) + ((pixel[i + ir][j - ir] & 0xff00) >> 8);
+                    tb = tb + (pixel[i + ir][j + ir] & 0xff) + (pixel[i + ir][j - ir] & 0xff);
                 }
+                sr = tr >> 5;
+                sg = tg >> 5;
+                sb = tb >> 5;
+                sum = (sr << 16) | (sg << 8) | (sb);
             }
-            sr = tr / r / r;
-            sg = tg / r / r;
-            sb = tb / r / r;
-            sum = (sr << 16) | (sg << 8) | (sb);
+            else if (mskR > 160) {
+                for (int ir = -4; ir < 4; ir++) {
+                    tr = tr + ((pixel[i + ir][j + ir] & 0xff0000) >> 16) + ((pixel[i + ir][j - ir] & 0xff0000) >> 16);
+                    tg = tg + ((pixel[i + ir][j + ir] & 0xff00) >> 8) + ((pixel[i + ir][j - ir] & 0xff00) >> 8);
+                    tb = tb + (pixel[i + ir][j + ir] & 0xff) + (pixel[i + ir][j - ir] & 0xff);
+                }
+                sr = tr >> 4;
+                sg = tg >> 4;
+                sb = tb >> 4;
+                sum = (sr << 16) | (sg << 8) | (sb);
+            }
+            else if (mskR > 128) {
+                for (int ir = -2; ir < 2; ir++) {
+                    tr = tr + ((pixel[i + ir][j + ir] & 0xff0000) >> 16) + ((pixel[i + ir][j - ir] & 0xff0000) >> 16);
+                    tg = tg + ((pixel[i + ir][j + ir] & 0xff00) >> 8) + ((pixel[i + ir][j - ir] & 0xff00) >> 8);
+                    tb = tb + (pixel[i + ir][j + ir] & 0xff) + (pixel[i + ir][j - ir] & 0xff);
+                }
+                sr = tr >> 3;
+                sg = tg >> 3;
+                sb = tb >> 3;
+                sum = (sr << 16) | (sg << 8) | (sb);
+            }
+            else {
+                sum = pixel[i][j];
+            }
             pixel[i][j] = sum; pixel[i + 1][j] = sum;
             pixel[i][j + 1] = sum; pixel[i + 1][j + 1] = sum;
         }
@@ -886,46 +1017,46 @@ void IntImg::blur() {
 
 void IntImg::putIllum(World* world)
 {
-    for (int i = upBound + 1; i < dnBound - 1; i++) {
-        for (int j = leftBound + 1; j < rightBound - 1; j++) {
-            if (world->mapp[i][j].type != GROUNDID) {
+    for (int i = upBound; i < dnBound; i++) {
+        if (i<1 || i>MAPLENGTH - 1)continue;
+        for (int j = leftBound; j < rightBound; j++) {
+            if (j < 1 || j >= MAPLENGTH - 1)continue;
+            if (world->mapp[i][j].type != GROUNDID && world->mapp[i][j].isMain) {
                 putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowM);
             }
             else {
-                if (i < MAPLENGTH - 1)if (world->mapp[i + 1][j].type != 0) {
+                if (world->mapp[i + 1][j].type != GROUNDID && world->mapp[i+1][j].isMain) {
                     putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowU);
                 }
-                if (j < MAPLENGTH - 1)if (world->mapp[i][j + 1].type != GROUNDID) {
+                if (world->mapp[i][j + 1].type != GROUNDID && world->mapp[i][j+1].isMain) {
                     putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowL);
                 }
-                if (i > 1)if (world->mapp[i - 1][j].type != 0) {
+                if (world->mapp[i - 1][j].type != GROUNDID && world->mapp[i-1][j].isMain) {
                     putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowD);
                 }
-                if (j > 1)if (world->mapp[i][j - 1].type != GROUNDID) {
+                if (world->mapp[i][j - 1].type != GROUNDID && world->mapp[i][j-1].isMain) {
                     putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowR);
                 }
-                if (j > 1 && i > 1 && i < MAPLENGTH - 1 && j < MAPLENGTH - 1) {
-                    if (world->mapp[i][j - 1].type == GROUNDID && world->mapp[i - 1][j].type == GROUNDID && world->mapp[i - 1][j - 1].type != GROUNDID) {
-                        putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowRD);
-                    }
-                    if (world->mapp[i][j + 1].type == GROUNDID && world->mapp[i + 1][j].type == GROUNDID && world->mapp[i + 1][j + 1].type != GROUNDID) {
-                        putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowLU);
-                    }
-                    if (world->mapp[i][j + 1].type == GROUNDID && world->mapp[i - 1][j].type == GROUNDID && world->mapp[i - 1][j + 1].type != GROUNDID) {
-                        putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowLD);
-                    }
-                    if (world->mapp[i][j - 1].type == GROUNDID && world->mapp[i + 1][j].type == GROUNDID && world->mapp[i + 1][j - 1].type != GROUNDID) {
-                        putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowRU);
-                    }
+                if (!world->mapp[i][j - 1].isMain && !world->mapp[i - 1][j].isMain && world->mapp[i - 1][j - 1].type != GROUNDID && world->mapp[i-1][j-1].isMain) {
+                    putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowRD);
+                }
+                if (!world->mapp[i][j + 1].isMain && !world->mapp[i + 1][j].isMain && world->mapp[i + 1][j + 1].type != GROUNDID && world->mapp[i+1][j+1].isMain) {
+                    putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowLU);
+                }
+                if (!world->mapp[i][j + 1].isMain && !world->mapp[i - 1][j].isMain && world->mapp[i - 1][j + 1].type != GROUNDID && world->mapp[i-1][j+1].isMain) {
+                    putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowLD);
+                }
+                if (!world->mapp[i][j - 1].isMain && !world->mapp[i + 1][j].isMain && world->mapp[i + 1][j - 1].type != GROUNDID && world->mapp[i+1][j-1].isMain) {
+                    putImg1(j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, &shadowRU);
                 }
             }
-
         }
     }
 }
 
 void IntImg::renderTick(World* world) {
     ClearImg();
+    dScale += (screenScale - dScale) / 4;
     leftBound = -cameraPositionX / 64 / screenScale;
     rightBound = (-cameraPositionX + screenSizeX + 64) / screenScale / 64;
     upBound = -cameraPositionY / 64 / screenScale;
@@ -943,4 +1074,14 @@ void IntImg::renderTick(World* world) {
     putUI();
     RenderImg();
     putNumbers();
+}
+
+void IntImg::renderMenu()
+{
+    putImg(0, 0, &menu1, 1, 1);
+    if (hoverCase == MENUSTART)
+        putImg(288, 299, &menuBTstart, 1, 1);
+    if (hoverCase == MENUSETTING)
+        putImg(288, 399, &menuBTsetting, 1, 1);
+    RenderImg();
 }

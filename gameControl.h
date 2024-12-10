@@ -29,6 +29,8 @@ extern bool isPause;
 extern bool preSpeedup;
 extern bool isSpeedup;
 
+extern int SCENE;
+
 class Button {
 public:
 	int lfBound;
@@ -51,15 +53,12 @@ public:
 	Button BTcomp = Button(334, 431, 443, 540);
 	Button BTcolr = Button(431, 528, 443, 540);
 	Button BTdelete = Button(528, 625, 443, 540);
-	Button BTacceptor = Button(625, 722, 443, 540); // To be adjusted ...
-
-	// Buttons on the top right corner:
 	Button BTpause = Button(843, 914, 20, 80);
 	Button BTspeed = Button(772, 843, 20, 80);
-    ///后面还会加按钮
-
-
-    void operateTick(World * world,ExMessage& msg);
+	Button BTesc = Button(1, 144, 1, 89);
+	Button BTacceptor = Button(625, 722, 443, 540); // To be adjusted ...
+	//后面还会加按钮
+	void operateTick(World* world, ExMessage& msg);
 	//Left click and drag to move the screen
 	//Scroll to change the screen scale
 	//Right click on the bottom building's area to select buildings
@@ -71,6 +70,12 @@ public:
 };
 //以后可能会有主菜单UI界面，用新的class建立
 
+class MenuButton {
+public:
+	Button BTstart = Button(280, 680, 300, 380);
+	Button BTsetting = Button(280, 680, 400, 480);
+	void operateMenu(ExMessage& msg);
+};
 
 
 #endif
