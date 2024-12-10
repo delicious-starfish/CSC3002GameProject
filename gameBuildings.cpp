@@ -135,12 +135,25 @@ bool Cutter::input(Belt & input) {
 
 
 	Item leftHalf = Item(), rightHalf = Item();
-	for (int i = 0; i < 2; i++) {
-		leftHalf.shapeId[i][0][0] = item.shapeId[i][0][0]; leftHalf.colorId[i][0][0] = item.colorId[i][0][0];
-		leftHalf.shapeId[i][1][0] = item.shapeId[i][1][0]; leftHalf.colorId[i][1][0] = item.colorId[i][1][0];
+	if (dir == UP || dir == DOWN) {
+		// Assuming UP/DOWN splits vertically
+		for (int i = 0; i < 2; i++) {
+			leftHalf.shapeId[i][0][0] = item.shapeId[i][0][0]; leftHalf.colorId[i][0][0] = item.colorId[i][0][0];
+			leftHalf.shapeId[i][1][0] = item.shapeId[i][1][0]; leftHalf.colorId[i][1][0] = item.colorId[i][1][0];
 
-		rightHalf.shapeId[i][0][1] = item.shapeId[i][0][1]; rightHalf.colorId[i][0][1] = item.colorId[i][0][1];
-		rightHalf.shapeId[i][1][1] = item.shapeId[i][1][1]; rightHalf.colorId[i][1][1] = item.colorId[i][1][1];
+			rightHalf.shapeId[i][0][1] = item.shapeId[i][0][1]; rightHalf.colorId[i][0][1] = item.colorId[i][0][1];
+			rightHalf.shapeId[i][1][1] = item.shapeId[i][1][1]; rightHalf.colorId[i][1][1] = item.colorId[i][1][1];
+		}
+	}
+	else if (dir == LEFT || dir == RIGHT) {
+		// Assuming LEFT/RIGHT splits horizontally
+		for (int i = 0; i < 2; i++) {
+			leftHalf.shapeId[i][0][0] = item.shapeId[i][0][0]; leftHalf.colorId[i][0][0] = item.colorId[i][0][0];
+			leftHalf.shapeId[i][0][1] = item.shapeId[i][0][1]; leftHalf.colorId[i][0][1] = item.colorId[i][0][1];
+
+			rightHalf.shapeId[i][1][0] = item.shapeId[i][1][0]; rightHalf.colorId[i][1][0] = item.colorId[i][1][0];
+			rightHalf.shapeId[i][1][1] = item.shapeId[i][1][1]; rightHalf.colorId[i][1][1] = item.colorId[i][1][1];
+		}
 	}
 	OutputMain = leftHalf;
 	OutputSub = rightHalf;
