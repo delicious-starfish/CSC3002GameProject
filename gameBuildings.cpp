@@ -128,9 +128,6 @@ bool Cutter::input(Belt & input) {
 	if (!(isEmptyMain && isEmptySub)) return false;
 	if (input.isEmpty) return false;
 	Item item = input.itemNow;
-	bool valid = false;
-	if ((item.shapeId[0][0][0] != 0 || item.shapeId[0][1][0] != 0) && (item.shapeId[0][0][1] != 0 || item.shapeId[0][1][1] != 0)) valid = true;
-	if (!valid) return false;
 
 	input.isEmpty = true;
 	isOperated = true;
