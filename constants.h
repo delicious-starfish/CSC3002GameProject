@@ -88,10 +88,16 @@
 #define UICUTTER 102
 #define UICOMPOSER 105
 #define UICOLORER 111
-#define UIDELETER 666
-#define UIACCEPTOR 777
+#define UIDELETER 166
+#define UIACCEPTOR 177
+#define MENUSTART 200
+#define MENUSETTING 201
 
 #define BUFFERSIZE 2048
+
+#define SCENEGAME 1
+#define SCENEMENU 2
+#define SCENESETTING 3
 
 #endif // !_constant_h_
 

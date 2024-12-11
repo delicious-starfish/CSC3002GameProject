@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="gameBuildings.cpp" />
     <ClCompile Include="gameCollection.cpp" />
     <ClCompile Include="gameControl.cpp" />
@@ -134,9 +135,11 @@
     <ClCompile Include="gameLogic.cpp" />
     <ClCompile Include="gameRender.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="gameBuildings.h" />
     <ClInclude Include="gameCollection.h" />
     <ClInclude Include="gameConfig.h" />
@@ -145,6 +148,7 @@
     <ClInclude Include="gameLogic.h" />
     <ClInclude Include="gameRender.h" />
     <ClInclude Include="gameUtil.h" />
+    <ClInclude Include="menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

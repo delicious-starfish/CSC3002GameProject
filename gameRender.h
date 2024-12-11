@@ -37,6 +37,8 @@ public:
 
 	int shade[1920][1080];
 
+	int mask[1920][1080];
+
 	int leftBound; int rightBound;
 	int upBound; int dnBound;
 
@@ -45,6 +47,9 @@ public:
 	//A multiplication list prepared for putImg1
 
 	//float mouseTk
+	float dScale;
+	float dScore;
+	float dTen;
 
 	IntImg();
 	//Initialize
@@ -190,6 +195,10 @@ public:
 	// output nothing
 	//By Yao Yilin
 	// Change input from "World & world to World * world" by kby
+	void putmskImg(int x, int y, double r, IMAGE* srcimg);
+	void loadMask();
+	void renderMenu();
+
 };
 
 void loadImgRes();
@@ -199,5 +208,6 @@ void loadImgRes();
 		By Yao Yilin
 */
 void putNumbers();
+
 
 #endif
