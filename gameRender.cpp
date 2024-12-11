@@ -783,17 +783,22 @@ void IntImg::putItems(World* world) {
             bool isHorizontal = (world->cutter[i].dir == LEFT || world->cutter[i].dir == RIGHT);
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 2; k++) {
-                    int renderedJ = isHorizontal ? k : j;
-                    int renderedK = isHorizontal ? j : k;
+                    if(isHorizontal)
                     switch (2 * j + k) {
                     case 0:dir = 1; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir); break;
-                    case 1:dir = 4; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x + xd, y + yd, dir); break;
-                    case 2:dir = 3; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir); break;
+                    case 1:dir = 4; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir); break;
+                    case 2:dir = 3; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x + xd, y + yd, dir); break;
                     case 3:dir = 2; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x + xd, y + yd, dir); break;
                     }
+                    else
+                        switch (2 * j + k) {
+                        case 0:dir = 1; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir); break;
+                        case 1:dir = 4; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x + xd, y + yd, dir); break;
+                        case 2:dir = 3; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x, y, dir); break;
+                        case 3:dir = 2; putAnItem(itemRender.shapeId[0][j][k], itemRender.colorId[0][j][k], x + xd, y + yd, dir); break;
+                        }
                 }
             }
-
         }
     }
     for (int i = 0; i < world->maxComposerId; i++) {
