@@ -957,8 +957,8 @@ void IntImg::putUI() {
     putmskImg(547, 11, dTen*0.628, &UInumO);
     putmskImg(560, 11, -sqrt((((int)(startTime - currentTime)) / 1000) * 0.628 - (startTime - currentTime) * 0.00063)+ (((int)(startTime - currentTime)) / 1000) * 0.628, &UInumO);
     putmskImg(573, 11, (startTime - currentTime)*0.00628, &UInumO);
-    putmskImg(682, 11, -(dScore)*0.628, &UInumO);
-    putmskImg(695, 11, -totalScore*0.628, &UInumO);
+    putmskImg(682, 11, -(totalScore/10)*0.628, &UInumO);
+    putmskImg(695, 11, -dScore*0.628, &UInumO);
     switch (hoverCase) {
     case UIBELT:putImg(740, 435, &UIbdscr1); putImg(43, 440, &UIBlight); break;
     case UIROTATOR:putImg(740, 435, &UIbdscr2); putImg(140, 440, &UIBlight); break;
@@ -1080,7 +1080,7 @@ void IntImg::putIllum(World* world)
 void IntImg::renderTick(World* world) {
     ClearImg();
     dScale += (screenScale - dScale) / 4;
-    dScore += (totalScore/10 - dScore) / 8.0;
+    dScore += (totalScore - dScore) / 8.0;
     dTen += ((((int)(startTime - currentTime-1000)) / 10000) - dTen) / 8.0;
     leftBound = -cameraPositionX / 64 / screenScale;
     rightBound = (-cameraPositionX + screenSizeX + 64) / screenScale / 64;
