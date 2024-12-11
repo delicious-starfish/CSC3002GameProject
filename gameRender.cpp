@@ -37,6 +37,7 @@ IMAGE UIbdscrE;
 IMAGE UIbdscrT;
 IMAGE UIbdscrESC;
 IMAGE UISCALER;
+IMAGE UInumO;
 IMAGE beltOO;
 IMAGE cuttOO;
 IMAGE compOO;
@@ -186,6 +187,7 @@ void loadImgRes() {
     loadimage(&UIbdscrT, StrToTchar(StrTexPath + "UI-descriptionT.png"));
     loadimage(&UIbdscrESC, StrToTchar(StrTexPath + "UI-descriptionESC.png"));
     loadimage(&UISCALER, StrToTchar(StrTexPath + "UI-SCALER2.png"));
+    loadimage(&UInumO, StrToTchar(StrTexPath + "numO.png"));
     loadimage(&acceptorPreview, StrToTchar(StrTexPath + "acptOO.png"));
     loadimage(&beltOO, StrToTchar(StrTexPath + "beltOO.png"));
     loadimage(&cuttOO, StrToTchar(StrTexPath + "cuttOO.png"));
@@ -308,19 +310,28 @@ void IntImg::putmskImg(int x, int y, double r, IMAGE* srcimg)
             i = (i < src_X && i >= 0) ? i : 0;
             int mskR = ((mask[ix][iy] & 0xff0000) >> 16);
             int sa = ((src[i] & 0xff000000) >> 24);
-            sa = sa * (mskR / 390.0);
-            if (sa != 0) {
-                if (sa == 255) {
-                    pixel[ix][iy] = src[i];
+            if (mskR != 255) {
+                sa = sa * (mskR / 390.0);
+                if (sa != 0) {
+                    if (sa == 255) pixel[ix][iy] = src[i];
+                    else {
+                        int sr = ((src[i] & 0xff0000) >> 16) * sa; int sg = ((src[i] & 0xff00) >> 8) * sa; int sb = (src[i] & 0xff) * sa;
+                        int dr = ((pixel[ix][iy] & 0xff0000) >> 16) * (255 - sa); int dg = ((pixel[ix][iy] & 0xff00) >> 8) * (255 - sa);
+                        int db = (pixel[ix][iy] & 0xff) * (255 - sa); pixel[ix][iy] = (((sr + dr) >> 8) << 16) | (((sg + dg) >> 8) << 8) | ((sb + db) >> 8);
+                    }
                 }
-                else {
-                    int sr = ((src[i] & 0xff0000) >> 16) * sa;
-                    int sg = ((src[i] & 0xff00) >> 8) * sa;
-                    int sb = (src[i] & 0xff) * sa;
-                    int dr = ((pixel[ix][iy] & 0xff0000) >> 16) * (255 - sa);
-                    int dg = ((pixel[ix][iy] & 0xff00) >> 8) * (255 - sa);
-                    int db = (pixel[ix][iy] & 0xff) * (255 - sa);
-                    pixel[ix][iy] = (((sr + dr) >> 8) << 16) | (((sg + dg) >> 8) << 8) | ((sb + db) >> 8);
+            }else{
+                if (sa != 0) {
+                    if (sa == 255) pixel[ix][iy] = src[i];
+                    else {
+                        int sr = ((src[i] & 0xff0000) >> 16);
+                        int sg = ((src[i] & 0xff00) >> 8);
+                        int sb = src[i] & 0xff;
+                        int dr = ((pixel[ix][iy] & 0xff0000) >> 16) * (255 - sa);
+                        int dg = ((pixel[ix][iy] & 0xff00) >> 8) * (255 - sa);
+                        int db = (pixel[ix][iy] & 0xff) * (255 - sa);
+                        pixel[ix][iy] = ((sr + (dr >> 8)) << 16) | ((sg + (dg >> 8)) << 8) | (sb + (db >> 8));
+                    }
                 }
             }
         }
@@ -368,6 +379,8 @@ IntImg::IntImg() {
         }
     }
     dScale = 1;
+    dScore = 0;
+    dTen = 0;
 }
 
 
@@ -924,6 +937,7 @@ void IntImg::putUI() {
         putImg(625, 440, &UIBlight);
         break;
     }
+    blur();
     putImg(0, 0, &UIframe3);
     putImg(900, 0, &UIframe4);
     putImg(0, 0, &UIframe1);
@@ -936,6 +950,12 @@ void IntImg::putUI() {
     putImg(528, 443, &UIdes);
     putImg(625, 443, &UIacc);
     putmskImg(-430, 0, dScale * 3.14 - 2.15, &UISCALER);
+    putmskImg(534, 11, (((int)(startTime - currentTime)) / 100000) * 0.628, &UInumO);
+    putmskImg(547, 11, dTen*0.628, &UInumO);
+    putmskImg(560, 11, -sqrt((((int)(startTime - currentTime)) / 1000) * 0.628 - (startTime - currentTime) * 0.00063)+ (((int)(startTime - currentTime)) / 1000) * 0.628, &UInumO);
+    putmskImg(573, 11, (startTime - currentTime)*0.00628, &UInumO);
+    putmskImg(682, 11, -(dScore)*0.628, &UInumO);
+    putmskImg(695, 11, -totalScore*0.628, &UInumO);
     switch (hoverCase) {
     case UIBELT:putImg(740, 435, &UIbdscr1); putImg(43, 440, &UIBlight); break;
     case UIROTATOR:putImg(740, 435, &UIbdscr2); putImg(140, 440, &UIBlight); break;
@@ -1057,6 +1077,8 @@ void IntImg::putIllum(World* world)
 void IntImg::renderTick(World* world) {
     ClearImg();
     dScale += (screenScale - dScale) / 4;
+    dScore += (totalScore/10 - dScore) / 8.0;
+    dTen += ((((int)(startTime - currentTime-1000)) / 10000) - dTen) / 8.0;
     leftBound = -cameraPositionX / 64 / screenScale;
     rightBound = (-cameraPositionX + screenSizeX + 64) / screenScale / 64;
     upBound = -cameraPositionY / 64 / screenScale;
@@ -1070,10 +1092,8 @@ void IntImg::renderTick(World* world) {
     putBuildings(world);
     putItems(world);
     putBuildings2(world);
-    blur();
     putUI();
     RenderImg();
-    putNumbers();
 }
 
 void IntImg::renderMenu()

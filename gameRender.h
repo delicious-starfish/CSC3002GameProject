@@ -48,6 +48,8 @@ public:
 
 	//float mouseTk
 	float dScale;
+	float dScore;
+	float dTen;
 
 	IntImg();
 	//Initialize
