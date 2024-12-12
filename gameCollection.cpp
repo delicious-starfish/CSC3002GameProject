@@ -52,6 +52,21 @@ void World::buildAt(int building, int x, int y, int direction) {
 			break;
 
 		case ROTATORID:
+			switch (direction) {
+			case UP:
+				if (x - 1 < 0) return;
+				break;
+			case DOWN:
+				if (x + 1 >= MAPLENGTH) return;
+				break;
+			case LEFT:
+				if (y + 1 >= MAPLENGTH) return;
+				break;
+			case RIGHT:
+				if (y - 1 < 0) return;
+				break;
+			}
+		
 			if (deletedRotatorId->empty()) {
 				newId = maxRotatorId;
 				maxRotatorId++;
@@ -80,6 +95,24 @@ void World::buildAt(int building, int x, int y, int direction) {
 			break;
 
 		case CUTTERID:
+			switch (direction) {
+			case UP:
+				if (x - 1 < 0) return;
+				if (y + 1 >= MAPLENGTH) return;
+				break;
+			case DOWN:
+				if (x + 1 >= MAPLENGTH) return;
+				if (y - 1 < 0) return;
+				break;
+			case LEFT:
+				if (y - 1 < 0) return;
+				if (x - 1 < 0) return;
+				break;
+			case RIGHT:
+				if (y + 1 >= MAPLENGTH) return;
+				if (x + 1 >= MAPLENGTH) return;
+				break;
+			}
 			if (deletedCutterId.empty()) {
 				newId = maxCutterId;
 				maxCutterId++;
@@ -122,6 +155,25 @@ void World::buildAt(int building, int x, int y, int direction) {
 
 
 		case COMPOSERID:
+			switch (direction) {
+			case UP:
+				if (x - 1 < 0) return;
+				if (y + 1 >= MAPLENGTH) return;
+				break;
+			case DOWN:
+				if (x + 1 >= MAPLENGTH) return;
+				if (y - 1 < 0) return;
+				break;
+			case LEFT:
+				if (y - 1 < 0) return;
+				if (x - 1 < 0) return;
+				break;
+			case RIGHT:
+				if (y + 1 >= MAPLENGTH) return;
+				if (x + 1 >= MAPLENGTH) return;
+				break;
+			}
+
 			if (deletedCompId.empty()) {
 				newId = maxComposerId;
 				maxComposerId++;
@@ -180,6 +232,11 @@ void World::buildAt(int building, int x, int y, int direction) {
 
 		// ADDING THE ACCEPTOR BUIDING STEPS, 1207 by Xin Cao
 		case ACCEPTORID:
+			for (int dx = 0; dx < 3; dx++) {
+				for (int dy = 0; dy < 3; dy++) {
+					if (dx < 0 || dx >= MAPLENGTH || dy < 0 || dy >= MAPLENGTH) return;
+				}
+			}
 			clearGround(ACCEPTORID, x, y, direction);
 			int newId;
 			if (deletedAcceptorId.empty()) {

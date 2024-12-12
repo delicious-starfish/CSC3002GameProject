@@ -101,13 +101,13 @@ int main() {
             playGame(mouseMessage);
             break;
         }
-        if (totalScore >= SCOREREQUEST_TEST || totalScore == -1) {
+        /*if (totalScore >= SCOREREQUEST_TEST || totalScore == -1) {
             totalScore = 0;
             Game* oldGame = game;
             delete oldGame;
             game = new Game();
             SCENE = SCENEMENU;
-        }
+        }*/
     }
 
     delete game;
