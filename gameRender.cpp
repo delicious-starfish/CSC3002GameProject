@@ -806,6 +806,7 @@ void IntImg::putItems(World* world) {
             Item itemRender = world->composer[i].OutputPre;
             int y = world->composer[i].pos[0] * 64 * screenScale + cameraPositionY;
             int x = world->composer[i].pos[1] * 64 * screenScale + cameraPositionX;
+            if(world->composer[i].isMoved)
             switch (world->composer[i].dir) {
             case UP:y = y - tickRender * screenScale; break;
             case DOWN:y += tickRender * screenScale; break;
