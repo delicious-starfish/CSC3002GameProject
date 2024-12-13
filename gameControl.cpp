@@ -164,6 +164,45 @@ void GameButton::operateTick(World * world,ExMessage& msg)
                 case LEFT:scrollCase = UP; break;
                 case RIGHT:scrollCase = DOWN; break;
                 } break;
+
+            // ADD SOME HOTKEYS FOR QUICK-BUILD
+            case '1': // Hotkey 1
+                hoverCase = UIBELT;
+                mouseCase = hoverCase;
+                break;
+
+            case '2': // Hotkey 2
+                hoverCase = UIROTATOR;
+                mouseCase = hoverCase;
+                break;
+
+            case '3': // Hotkey 3
+                hoverCase = UICUTTER;
+                mouseCase = hoverCase;
+                break;
+
+            case '4': // Hotkey 4
+                hoverCase = UICOMPOSER;
+                mouseCase = hoverCase;
+                break;
+
+            case '5': // Hotkey 5
+                hoverCase = UICOLORER;
+                mouseCase = hoverCase;
+                break;
+
+            case '6': // Hotkey 6
+                hoverCase = UIDELETER;
+                mouseCase = hoverCase;
+                break;
+
+            case '7': // Hotkey 7
+                hoverCase = UIACCEPTOR;
+                mouseCase = hoverCase;
+                break;
+
+            break;
+
             }
             //stop
             break;

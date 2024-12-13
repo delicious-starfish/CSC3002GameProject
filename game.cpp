@@ -83,6 +83,7 @@ void playGame(ExMessage mouseMessage)
 
     // Render
     if (currentTime >= nextRender) {
+        // Changed the Left & Upper bound to avoid button corruption & scaleUI blocking.
         // Originally :     > -13                                        - 13
         if (cameraPositionX > -43) { cameraPositionX -= (cameraPositionX - 43) / 1.3; }
         if (cameraPositionX < (-MAPLENGTH * 64.0 * screenScale - 13 + screenSizeX)) { cameraPositionX -= (cameraPositionX - (-MAPLENGTH * 64.0 * screenScale - 13 + screenSizeX)) / 2.0; }
