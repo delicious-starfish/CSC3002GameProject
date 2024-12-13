@@ -30,7 +30,12 @@ World::World() {
 }
 
 
-void World::buildAt(int building, int x, int y, int direction) {
+void World::buildAt(int building, int x, int y, int direction,
+					// the following lines are for Acceptor
+					int check1items, int goalX, int goalY, int goalColor, int goalShape,
+					int check2items, int goalX2, int goalY2, int goalColor2, int goalShape2,
+					int check3items, int goalX3, int goalY3, int goalColor3, int goalShape3,
+					int check4items, int goalX4, int goalY4, int goalColor4, int goalShape4) {
 	clearGround(building,x,y,direction);
 	int newId;
 	switch (building) {
@@ -257,6 +262,46 @@ void World::buildAt(int building, int x, int y, int direction) {
 			}
 			acceptorNum++;
 			acceptor[newId] = Acceptor(x, y);
+
+			// For the 1st Quarter-Item
+			if (check1items == 1) {
+				acceptor[newId].check1items = check1items;
+				acceptor[newId].goalX = goalX;
+				acceptor[newId].goalY = goalY;
+				acceptor[newId].goalShape = goalShape;
+				acceptor[newId].goalColor = goalColor;
+			}
+
+			// For the 2nd Quarter-Item
+			if (check2items == 1) {
+				acceptor[newId].check2items = check2items;
+				acceptor[newId].goalX2 = goalX2;
+				acceptor[newId].goalY2 = goalY2;
+				acceptor[newId].goalShape2 = goalShape2;
+				acceptor[newId].goalColor2 = goalColor2;
+			}
+
+			// For the 3rd Quarter-Item
+			if (check3items == 1) {
+				acceptor[newId].check3items = check3items;
+				acceptor[newId].goalX3 = goalX3;
+				acceptor[newId].goalY3 = goalY3;
+				acceptor[newId].goalShape3 = goalShape3;
+				acceptor[newId].goalColor3 = goalColor3;
+			}
+
+			// For the 4th Quarter-Item
+			if (check4items == 1) {
+				acceptor[newId].check4items = check4items;
+				acceptor[newId].goalX4 = goalX4;
+				acceptor[newId].goalY4 = goalY4;
+				acceptor[newId].goalShape4 = goalShape4;
+				acceptor[newId].goalColor4 = goalColor4;
+			}
+
+
+			//int goalX = 0, goalY = 0, goalColor = REDITEM, goalShape = QUARTERSQUARE;
+			//int goalX2 = 0, goalY2 = 0, goalColor2 = 0, goalShape2 = 0;
 
 			// Fill 3x3 area in the map:
 			// The main block is at (x+1, y+1)
@@ -710,7 +755,13 @@ void Game::loadTestMap() {
 		world->buildAt(BELTID, i, 3, UP);
 	// Add another belt with dir=UP manually
 
-	world->buildAt(ACCEPTORID, 7, 7, 0);
+	//world->buildAt(ACCEPTORID, 5, 7, 0, 1, 0, 0, REDITEM, QUARTERSQUARE,
+	//									1, 0, 0, WHITEITEM, QUARTERSQUARE,
+	//									0, 0, 0, 0, 0,
+	//									0, 0, 0, 0, 0);
+	//				// The following arguments are for Acceptor
+
+
 
 	Item testItem = Item(QUARTERSQUARE, WHITEITEM);
 	testItem.colorId[0][1][1] = YELLOWITEM;

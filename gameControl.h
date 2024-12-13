@@ -56,7 +56,7 @@ public:
 	Button BTpause = Button(843, 914, 20, 80);
 	Button BTspeed = Button(772, 843, 20, 80);
 	Button BTesc = Button(1, 144, 1, 89);
-	Button BTacceptor = Button(625, 722, 443, 540); // To be adjusted ...
+	Button BTacceptor = Button(625, 722, 443, 540);
 	//后面还会加按钮
 	void operateTick(World* world, ExMessage& msg);
 	//Left click and drag to move the screen

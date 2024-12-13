@@ -3,6 +3,7 @@
 	This file contains functions and classes dealing with building objects
 */
 #include "gameItem.h"
+#include "constants.h"
 #include <queue>
 #ifndef _gameBuildings_h_
 #define _gameBuildings_h_
@@ -314,6 +315,16 @@ public:
 	// pos[0], pos[1] is the top-left corner of the 3x3 area.
 	// The main block (isMain) cell is at (pos[0]+1, pos[1]+1).
 
+	int check1items = 0, check2items = 0, check3items = 0, check4items = 0;
+	int goalX = 0, goalY = 0, goalColor = 0, goalShape = 0;
+	int goalX2 = 0, goalY2 = 0, goalColor2 = 0, goalShape2 = 0;
+	int goalX3 = 0, goalY3 = 0, goalColor3 = 0, goalShape3 = 0;
+	int goalX4 = 0, goalY4 = 0, goalColor4 = 0, goalShape4 = 0;
+
+	// These are passed into the Acceptor when buiding, then passed to the input() function
+	// mode=0 for classic accept only one item, mode=1 for swapping inputs
+	// goalx2 ... goalshape2 arguments for swapping mode
+
 	bool isEmpty;
 	// True if no item currently stored. Once it accepts an item, set isEmpty = false.
 
@@ -322,10 +333,8 @@ public:
 
 	Acceptor();
 	Acceptor(int x, int y);
+	bool input(Belt& input);
 
-	bool input(Belt& input, int mode = 0, int goalX = 0, int goalY = 0, int goalColor = 0, int goalShape = 0, int goalX2 = 0, int goalY2 = 0, int goalColor2 = 0, int goalShape2 = 0);
-	// mode=0 for classic accept only one item, mode=1 for swapping inputs
-	// goalx2 ... goalshape2 arguments for swapping mode
 	/*
 	  input: tries to take an item from a belt adjacent to its center cell.
 	  If successful, it stores the item and clears the belt, returning true.
