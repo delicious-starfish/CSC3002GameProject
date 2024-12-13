@@ -190,7 +190,6 @@ void buildingInput(World * world) {
 			
 			int bId = world->mapp[cx - 2][cy].id;
 			if (!world->belt[bId].isEmpty && world->belt[bId].dir == DOWN) {
-				std::cout << "12" << std::endl;
 				acc->input(world->belt[bId]);
 			}
 		}
