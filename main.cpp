@@ -72,15 +72,8 @@ int main() {
 
     loadImgRes();
     intimg1->loadMask();
-    game->loadTestMap();
-    Item testItem = Item(QUARTERSQUARE, WHITEITEM);
-    testItem.colorId[0][1][1] = YELLOWITEM;
-    testItem.colorId[0][0][0] = REDITEM;
-    testItem.colorId[0][1][0] = BLUEITEM;
-    testItem.shapeId[0][1][0] = QUARTERWINDMILL;
-    testItem.shapeId[0][1][1] = QUARTERCIRCLE;
-    game->world->putItemAt(testItem, 0, 12);
-    game->world->putItemAt(testItem, 3, 12);
+    //game->loadTestMap();
+    game->loadShowMap();
 
     ExMessage mouseMessage{};
     //initialize the mouse
@@ -101,13 +94,13 @@ int main() {
             playGame(mouseMessage);
             break;
         }
-        /*if (totalScore >= SCOREREQUEST_TEST || totalScore == -1) {
-            totalScore = 0;
+        if (totalScore >= SCOREREQUEST_TEST || totalScore == -1) {
+            /*totalScore = 0;
             Game* oldGame = game;
             delete oldGame;
             game = new Game();
-            SCENE = SCENEMENU;
-        }*/
+            SCENE = SCENEMENU;*/
+        }
     }
 
     delete game;

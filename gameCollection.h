@@ -63,6 +63,7 @@ class World {
 
 		std::stack<int> deletedBeltId,deletedCompId,deletedCutterId;
 		std::stack<int> * deletedRotatorId;
+		std::stack<int>* deletedRubbishBinId;
 		int beltNum = 0, cutterNum = 0, averagerNum = 0, porterNum = 0, composerNum = 0, minerNum = 0,rubbishBinNum = 0;
 		int maxBeltId = 0,maxCutterId = 0, maxComposerId = 0, maxMinerId = 0, maxRubbishBinId = 0,maxRotatorId = 0;
 		int rotatorNum = 0;
@@ -183,6 +184,8 @@ class Game {
 		World * world;
 		void loadTestMap();
 		//void generateMap();
+		void loadShowMap();
+		void showInstruction();
 	private:
 };
 

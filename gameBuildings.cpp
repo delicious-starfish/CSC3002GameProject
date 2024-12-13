@@ -229,11 +229,6 @@ bool Composer::input(Belt& leftinput, Belt& rightinput) {
 	Item leftitem = leftinput.itemNow;
 	Item rightitem = rightinput.itemNow;
 
-	leftinput.isEmpty = true;
-	rightinput.isEmpty = true;
-	leftinput.itemNow = Item();
-	rightinput.itemNow = Item();
-	isOperated = true;
 
 	Item itemout = Item();
 	for (int x = 0; x < 2; x++)
@@ -245,6 +240,12 @@ bool Composer::input(Belt& leftinput, Belt& rightinput) {
 			itemout.shapeId[0][x][y] = leftitem.shapeId[0][x][y] == 0 ? rightitem.shapeId[0][x][y] : leftitem.shapeId[0][x][y];
 			itemout.colorId[0][x][y] = leftitem.colorId[0][x][y] == 0 ? rightitem.colorId[0][x][y] : leftitem.colorId[0][x][y];
 		}
+
+	leftinput.isEmpty = true;
+	rightinput.isEmpty = true;
+	leftinput.itemNow = Item();
+	rightinput.itemNow = Item();
+	isOperated = true;
 	Output = itemout;
 	OutisEmpty = false;
 	return true;
@@ -429,14 +430,13 @@ bool Acceptor::input(Belt& input, int mode, int goalX, int goalY, int goalColor,
 		return true;
 	}
 
-
 	// THE BELOW IS THE ORIGINAL CODED FOR ACCEPTING EVERYTHING
-	//isEmpty = false;
+	isEmpty = false;
 	//// Clear the belt
 	//input.itemNow = Item();
 	//input.isEmpty = true;
 	//totalScore++;
-	return false;
+	//return false;
 }
 
 // Over

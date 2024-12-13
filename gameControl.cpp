@@ -77,6 +77,7 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             case UICUTTER: 
             case UIROTATOR:
             case UICOMPOSER:
+            case UICOLORER:
             case UIBELT: mouseCase = hoverCase; break;
             case UIACCEPTOR: // Handle Acceptor Selection
                 mouseCase = hoverCase;
@@ -104,7 +105,7 @@ void GameButton::operateTick(World * world,ExMessage& msg)
                 case UIDELETER:
                     world->destroyAppendix(UIbY, UIbX);
                     world->destoryAt(UIbY, UIbX); mouseCase = NORMALCASE; break;
-                case UIACCEPTOR: { // Handle Acceptor Building
+                case UIACCEPTOR:  {// Handle Acceptor Building
                     int buildX = UIbY - (mouseCase == UIACCEPTOR ? 1 : 0); // Adjust for 3x3
                     int buildY = UIbX - (mouseCase == UIACCEPTOR ? 1 : 0); // Adjust for 3x3
                     world->buildAt(
@@ -116,6 +117,9 @@ void GameButton::operateTick(World * world,ExMessage& msg)
                     mouseCase = NORMALCASE;
                     break;
                 }
+                case UICOLORER: world->buildAt(RUBBISHBINID, UIbY, UIbX, scrollCase); mouseCase = NORMALCASE; break;
+
+                
                 }
             //If mouseCase is about to build, and canBuild, then build a building
             break;

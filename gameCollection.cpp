@@ -75,9 +75,6 @@ void World::buildAt(int building, int x, int y, int direction) {
 				newId = deletedRotatorId->top();
 				deletedRotatorId->pop();
 			}
-			rotatorNum++;
-			rotator[newId] = Rotator(x, y, direction);
-			mapp[x][y] = Node(ROTATORID, newId, true);
 			switch (direction) {
 			case UP:
 				buildAt(BELTID, x - 1, y, direction);
@@ -92,6 +89,10 @@ void World::buildAt(int building, int x, int y, int direction) {
 				buildAt(BELTID, x, y + 1, direction);
 				break;
 			}
+			rotatorNum++;
+			rotator[newId] = Rotator(x, y, direction);
+			mapp[x][y] = Node(ROTATORID, newId, true);
+			
 			break;
 
 		case CUTTERID:
@@ -224,9 +225,16 @@ void World::buildAt(int building, int x, int y, int direction) {
 			break;
 
 		case RUBBISHBINID:
-			mapp[x][y] = Node(RUBBISHBINID, maxRubbishBinId, true);
-			rubbishBin[maxRubbishBinId] = RubbishBin(x, y);
+			newId = maxRubbishBinId;
 			maxRubbishBinId++;
+			/*if (!deletedRubbishBinId->empty()) {
+				maxRubbishBinId--;
+				newId = deletedRubbishBinId->top();
+				deletedRubbishBinId->pop();
+			}*/
+			mapp[x][y] = Node(RUBBISHBINID, newId, true);
+			rubbishBin[newId] = RubbishBin(x, y);
+			rubbishBinNum++;
 			
 			break;
 
@@ -436,6 +444,17 @@ void World::deleteInArray(int building, int id) {
 		}
 		break;
 	// Over
+	case RUBBISHBINID:
+		rubbishBin[id].pos[0] = -1;
+		rubbishBinNum--;
+		if (id == maxRubbishBinId - 1) {
+			maxRubbishBinId--;
+		}
+		else {
+			deletedRubbishBinId->push(id);
+		}
+		break;
+
 	}
 
 }
@@ -500,6 +519,10 @@ void World::deleteInMapp(int buildingType, int id) {
 		}
 	}
 	// Over
+	if (buildingType == RUBBISHBINID) {
+		int xx = rubbishBin[id].pos[0], yy = rubbishBin[id].pos[1];
+		mapp[xx][yy] = Node();
+	}
 }
 
 //void World::deleteAppendix(int building, int id) 
@@ -688,9 +711,111 @@ void Game::loadTestMap() {
 	// Add another belt with dir=UP manually
 
 	world->buildAt(ACCEPTORID, 7, 7, 0);
+
+	Item testItem = Item(QUARTERSQUARE, WHITEITEM);
+	testItem.colorId[0][1][1] = YELLOWITEM;
+	testItem.colorId[0][0][0] = REDITEM;
+	testItem.colorId[0][1][0] = BLUEITEM;
+	testItem.shapeId[0][1][0] = QUARTERWINDMILL;
+	testItem.shapeId[0][1][1] = QUARTERCIRCLE;
+	world->putItemAt(testItem, 0, 12);
+	world->putItemAt(testItem, 3, 12);
 }
 
+void Game::loadShowMap() {
+	world->buildAt(MINERID, 1, 0, RIGHT);
+	world->buildAt(MINERID, 5, 0, RIGHT);
+	world->buildAt(MINERID, 10, 0, RIGHT);
+	world->buildAt(MINERID, 15, 0, RIGHT);
+	world->buildAt(ACCEPTORID, 10, 10, UP);
 
+	world->buildAt(BELTID, 1, 1, RIGHT);
+	world->buildAt(BELTID, 1, 3, RIGHT);
+	world->buildAt(BELTID, 2, 3, RIGHT);
+	world->buildAt(BELTID, 2, 4, RIGHT);
+	world->buildAt(BELTID, 5, 1, RIGHT);
+	world->buildAt(BELTID, 2, 6, RIGHT);
+	world->buildAt(BELTID, 5, 3, RIGHT);
+	world->buildAt(BELTID, 6, 3, RIGHT);
+	world->buildAt(BELTID, 5, 5, RIGHT);
+	world->buildAt(BELTID, 5, 6, UP);
+	world->buildAt(BELTID, 2, 8, RIGHT);
+	world->buildAt(BELTID, 4, 6, UP);
+	world->buildAt(BELTID, 3, 6, RIGHT);
+	world->buildAt(BELTID, 2, 9, DOWN);
+	world->buildAt(BELTID, 3, 9, DOWN);
+	world->buildAt(BELTID, 4, 9, DOWN);
+	world->buildAt(BELTID, 5, 9, DOWN);
+	world->buildAt(BELTID, 6, 9, DOWN);
+	world->buildAt(BELTID, 7, 9, DOWN);
+	world->buildAt(BELTID, 8, 9, DOWN);
+	world->buildAt(BELTID, 9, 9, RIGHT);
+	world->buildAt(BELTID, 9, 10, RIGHT);
+	world->buildAt(BELTID, 10, 1, RIGHT);
+	world->buildAt(BELTID, 10, 3, RIGHT);
+	world->buildAt(BELTID, 11, 3, RIGHT);
+	world->buildAt(BELTID, 11, 5, RIGHT);
+	world->buildAt(BELTID, 15, 1, RIGHT);
+	world->buildAt(BELTID, 15, 3, RIGHT);
+	world->buildAt(BELTID, 16, 3, RIGHT);
+	world->buildAt(BELTID, 15, 5, RIGHT);
+	world->buildAt(BELTID, 11, 8, RIGHT);
+	world->buildAt(BELTID, 11, 6, RIGHT);
+	world->buildAt(BELTID, 15, 6, UP);
+	world->buildAt(BELTID, 14, 6, UP);
+	world->buildAt(BELTID, 13, 6, UP);
+	world->buildAt(BELTID, 12, 6, RIGHT);
+	world->buildAt(BELTID, 5, 14, RIGHT);
+	world->buildAt(BELTID, 5, 13, RIGHT);
+	world->buildAt(BELTID, 5, 15, RIGHT);
+	world->buildAt(BELTID, 5, 16, DOWN);
+	world->buildAt(BELTID, 6, 16, DOWN);
+	world->buildAt(BELTID, 7, 16, DOWN);
+	world->buildAt(BELTID, 8, 16, LEFT);
+	world->buildAt(BELTID, 8, 15, LEFT);
+	world->buildAt(BELTID, 8, 14, LEFT);
+	world->buildAt(BELTID, 8, 13, UP);
+	world->buildAt(BELTID, 7, 13, UP);
+	world->buildAt(BELTID, 6, 13, UP);
+	world->buildAt(BELTID, 9, 11, DOWN);
+	world->buildAt(BELTID, 11, 9, RIGHT);
+	world->buildAt(COMPOSERID, 2, 7, RIGHT);
+	world->buildAt(COMPOSERID, 11, 7, RIGHT);
+	world->buildAt(CUTTERID, 1, 2, RIGHT);
+	world->buildAt(CUTTERID, 5, 2, RIGHT);
+	world->buildAt(CUTTERID, 10, 2, RIGHT);
+	world->buildAt(CUTTERID, 15, 2, RIGHT);
+	world->buildAt(ROTATORID, 2, 5, RIGHT);
+	world->buildAt(ROTATORID, 5, 4, RIGHT);
+	world->buildAt(ROTATORID, 11, 4, RIGHT);
+	world->buildAt(ROTATORID, 15, 4, RIGHT);
+	world->buildAt(RUBBISHBINID, 1, 4, UP);
+	world->buildAt(RUBBISHBINID, 6, 4, UP);
+	world->buildAt(RUBBISHBINID, 10, 4, UP);
+	world->buildAt(RUBBISHBINID, 16, 4, UP);
+
+	Item yellowSquare = Item(QUARTERSQUARE, YELLOWITEM);
+	Item whiteSquare = Item(QUARTERSQUARE, WHITEITEM);	
+	Item yellowCircle = Item(QUARTERCIRCLE, YELLOWITEM);
+	Item whiteCircle = Item(QUARTERCIRCLE, WHITEITEM);
+	world->putItemAt(whiteSquare, 0, 1);
+	world->putItemAt(yellowSquare, 0, 10);
+	world->putItemAt(yellowCircle, 0, 5);
+	world->putItemAt(whiteCircle, 0, 15);
+	
+	whiteCircle.colorId[0][0][0] = BLUEITEM;
+	whiteCircle.shapeId[0][0][0] = QUARTERWINDMILL;
+
+	world->putItemAt(whiteCircle, 13, 8);
+	world->putItemAt(yellowCircle, 13, 7);
+	world->putItemAt(whiteSquare, 13, 6);
+	world->putItemAt(yellowSquare, 13, 5);
+
+	world->putItemAt(whiteCircle, 16, 8);
+	world->putItemAt(yellowCircle, 16, 7);
+	world->putItemAt(whiteSquare, 16, 6);
+	world->putItemAt(yellowSquare, 16, 5);
+}
 
 Node::Node(int buildingType, int dataId, bool isMainBlock) {
 	type = buildingType;
@@ -702,4 +827,82 @@ Node::Node() {
 	type = GROUNDID;
 	id = -1;
 	isMain = false;
+}
+void Game::showInstruction() {
+	for (int i = 0; i <= world->maxBeltId; i++) {
+		if (world->belt[i].dir == 0) continue;
+		switch (world->belt[i].dir) {
+		case UP:
+			std::cout << "world->buildAt(BELTID," << world->belt[i].pos[0] << "," << world->belt[i].pos[1] << ",UP);" << std::endl;
+			break;
+		case DOWN:
+			std::cout << "world->buildAt(BELTID," << world->belt[i].pos[0] << "," << world->belt[i].pos[1] << ",DOWN);" << std::endl;
+			break;
+		case LEFT:
+			std::cout << "world->buildAt(BELTID," << world->belt[i].pos[0] << "," << world->belt[i].pos[1] << ",LEFT);" << std::endl;
+			break;
+		case RIGHT:
+			std::cout << "world->buildAt(BELTID," << world->belt[i].pos[0] << "," << world->belt[i].pos[1] << ",RIGHT);" << std::endl;
+			break;
+		}
+	}
+
+	for (int i = 0; i <= world->maxComposerId; i++) {
+		if (world->composer[i].dir == 0) continue;
+		switch (world->composer[i].dir) {
+		case UP:
+			std::cout << "world->buildAt(COMPOSERID," << world->composer[i].pos[0] << "," << world->composer[i].pos[1] << ",UP);" << std::endl;
+			break;
+		case DOWN:
+			std::cout << "world->buildAt(COMPOSERID," << world->composer[i].pos[0] << "," << world->composer[i].pos[1] << ",DOWN);" << std::endl;
+			break;
+		case LEFT:
+			std::cout << "world->buildAt(COMPOSERID," << world->composer[i].pos[0] << "," << world->composer[i].pos[1] << ",LEFT);" << std::endl;
+			break;
+		case RIGHT:
+			std::cout << "world->buildAt(COMPOSERID," << world->composer[i].pos[0] << "," << world->composer[i].pos[1] << ",RIGHT);" << std::endl;
+			break;
+		}
+	}
+
+	for (int i = 0; i <= world->maxCutterId; i++) {
+		if (world->cutter[i].dir == 0) continue;
+		switch (world->cutter[i].dir) {
+		case UP:
+			std::cout << "world->buildAt(CUTTERID," << world->cutter[i].pos[0] << "," << world->cutter[i].pos[1] << ",UP);" << std::endl;
+			break;
+		case DOWN:
+			std::cout << "world->buildAt(CUTTERID," << world->cutter[i].pos[0] << "," << world->cutter[i].pos[1] << ",DOWN);" << std::endl;
+			break;
+		case LEFT:
+			std::cout << "world->buildAt(CUTTERID," << world->cutter[i].pos[0] << "," << world->cutter[i].pos[1] << ",LEFT);" << std::endl;
+			break;
+		case RIGHT:
+			std::cout << "world->buildAt(CUTTERID," << world->cutter[i].pos[0] << "," << world->cutter[i].pos[1] << ",RIGHT);" << std::endl;
+			break;
+		}
+	}
+
+	for (int i = 0; i <= world->maxRotatorId; i++) {
+		if (world->rotator[i].dir == 0) continue;
+		switch (world->rotator[i].dir) {
+		case UP:
+			std::cout << "world->buildAt(ROTATORID," << world->rotator[i].pos[0] << "," << world->rotator[i].pos[1] << ",UP);" << std::endl;
+			break;
+		case DOWN:
+			std::cout << "world->buildAt(ROTATORID," << world->rotator[i].pos[0] << "," << world->rotator[i].pos[1] << ",DOWN);" << std::endl;
+			break;
+		case LEFT:
+			std::cout << "world->buildAt(ROTATORID," << world->rotator[i].pos[0] << "," << world->rotator[i].pos[1] << ",LEFT);" << std::endl;
+			break;
+		case RIGHT:
+			std::cout << "world->buildAt(ROTATORID," << world->rotator[i].pos[0] << "," << world->rotator[i].pos[1] << ",RIGHT);" << std::endl;
+			break;
+		}
+	}
+
+	for (int i = 0; i <= world->maxRubbishBinId; i++) {
+		if (world->rubbishBin[i].pos[0] == -1) continue;
+		std::cout << "world->buildAt(RUBBISHBINID," << world->rubbishBin[i].pos[0] << "," << world->rubbishBin[i].pos[1] << ",UP);" << std::endl;
+	}
 }
