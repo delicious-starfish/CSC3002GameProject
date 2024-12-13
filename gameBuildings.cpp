@@ -407,6 +407,7 @@ Acceptor::Acceptor() {
 	target2 = Item();
 	target3 = Item();
 	target4 = Item();
+	isMoved = false;
 }
 
 Acceptor::Acceptor(int x, int y) {
@@ -417,6 +418,7 @@ Acceptor::Acceptor(int x, int y) {
 	target2 = Item();
 	target3 = Item();
 	target4 = Item();
+	isMoved = false;
 }
 
 bool Acceptor::input(Belt& input) { 
@@ -429,6 +431,7 @@ bool Acceptor::input(Belt& input) {
 		input.itemNow = Item();
 		input.isEmpty = true;
 		totalScore++;
+		isMoved = true;
 		return true;
 	}
 	// THE BELOW IS THE ORIGINAL CODED FOR ACCEPTING EVERYTHING

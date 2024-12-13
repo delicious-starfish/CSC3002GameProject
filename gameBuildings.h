@@ -323,6 +323,8 @@ public:
 	bool isEmpty;
 	// True if no item currently stored. Once it accepts an item, set isEmpty = false.
 
+	bool isMoved;
+
 	Item target1;
 	Item target2;
 	Item target3;

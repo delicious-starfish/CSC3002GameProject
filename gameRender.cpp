@@ -13,36 +13,14 @@
 IMAGE menu1;
 IMAGE menuBTstart;
 IMAGE menuBTsetting;
-IMAGE UIframe1;
-IMAGE UIframe2;
-IMAGE UIframe3;
-IMAGE UIframe4;
-IMAGE UIbelt;
-IMAGE UIdivi;
-IMAGE UIcomp;
-IMAGE UIrota;
-IMAGE UIcolr;
-IMAGE UIdes;
-IMAGE UIacc;
+IMAGE UIframe1, UIframe2, UIframe3, UIframe4;
+IMAGE UIbelt, UIdivi, UIrota, UIcolr, UIcomp, UIdes, UIacc;
 IMAGE UIBlight;
-IMAGE UIbdscr0;
-IMAGE UIbdscr1;
-IMAGE UIbdscr2;
-IMAGE UIbdscr3;
-IMAGE UIbdscr4;
-IMAGE UIbdscr5;
-IMAGE UIbdscr6;
-IMAGE UIbdscr7;
-IMAGE UIbdscrE;
-IMAGE UIbdscrT;
-IMAGE UIbdscrESC;
+IMAGE UIbdscr0, UIbdscr1, UIbdscr2, UIbdscr3, UIbdscr4, UIbdscr5, UIbdscr6, UIbdscr7;
+IMAGE UIbdscrE, UIbdscrT, UIbdscrESC;
 IMAGE UISCALER;
 IMAGE UInumO;
-IMAGE beltOO;
-IMAGE cuttOO;
-IMAGE compOO;
-IMAGE rotaOO;
-IMAGE dstrOO;
+IMAGE beltOO, cuttOO, compOO, rotaOO, dstrOO;
 IMAGE pauseBT;
 IMAGE speedBT;
 IMAGE escBT;
@@ -54,74 +32,26 @@ IMAGE mouse1;
 IMAGE mouse2;
 //Buildings
 IMAGE grnd;
-IMAGE belt;
-IMAGE beltU;
-IMAGE beltD;
-IMAGE beltL;
-IMAGE beltR;
-IMAGE beltPU;
-IMAGE beltPD;
-IMAGE beltPL;
-IMAGE beltPR;
-IMAGE belti;
+IMAGE belt, beltU, beltD, beltL, beltR, belti;
+IMAGE beltPU, beltPD, beltPL, beltPR;
 IMAGE belC;
-IMAGE cutt;
-IMAGE cuttU;
-IMAGE cuttD;
-IMAGE cuttL;
-IMAGE cuttR;
-IMAGE cutti;
-IMAGE comp;
-IMAGE compU;
-IMAGE compD;
-IMAGE compL;
-IMAGE compR;
-IMAGE compU2;
-IMAGE compD2;
-IMAGE compL2;
-IMAGE compR2;
-IMAGE compi;
-IMAGE rota;
-IMAGE rotaU;
-IMAGE rotaD;
-IMAGE rotaL;
-IMAGE rotaR;
-IMAGE rotai;
-IMAGE miner;
-IMAGE mineri;
+IMAGE cutt, cuttU, cuttD, cuttL, cuttR, cutti;
+IMAGE comp, compU, compD, compL, compR;
+IMAGE compU2, compD2, compL2, compR2, compi;
+IMAGE rota, rotaU, rotaD, rotaL, rotaR, rotai;
+IMAGE miner, mineri;
 IMAGE bin;
-IMAGE acceptorPreview; // Preview image for UI
-IMAGE acpt;      // Actual Acceptor image
+IMAGE acceptorPreview, acpt, acpti;
 
 //Items
-IMAGE SqR;
-IMAGE SqY;
-IMAGE SqB;
-IMAGE SqW;
-IMAGE SquI;
-IMAGE SqnI;
-IMAGE CcR;
-IMAGE CcY;
-IMAGE CcB;
-IMAGE CcW;
-IMAGE CcuI;
-IMAGE CcnI;
-IMAGE MlR;
-IMAGE MlY;
-IMAGE MlB;
-IMAGE MlW;
-IMAGE MluI;
-IMAGE MlnI;
+IMAGE SqR, SqY, SqB, SqW;
+IMAGE SqRi, SqYi, SqBi, SqWi, SquI, SqnI;
+IMAGE CcR, CcY, CcB, CcW;
+IMAGE CcRi, CcYi, CcBi, CcWi, CcuI, CcnI;
+IMAGE MlR, MlY, MlB, MlW;
+IMAGE MlRi, MlYi, MlBi, MlWi, MluI, MlnI;
 //Illum
-IMAGE shadowM;
-IMAGE shadowU;
-IMAGE shadowL;
-IMAGE shadowLU;
-IMAGE shadowLD;
-IMAGE shadowD;
-IMAGE shadowRU;
-IMAGE shadowRD;
-IMAGE shadowR;
+IMAGE shadowM, shadowU, shadowL, shadowLU, shadowLD, shadowD, shadowRU, shadowRD, shadowR;
 //Mask
 IMAGE Mask1;
 IMAGE clickMask;
@@ -239,6 +169,7 @@ void loadImgRes() {
     loadimage(&rotai, StrToTchar(StrTexPath + "rotai.png"));
     loadimage(&miner, StrToTchar(StrTexPath + "miner.png"));
     loadimage(&mineri, StrToTchar(StrTexPath + "mineri.png"));
+    loadimage(&acpti, StrToTchar(StrTexPath + "acpti.png"));
     loadimage(&bin, StrToTchar(StrTexPath + "rubbishBin.png"));
     loadimage(&SqR, StrToTchar(StrTexPath + "squr-R.png"));
     loadimage(&SqY, StrToTchar(StrTexPath + "squr-Y.png"));
@@ -258,6 +189,19 @@ void loadImgRes() {
     loadimage(&MlW, StrToTchar(StrTexPath + "mill-W.png"));
     loadimage(&MluI, StrToTchar(StrTexPath + "mill-uI.png"));
     loadimage(&MlnI, StrToTchar(StrTexPath + "mill-nI.png"));
+    loadimage(&MlnI, StrToTchar(StrTexPath + "mill-nI.png"));
+    loadimage(&SqRi, StrToTchar(StrTexPath + "squr-Ri.png"));
+    loadimage(&SqYi, StrToTchar(StrTexPath + "squr-Yi.png"));
+    loadimage(&SqBi, StrToTchar(StrTexPath + "squr-Bi.png"));
+    loadimage(&SqWi, StrToTchar(StrTexPath + "squr-Wi.png"));
+    loadimage(&CcRi, StrToTchar(StrTexPath + "ccle-Ri.png"));
+    loadimage(&CcYi, StrToTchar(StrTexPath + "ccle-Yi.png"));
+    loadimage(&CcBi, StrToTchar(StrTexPath + "ccle-Bi.png"));
+    loadimage(&CcWi, StrToTchar(StrTexPath + "ccle-Wi.png"));
+    loadimage(&MlRi, StrToTchar(StrTexPath + "mill-Ri.png"));
+    loadimage(&MlYi, StrToTchar(StrTexPath + "mill-Yi.png"));
+    loadimage(&MlBi, StrToTchar(StrTexPath + "mill-Bi.png"));
+    loadimage(&MlWi, StrToTchar(StrTexPath + "mill-Wi.png"));
     loadimage(&shadowM, StrToTchar(StrTexPath + "shadowM.png"));
     loadimage(&shadowL, StrToTchar(StrTexPath + "shadowL.png"));
     loadimage(&shadowR, StrToTchar(StrTexPath + "shadowR.png"));
@@ -548,7 +492,7 @@ void IntImg::RenderImg() {
 void IntImg::ClearImg() {
     for (int iy = 0; iy < screenSizeY; iy++) {
         for (int ix = 0; ix < screenSizeX; ix++) {
-            pixel[ix][iy] = 4208712+mousePositionX*mousePositionY/16384;
+            pixel[ix][iy] = 14974274;
             shade[ix][iy] = 0;
         }
     }
@@ -672,6 +616,8 @@ void IntImg::putBuildings2(World* world) {
                         // Render storedItem at center
                         // Using storedItem method to get item images
                         int dir;
+                        int x = j * 64 * screenScale + cameraPositionX;
+                        int y = i * 64 * screenScale + cameraPositionY;
                         for (int m = 0; m < 2; m++) {
                             for (int n = 0; n < 2; n++) {
                                 switch (2 * m + n) {
@@ -680,9 +626,38 @@ void IntImg::putBuildings2(World* world) {
                                 case 2:dir = 3; break;
                                 case 3:dir = 2; break;
                                 }
-                                putAnItem(storedItem.shapeId[0][m][n], storedItem.colorId[0][m][n], j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, dir);
+                                //putAnItem(storedItem.shapeId[0][m][n], storedItem.colorId[0][m][n], j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, dir);
+                                int code = storedItem.shapeId[0][m][n] * 8 + storedItem.colorId[0][m][n];
+                                switch (code) {
+                                case 9:
+                                    putImg(x, y, &CcRi, dir, screenScale); break;
+                                case 10:
+                                    putImg(x, y, &CcYi, dir, screenScale); break;
+                                case 11:
+                                    putImg(x, y, &CcBi, dir, screenScale); break;
+                                case 12:
+                                    putImg(x, y, &CcWi, dir, screenScale); break;
+                                case 17:
+                                    putImg(x, y, &SqRi, dir, screenScale); break;
+                                case 18:
+                                    putImg(x, y, &SqYi, dir, screenScale); break;
+                                case 19:
+                                    putImg(x, y, &SqBi, dir, screenScale); break;
+                                case 20:
+                                    putImg(x, y, &SqWi, dir, screenScale); break;
+                                case 25:
+                                    putImg(x, y, &MlRi, dir, screenScale); break;
+                                case 26:
+                                    putImg(x, y, &MlYi, dir, screenScale); break;
+                                case 27:
+                                    putImg(x, y, &MlBi, dir, screenScale); break;
+                                case 28:
+                                    putImg(x, y, &MlWi, dir, screenScale); break;
+                                }
                             }
                         }
+                        if (world->acceptor[world->mapp[i][j].id].isMoved)
+                            putImg1((j * 64 - 96) * screenScale + cameraPositionX, (i * 64 - 96) * screenScale + cameraPositionY, &acpti);
                     }
                 }
                 break;
@@ -923,6 +898,42 @@ void IntImg::putAnItem(int shape, int color, int x, int y, int dir)
     case 28:
         putImg(x, y, &MlW, dir, screenScale); break;
     }
+    if (dir == 1)
+        switch (code) {
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+            putImg1(x, y, &CcuI); break;
+        case 17:
+        case 18:
+        case 19:
+        case 20:
+            putImg1(x, y, &SquI); break;
+        case 25:
+        case 26:
+        case 27:
+        case 28:
+            putImg1(x, y, &MluI); break;
+        }
+    if (dir == 2)
+        switch (code) {
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+            putImg1(x, y, &CcnI); break;
+        case 17:
+        case 18:
+        case 19:
+        case 20:
+            putImg1(x, y, &SqnI); break;
+        case 25:
+        case 26:
+        case 27:
+        case 28:
+            putImg1(x, y, &MlnI); break;
+        }
 }
 
 void IntImg::putUI() {
@@ -967,7 +978,7 @@ void IntImg::putUI() {
     putmskImg(-430, 0, dScale * 3.14 - 2.15, &UISCALER);
     putmskImg(534, 11, (((int)(startTime - currentTime)) / 100000) * 0.628, &UInumO);
     putmskImg(547, 11, dTen*0.628, &UInumO);
-    putmskImg(560, 11, -sqrt((((int)(startTime - currentTime)) / 1000) * 0.628 - (startTime - currentTime) * 0.00063)+ (((int)(startTime - currentTime)) / 1000) * 0.628, &UInumO);
+    putmskImg(560, 11, -sqrt((((int)(startTime - currentTime)) / 1000) * 0.628 - (startTime - currentTime) * 0.0006283)+ (((int)(startTime - currentTime)) / 1000) * 0.628, &UInumO);
     putmskImg(573, 11, (startTime - currentTime)*0.00628, &UInumO);
     putmskImg(682, 11, -(totalScore/10)*0.628, &UInumO);
     putmskImg(695, 11, -dScore*0.628, &UInumO);
@@ -997,13 +1008,13 @@ void IntImg::blur() {
     int sr, sg, sb;
     int tr, tg, tb;
     int r = 8;
-    int mskR;
-    int mskG;
+    int mskR, mskG, mskB;
     for (int i = 1; i < screenSizeX - 8; i += 2) {
         for (int j = 1; j < screenSizeY - 8; j += 2) {
             mskR = ((mask[i][j] & 0xff0000) >> 16);
             mskG = ((mask[i][j] & 0xff00) >> 8);
-            if (mskG < 255)continue;
+            mskB = (mask[i][j] & 0xff);
+            if (mskG < 255)if (mskB < 252 || !isPause)continue;
             if (mskR == 0)continue;
             tr = 0; tg = 0; tb = 0;
 
@@ -1094,10 +1105,10 @@ void IntImg::renderTick(World* world) {
     dScale += (screenScale - dScale) / 4;
     dScore += (totalScore - dScore) / 8.0;
     dTen += ((((int)(startTime - currentTime-1000)) / 10000) - dTen) / 8.0;
-    leftBound = -cameraPositionX / 64 / screenScale;
-    rightBound = (-cameraPositionX + screenSizeX + 64) / screenScale / 64;
-    upBound = -cameraPositionY / 64 / screenScale;
-    dnBound = (-cameraPositionY + screenSizeY + 64) / screenScale / 64;
+    leftBound = -cameraPositionX / 64 / screenScale - 1;
+    rightBound = (-cameraPositionX + screenSizeX + 64) / screenScale / 64 + 1;
+    upBound = -cameraPositionY / 64 / screenScale - 1;
+    dnBound = (-cameraPositionY + screenSizeY + 64) / screenScale / 64 + 1;
     leftBound = (leftBound < 0) ? 0 : leftBound;
     rightBound = (rightBound > MAPLENGTH) ? MAPLENGTH : rightBound;
     upBound = (upBound < 0) ? 0 : upBound;

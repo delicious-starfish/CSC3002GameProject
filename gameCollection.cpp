@@ -870,6 +870,7 @@ void Game::loadShowMap() {
 	Target.shapeId[0][1][1] = QUARTERWINDMILL;
 	Target.colorId[0][0][0] = YELLOWITEM;
 	Target.colorId[0][0][1] = REDITEM;
+	Target.colorId[0][1][1] = BLUEITEM;
 
 	SquareC1.colorId[0][0][1] = REDITEM;
 	SquareC1.colorId[0][1][1] = WHITEITEM;
@@ -883,6 +884,7 @@ void Game::loadShowMap() {
 	Circle_WindmillC2.shapeId[0][1][1] = QUARTERWINDMILL;
 
 	Circle_WindmillC1.colorId[0][0][0] = REDITEM;
+	Circle_WindmillC1.colorId[0][0][1] = BLUEITEM;
 	Circle_WindmillC2.colorId[0][0][0] = YELLOWITEM;
 
 

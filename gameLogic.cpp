@@ -39,6 +39,9 @@ void setPreItems(World * world) {
 		world->rotator[i].isMoved = false;
 		world->rotator[i].OutputPre = world->rotator[i].Output;
 	}
+	for (int i = 0; i < world->maxAcceptorId; i++) {
+		world->acceptor[i].isMoved = false;
+	}
 }
 
 void beltLogic(World * world) {
