@@ -174,17 +174,20 @@ void buildingInput(World * world) {
 
 	// FOR ACCEPTOR, by Xin Cao, 1207
 	for (int i = 0; i < world->maxAcceptorId; i++) {
+		
 		if (world->acceptor[i].pos[0] == -1) continue;
 		Acceptor* acc = &world->acceptor[i];
 		int cx = acc->pos[0] + 1;
 		int cy = acc->pos[1] + 1;
-
+		
 		// Wrote four directions, two blocks away:
 
 		// Up direction source: (cx-2, cy), belt must be DOWN(2)
 		if (cx - 2 >= 0 && world->mapp[cx - 2][cy].type == BELTID) {
+			
 			int bId = world->mapp[cx - 2][cy].id;
 			if (!world->belt[bId].isEmpty && world->belt[bId].dir == DOWN) {
+				std::cout << "12" << std::endl;
 				acc->input(world->belt[bId]);
 			}
 		}

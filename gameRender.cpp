@@ -667,8 +667,8 @@ void IntImg::putBuildings2(World* world) {
                     putImg1((j * 64-96) * screenScale + cameraPositionX, (i * 64-96) * screenScale + cameraPositionY, &acpt);
 
                     // If Acceptor has stored items, render them
-                    if (!world->acceptor[world->mapp[i][j].id].isEmpty) {
-                        Item storedItem = world->acceptor[world->mapp[i][j].id].storedItem;
+                    if (true) {
+                        Item storedItem = world->acceptor[world->mapp[i][j].id].target1;
                         // Render storedItem at center
                         // Using storedItem method to get item images
                         int dir;

@@ -30,12 +30,7 @@ World::World() {
 }
 
 
-void World::buildAt(int building, int x, int y, int direction,
-					// the following lines are for Acceptor
-					int check1items, int goalX, int goalY, int goalColor, int goalShape,
-					int check2items, int goalX2, int goalY2, int goalColor2, int goalShape2,
-					int check3items, int goalX3, int goalY3, int goalColor3, int goalShape3,
-					int check4items, int goalX4, int goalY4, int goalColor4, int goalShape4) {
+void World::buildAt(int building, int x, int y, int direction) {
 	clearGround(building,x,y,direction);
 	int newId;
 	switch (building) {
@@ -264,40 +259,6 @@ void World::buildAt(int building, int x, int y, int direction,
 			acceptor[newId] = Acceptor(x, y);
 
 			// For the 1st Quarter-Item
-			if (check1items == 1) {
-				acceptor[newId].check1items = check1items;
-				acceptor[newId].goalX = goalX;
-				acceptor[newId].goalY = goalY;
-				acceptor[newId].goalShape = goalShape;
-				acceptor[newId].goalColor = goalColor;
-			}
-
-			// For the 2nd Quarter-Item
-			if (check2items == 1) {
-				acceptor[newId].check2items = check2items;
-				acceptor[newId].goalX2 = goalX2;
-				acceptor[newId].goalY2 = goalY2;
-				acceptor[newId].goalShape2 = goalShape2;
-				acceptor[newId].goalColor2 = goalColor2;
-			}
-
-			// For the 3rd Quarter-Item
-			if (check3items == 1) {
-				acceptor[newId].check3items = check3items;
-				acceptor[newId].goalX3 = goalX3;
-				acceptor[newId].goalY3 = goalY3;
-				acceptor[newId].goalShape3 = goalShape3;
-				acceptor[newId].goalColor3 = goalColor3;
-			}
-
-			// For the 4th Quarter-Item
-			if (check4items == 1) {
-				acceptor[newId].check4items = check4items;
-				acceptor[newId].goalX4 = goalX4;
-				acceptor[newId].goalY4 = goalY4;
-				acceptor[newId].goalShape4 = goalShape4;
-				acceptor[newId].goalColor4 = goalColor4;
-			}
 
 
 			//int goalX = 0, goalY = 0, goalColor = REDITEM, goalShape = QUARTERSQUARE;
@@ -420,6 +381,11 @@ void World::putItemAt(Item item, int x, int y) {
 		miner[mapp[y][x].id].isEmpty = false;
 		break;
 	}
+
+	if (buildingId == ACCEPTORID) {
+		int id = mapp[y][x].id;
+		acceptor[id].setTarget(item);
+	}
 	
 }
 
@@ -479,7 +445,7 @@ void World::deleteInArray(int building, int id) {
 	// FOR ACCEPTOR, by Xin Cao on 1207
 	case ACCEPTORID:
 		acceptor[id].isEmpty = true;
-		acceptor[id].storedItem = Item();
+		acceptor[id].pos[0] = -1;
 		acceptorNum--;
 		if (id == maxAcceptorId - 1) {
 			maxAcceptorId--;
@@ -755,10 +721,7 @@ void Game::loadTestMap() {
 		world->buildAt(BELTID, i, 3, UP);
 	// Add another belt with dir=UP manually
 
-	//world->buildAt(ACCEPTORID, 5, 7, 0, 1, 0, 0, REDITEM, QUARTERSQUARE,
-	//									1, 0, 0, WHITEITEM, QUARTERSQUARE,
-	//									0, 0, 0, 0, 0,
-	//									0, 0, 0, 0, 0);
+	world->buildAt(ACCEPTORID, 5, 7,0);
 	//				// The following arguments are for Acceptor
 
 
@@ -781,10 +744,7 @@ void Game::loadShowMap() {
 	world->buildAt(MINERID, 10, 20, RIGHT);
 	world->buildAt(MINERID, 15, 20, RIGHT);
 
-	world->buildAt(ACCEPTORID, 10, 10, 0, 1, 0, 0, YELLOWITEM, QUARTERSQUARE,
-											1, 1, 0, WHITEITEM, QUARTERSQUARE,
-											1, 0, 1, REDITEM, QUARTERCIRCLE,
-											1, 1, 1, WHITEITEM, QUARTERWINDMILL);
+	world->buildAt(ACCEPTORID, 10, 10, 0);
 
 	world->buildAt(BELTID, 1, 1, RIGHT);
 	world->buildAt(BELTID, 1, 3, RIGHT);
@@ -905,6 +865,11 @@ void Game::loadShowMap() {
 	Item Circle_WindmillC1 = Item(QUARTERCIRCLE, WHITEITEM);	
 	Item SquareC2 = Item(QUARTERSQUARE, WHITEITEM);
 	Item Circle_WindmillC2 = Item(QUARTERCIRCLE, WHITEITEM);
+	Item Target = Item(QUARTERSQUARE, WHITEITEM);
+	Target.shapeId[0][0][1] = QUARTERCIRCLE;
+	Target.shapeId[0][1][1] = QUARTERWINDMILL;
+	Target.colorId[0][0][0] = YELLOWITEM;
+	Target.colorId[0][0][1] = REDITEM;
 
 	SquareC1.colorId[0][0][1] = REDITEM;
 	SquareC1.colorId[0][1][1] = WHITEITEM;
@@ -927,6 +892,7 @@ void Game::loadShowMap() {
 	world->putItemAt(Circle_WindmillC1, 20, 15);
 	world->putItemAt(Circle_WindmillC1, 0, 5);
 	world->putItemAt(Circle_WindmillC2, 0, 15);
+	world->putItemAt(Target, 11, 11);
 	
 	Item Square = Item(QUARTERSQUARE, YELLOWITEM);
 	Item WindMill = Item(QUARTERWINDMILL, BLUEITEM);

@@ -17,3 +17,26 @@ Item::Item(int assignedShapeId, int assignedColorId) {
 		}
 	}
 }
+
+bool Item::operator == (Item & item) {
+	for (int i = 0; i < 2; i++)
+		for (int j = 0; j < 2; j++) {
+			if (shapeId[0][i][j] != item.shapeId[0][i][j]) return false;
+			if (colorId[0][i][j] != item.colorId[0][i][j]) return false;
+		}
+	return true;
+}
+
+void Item::rotate() {
+	int temp = shapeId[0][0][0];
+	shapeId[0][0][0] = shapeId[0][1][0];
+	shapeId[0][1][0] = shapeId[0][1][1];
+	shapeId[0][1][1] = shapeId[0][0][1];
+	shapeId[0][0][1] = temp;
+	
+	temp = colorId[0][0][0];
+	colorId[0][0][0] = colorId[0][1][0];
+	colorId[0][1][0] = colorId[0][1][1];
+	colorId[0][1][1] = colorId[0][0][1];
+	colorId[0][0][1] = temp;
+}

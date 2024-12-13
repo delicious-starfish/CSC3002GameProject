@@ -33,6 +33,10 @@ class Item {
 		by kan bo yi
 	*/
 
+	bool operator == (Item& item);
+
+	void rotate();
+
 };
 #endif // !_gameItem_h_
 
