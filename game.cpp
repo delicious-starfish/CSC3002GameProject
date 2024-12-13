@@ -83,10 +83,12 @@ void playGame(ExMessage mouseMessage)
 
     // Render
     if (currentTime >= nextRender) {
-        if (cameraPositionX > 13) { cameraPositionX -= (cameraPositionX - 13) / 1.3; }
+        // Originally :     > -13                                        - 13
+        if (cameraPositionX > -43) { cameraPositionX -= (cameraPositionX - 43) / 1.3; }
         if (cameraPositionX < (-MAPLENGTH * 64.0 * screenScale - 13 + screenSizeX)) { cameraPositionX -= (cameraPositionX - (-MAPLENGTH * 64.0 * screenScale - 13 + screenSizeX)) / 2.0; }
         if (cameraPositionY < (-MAPLENGTH * 64.0 * screenScale - 144 + screenSizeY)) { cameraPositionY -= (cameraPositionY - (-MAPLENGTH * 64.0 * screenScale - 144 + screenSizeY)) / 8.0; }
-        if (cameraPositionY > 13) { cameraPositionY -= (cameraPositionY - 13) / 1.3; }
+        if (cameraPositionY > 43) { cameraPositionY -= (cameraPositionY - 43) / 1.3; }
+        // Originally :     > 13                                        - 13
         if (!isPause) {
             if (!isSpeedup)
                 tickRender += 4;
