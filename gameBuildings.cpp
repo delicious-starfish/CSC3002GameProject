@@ -411,17 +411,32 @@ Acceptor::Acceptor(int x, int y) {
 	storedItem = Item();
 }
 
-bool Acceptor::input(Belt& input) {
+bool Acceptor::input(Belt& input, int mode, int goalX, int goalY, int goalColor, int goalShape, int goalX2, int goalY2, int goalColor2, int goalShape2) {  // mode=0 for classic accept only one item, mode=1 for swapping inputs
 	// Can only accept if the belt has an item and acceptor is ready (which it always is)
 	if (input.isEmpty) return false;
-	// Store the item
-	storedItem = input.itemNow;
-	isEmpty = false;
-	// Clear the belt
-	input.itemNow = Item();
-	input.isEmpty = true;
-	totalScore++;
-	return true;
+	// Store the item (STORE THE ITEM BASED ON THE CIRTERIA: goalX ... goalShape)
+
+	if (mode == 0  &&  input.itemNow.colorId[0][goalX][goalY] == goalColor  &&  input.itemNow.shapeId[0][goalX][goalY] == goalShape) {
+		storedItem = Item();
+		storedItem.shapeId[0][goalX][goalY] = goalShape;
+		storedItem.colorId[0][goalX][goalY] = goalColor;
+
+		isEmpty = false;
+		// Clear the belt
+		input.itemNow = Item();
+		input.isEmpty = true;
+		totalScore++;
+		return true;
+	}
+
+
+	// THE BELOW IS THE ORIGINAL CODED FOR ACCEPTING EVERYTHING
+	//isEmpty = false;
+	//// Clear the belt
+	//input.itemNow = Item();
+	//input.isEmpty = true;
+	//totalScore++;
+	return false;
 }
 
 // Over

@@ -323,7 +323,9 @@ public:
 	Acceptor();
 	Acceptor(int x, int y);
 
-	bool input(Belt& input);
+	bool input(Belt& input, int mode = 0, int goalX = 0, int goalY = 0, int goalColor = 0, int goalShape = 0, int goalX2 = 0, int goalY2 = 0, int goalColor2 = 0, int goalShape2 = 0);
+	// mode=0 for classic accept only one item, mode=1 for swapping inputs
+	// goalx2 ... goalshape2 arguments for swapping mode
 	/*
 	  input: tries to take an item from a belt adjacent to its center cell.
 	  If successful, it stores the item and clears the belt, returning true.

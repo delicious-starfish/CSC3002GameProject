@@ -669,12 +669,11 @@ void IntImg::putBuildings2(World* world) {
                     // If Acceptor has stored items, render them
                     if (!world->acceptor[world->mapp[i][j].id].isEmpty) {
                         Item storedItem = world->acceptor[world->mapp[i][j].id].storedItem;
-                        // Assuming storedItem has a method to get item images
-                        // Adjust positions within the 3x3 grid as needed
-                        // Example rendering at center
+                        // Render storedItem at center
+                        // Using storedItem method to get item images
                         for (int m = 0; m < 2; m++) {
                             for (int n = 0; n < 2; n++) {
-                                putAnItem(storedItem.shapeId[0][m][n], storedItem.colorId[0][m][n], (j - 0) * 64 * screenScale + cameraPositionX + n * 24, (i - 0) * 64 * screenScale + cameraPositionY + m * 24, 1);
+                                putAnItem(storedItem.shapeId[0][m][n], storedItem.colorId[0][m][n], j * 64 * screenScale + cameraPositionX + n * 24 * screenScale, i * 64 * screenScale + cameraPositionY + m * 24 * screenScale, 1);
                             }
                         }
                     }
