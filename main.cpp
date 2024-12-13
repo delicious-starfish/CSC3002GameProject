@@ -95,11 +95,12 @@ int main() {
             break;
         }
         if (totalScore >= SCOREREQUEST_TEST || totalScore == -1) {
-            /*totalScore = 0;
+            totalScore = 0;
+            game->showInstruction();
             Game* oldGame = game;
             delete oldGame;
             game = new Game();
-            SCENE = SCENEMENU;*/
+            SCENE = SCENEMENU;
         }
     }
 

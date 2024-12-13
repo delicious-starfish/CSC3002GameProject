@@ -77,7 +77,6 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             case UICUTTER: 
             case UIROTATOR:
             case UICOMPOSER:
-            case UICOLORER:
             case UIBELT: mouseCase = hoverCase; break;
             case UIACCEPTOR: // Handle Acceptor Selection
                 mouseCase = hoverCase;

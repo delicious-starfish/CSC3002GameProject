@@ -778,7 +778,13 @@ void Game::loadShowMap() {
 	world->buildAt(MINERID, 5, 0, RIGHT);
 	world->buildAt(MINERID, 10, 0, RIGHT);
 	world->buildAt(MINERID, 15, 0, RIGHT);
-	world->buildAt(ACCEPTORID, 10, 10, UP);
+	world->buildAt(MINERID, 10, 20, RIGHT);
+	world->buildAt(MINERID, 15, 20, RIGHT);
+
+	world->buildAt(ACCEPTORID, 10, 10, 0, 1, 0, 0, YELLOWITEM, QUARTERSQUARE,
+											1, 1, 0, WHITEITEM, QUARTERSQUARE,
+											1, 0, 1, REDITEM, QUARTERCIRCLE,
+											1, 1, 1, WHITEITEM, QUARTERWINDMILL);
 
 	world->buildAt(BELTID, 1, 1, RIGHT);
 	world->buildAt(BELTID, 1, 3, RIGHT);
@@ -828,44 +834,113 @@ void Game::loadShowMap() {
 	world->buildAt(BELTID, 8, 13, UP);
 	world->buildAt(BELTID, 7, 13, UP);
 	world->buildAt(BELTID, 6, 13, UP);
-	world->buildAt(BELTID, 9, 11, DOWN);
+	world->buildAt(BELTID, 10, 21, RIGHT);
 	world->buildAt(BELTID, 11, 9, RIGHT);
+	world->buildAt(BELTID, 15, 21, RIGHT);
+	world->buildAt(BELTID, 10, 23, RIGHT);
+	world->buildAt(BELTID, 11, 23, RIGHT);
+	world->buildAt(BELTID, 15, 23, RIGHT);
+	world->buildAt(BELTID, 16, 23, RIGHT);
+	world->buildAt(BELTID, 11, 25, RIGHT);
+	world->buildAt(BELTID, 11, 27, RIGHT);
+	world->buildAt(BELTID, 12, 27, RIGHT);
+	world->buildAt(BELTID, 10, 24, RIGHT);
+	world->buildAt(BELTID, 10, 25, RIGHT);
+	world->buildAt(BELTID, 10, 26, RIGHT);
+	world->buildAt(BELTID, 10, 27, RIGHT);
+	world->buildAt(BELTID, 10, 28, RIGHT);
+	world->buildAt(BELTID, 10, 31, RIGHT);
+	world->buildAt(BELTID, 12, 28, RIGHT);
+	world->buildAt(BELTID, 12, 29, UP);
+	world->buildAt(BELTID, 11, 29, RIGHT);
+	world->buildAt(BELTID, 10, 29, RIGHT);
+	world->buildAt(BELTID, 16, 25, RIGHT);
+	world->buildAt(BELTID, 16, 27, RIGHT);
+	world->buildAt(BELTID, 17, 27, RIGHT);
+	world->buildAt(BELTID, 17, 29, RIGHT);
+	world->buildAt(BELTID, 17, 31, RIGHT);
+	world->buildAt(BELTID, 15, 32, UP);
+	world->buildAt(BELTID, 17, 32, UP);
+	world->buildAt(BELTID, 10, 34, RIGHT);
+	world->buildAt(BELTID, 10, 32, RIGHT);
+	world->buildAt(BELTID, 14, 32, UP);
+	world->buildAt(BELTID, 13, 32, UP);
+	world->buildAt(BELTID, 12, 32, UP);
+	world->buildAt(BELTID, 11, 32, RIGHT);
+	world->buildAt(BELTID, 10, 35, RIGHT);
+	world->buildAt(BELTID, 10, 36, RIGHT);
+	world->buildAt(BELTID, 10, 37, RIGHT);
+	world->buildAt(BELTID, 9, 11, DOWN);
 	world->buildAt(COMPOSERID, 2, 7, RIGHT);
 	world->buildAt(COMPOSERID, 11, 7, RIGHT);
+	world->buildAt(COMPOSERID, 10, 30, RIGHT);
+	world->buildAt(COMPOSERID, 10, 33, RIGHT);
 	world->buildAt(CUTTERID, 1, 2, RIGHT);
 	world->buildAt(CUTTERID, 5, 2, RIGHT);
 	world->buildAt(CUTTERID, 10, 2, RIGHT);
 	world->buildAt(CUTTERID, 15, 2, RIGHT);
+	world->buildAt(CUTTERID, 10, 22, RIGHT);
+	world->buildAt(CUTTERID, 15, 22, RIGHT);
+	world->buildAt(CUTTERID, 11, 26, RIGHT);
+	world->buildAt(CUTTERID, 16, 26, RIGHT);
 	world->buildAt(ROTATORID, 2, 5, RIGHT);
 	world->buildAt(ROTATORID, 5, 4, RIGHT);
 	world->buildAt(ROTATORID, 11, 4, RIGHT);
 	world->buildAt(ROTATORID, 15, 4, RIGHT);
+	world->buildAt(ROTATORID, 11, 24, RIGHT);
+	world->buildAt(ROTATORID, 16, 24, RIGHT);
+	world->buildAt(ROTATORID, 17, 28, RIGHT);
+	world->buildAt(ROTATORID, 17, 30, RIGHT);
+	world->buildAt(ROTATORID, 16, 32, UP);
 	world->buildAt(RUBBISHBINID, 1, 4, UP);
 	world->buildAt(RUBBISHBINID, 6, 4, UP);
 	world->buildAt(RUBBISHBINID, 10, 4, UP);
 	world->buildAt(RUBBISHBINID, 16, 4, UP);
+	world->buildAt(RUBBISHBINID, 11, 28, UP);
+	world->buildAt(RUBBISHBINID, 16, 28, UP);
+	world->buildAt(RUBBISHBINID, 10, 38, UP);
+	world->buildAt(RUBBISHBINID, 15, 24, UP);
 
-	Item yellowSquare = Item(QUARTERSQUARE, YELLOWITEM);
-	Item whiteSquare = Item(QUARTERSQUARE, WHITEITEM);	
-	Item yellowCircle = Item(QUARTERCIRCLE, YELLOWITEM);
-	Item whiteCircle = Item(QUARTERCIRCLE, WHITEITEM);
-	world->putItemAt(whiteSquare, 0, 1);
-	world->putItemAt(yellowSquare, 0, 10);
-	world->putItemAt(yellowCircle, 0, 5);
-	world->putItemAt(whiteCircle, 0, 15);
+	Item SquareC1 = Item(QUARTERSQUARE, YELLOWITEM);
+	Item Circle_WindmillC1 = Item(QUARTERCIRCLE, WHITEITEM);	
+	Item SquareC2 = Item(QUARTERSQUARE, WHITEITEM);
+	Item Circle_WindmillC2 = Item(QUARTERCIRCLE, WHITEITEM);
+
+	SquareC1.colorId[0][0][1] = REDITEM;
+	SquareC1.colorId[0][1][1] = WHITEITEM;
+
+	SquareC2.colorId[0][0][1] = BLUEITEM;
+	SquareC2.colorId[0][1][1] = BLUEITEM;
+
+	Circle_WindmillC1.shapeId[0][0][1] = QUARTERWINDMILL;
+	Circle_WindmillC1.shapeId[0][1][1] = QUARTERWINDMILL;
+	Circle_WindmillC2.shapeId[0][0][1] = QUARTERWINDMILL;
+	Circle_WindmillC2.shapeId[0][1][1] = QUARTERWINDMILL;
+
+	Circle_WindmillC1.colorId[0][0][0] = REDITEM;
+	Circle_WindmillC2.colorId[0][0][0] = YELLOWITEM;
+
+
+	world->putItemAt(SquareC1, 0, 1);
+	world->putItemAt(SquareC2, 0, 10);
+	world->putItemAt(SquareC1, 20, 10);
+	world->putItemAt(Circle_WindmillC1, 20, 15);
+	world->putItemAt(Circle_WindmillC1, 0, 5);
+	world->putItemAt(Circle_WindmillC2, 0, 15);
 	
-	whiteCircle.colorId[0][0][0] = BLUEITEM;
-	whiteCircle.shapeId[0][0][0] = QUARTERWINDMILL;
+	Item Square = Item(QUARTERSQUARE, YELLOWITEM);
+	Item WindMill = Item(QUARTERWINDMILL, BLUEITEM);
+	Item Circle = Item(QUARTERCIRCLE, REDITEM);
 
-	world->putItemAt(whiteCircle, 13, 8);
-	world->putItemAt(yellowCircle, 13, 7);
-	world->putItemAt(whiteSquare, 13, 6);
-	world->putItemAt(yellowSquare, 13, 5);
+	world->putItemAt(Square, 13, 8);
+	world->putItemAt(WindMill, 13, 7);
+	world->putItemAt(Circle, 13, 6);
+	world->putItemAt(Circle, 13, 5);
 
-	world->putItemAt(whiteCircle, 16, 8);
-	world->putItemAt(yellowCircle, 16, 7);
-	world->putItemAt(whiteSquare, 16, 6);
-	world->putItemAt(yellowSquare, 16, 5);
+	world->putItemAt(Circle, 16, 8);
+	world->putItemAt(WindMill, 16, 7);
+	world->putItemAt(WindMill, 16, 6);
+	world->putItemAt(Square, 16, 5);
 }
 
 Node::Node(int buildingType, int dataId, bool isMainBlock) {

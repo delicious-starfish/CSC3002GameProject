@@ -671,9 +671,16 @@ void IntImg::putBuildings2(World* world) {
                         Item storedItem = world->acceptor[world->mapp[i][j].id].storedItem;
                         // Render storedItem at center
                         // Using storedItem method to get item images
+                        int dir;
                         for (int m = 0; m < 2; m++) {
                             for (int n = 0; n < 2; n++) {
-                                putAnItem(storedItem.shapeId[0][m][n], storedItem.colorId[0][m][n], j * 64 * screenScale + cameraPositionX + n * 24 * screenScale, i * 64 * screenScale + cameraPositionY + m * 24 * screenScale, 1);
+                                switch (2 * m + n) {
+                                case 0:dir = 1; break;
+                                case 1:dir = 4; break;
+                                case 2:dir = 3; break;
+                                case 3:dir = 2; break;
+                                }
+                                putAnItem(storedItem.shapeId[0][m][n], storedItem.colorId[0][m][n], j * 64 * screenScale + cameraPositionX, i * 64 * screenScale + cameraPositionY, dir);
                             }
                         }
                     }
