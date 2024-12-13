@@ -67,7 +67,12 @@ class World {
 		int maxBeltId = 0,maxCutterId = 0, maxComposerId = 0, maxMinerId = 0, maxRubbishBinId = 0,maxRotatorId = 0;
 		int rotatorNum = 0;
 
-		void buildAt(int building, int x, int y, int direction);
+		void buildAt(int building, int x, int y, int direction,
+		// for Acceptor
+					int check1items = 0, int goalX = 0, int goalY = 0, int goalColor = 0,int goalShape = 0,
+					int check2items = 0, int goalX2 = 0, int goalY2 = 0, int goalColor2 = 0, int goalShape2 = 0,
+					int check3items = 0, int goalX3 = 0, int goalY3 = 0, int goalColor3 = 0, int goalShape3 = 0,
+					int check4items = 0, int goalX4 = 0, int goalY4 = 0, int goalColor4 = 0, int goalShape4 = 0);
 		// build an empty building at x,y with direction
 		// by kan bo yi
 

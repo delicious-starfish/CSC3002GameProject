@@ -73,8 +73,8 @@ void beltLogic(World * world) {
 void buildingInput(World * world) {
 
 	/// FOR DEFINING THE ACCEPTOR CRITERIA
-	int goalX = 0, goalY = 0, goalColor = REDITEM, goalShape = QUARTERSQUARE;
-	int goalX2 = 0, goalY2 = 0, goalColor2 = 0, goalShape2 = 0;
+	//int goalX = 0, goalY = 0, goalColor = REDITEM, goalShape = QUARTERSQUARE;
+	//int goalX2 = 0, goalY2 = 0, goalColor2 = 0, goalShape2 = 0;
 
 	int dir[4][2] = { {1,0},{-1,0},{0,1},{0,-1} };
 	//å¤„ç†åˆ‡å‰²å™¨çš„è¾“å…¥
@@ -185,7 +185,7 @@ void buildingInput(World * world) {
 		if (cx - 2 >= 0 && world->mapp[cx - 2][cy].type == BELTID) {
 			int bId = world->mapp[cx - 2][cy].id;
 			if (!world->belt[bId].isEmpty && world->belt[bId].dir == DOWN) {
-				acc->input(world->belt[bId], 0, goalX, goalY, goalColor, goalShape);
+				acc->input(world->belt[bId]);
 			}
 		}
 
@@ -193,7 +193,7 @@ void buildingInput(World * world) {
 		if (cx + 2 < MAPLENGTH && world->mapp[cx + 2][cy].type == BELTID) {
 			int bId = world->mapp[cx + 2][cy].id;
 			if (!world->belt[bId].isEmpty && world->belt[bId].dir == UP) {
-				acc->input(world->belt[bId], 0, goalX, goalY, goalColor, goalShape);
+				acc->input(world->belt[bId]);
 			}
 		}
 
@@ -201,7 +201,7 @@ void buildingInput(World * world) {
 		if (cy - 2 >= 0 && world->mapp[cx][cy - 2].type == BELTID) {
 			int bId = world->mapp[cx][cy - 2].id;
 			if (!world->belt[bId].isEmpty && world->belt[bId].dir == RIGHT) {
-				acc->input(world->belt[bId], 0, goalX, goalY, goalColor, goalShape);
+				acc->input(world->belt[bId]);
 			}
 		}
 
@@ -209,7 +209,7 @@ void buildingInput(World * world) {
 		if (cy + 2 < MAPLENGTH && world->mapp[cx][cy + 2].type == BELTID) {
 			int bId = world->mapp[cx][cy + 2].id;
 			if (!world->belt[bId].isEmpty && world->belt[bId].dir == LEFT) {
-				acc->input(world->belt[bId], 0, goalX, goalY, goalColor, goalShape);
+				acc->input(world->belt[bId]);
 			}
 		}
 	}

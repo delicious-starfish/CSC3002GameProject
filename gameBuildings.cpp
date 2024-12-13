@@ -411,16 +411,28 @@ Acceptor::Acceptor(int x, int y) {
 	storedItem = Item();
 }
 
-bool Acceptor::input(Belt& input, int mode, int goalX, int goalY, int goalColor, int goalShape, int goalX2, int goalY2, int goalColor2, int goalShape2) {  // mode=0 for classic accept only one item, mode=1 for swapping inputs
+bool Acceptor::input(Belt& input) {  // mode=0 for classic accept only one item, mode=1 for swapping inputs
 	// Can only accept if the belt has an item and acceptor is ready (which it always is)
 	if (input.isEmpty) return false;
 	// Store the item (STORE THE ITEM BASED ON THE CIRTERIA: goalX ... goalShape)
 
-	if (mode == 0  &&  input.itemNow.colorId[0][goalX][goalY] == goalColor  &&  input.itemNow.shapeId[0][goalX][goalY] == goalShape) {
+	if (check1items == 1  &&  input.itemNow.colorId[0][goalX][goalY] == goalColor  &&  input.itemNow.shapeId[0][goalX][goalY] == goalShape) {
 		storedItem = Item();
 		storedItem.shapeId[0][goalX][goalY] = goalShape;
 		storedItem.colorId[0][goalX][goalY] = goalColor;
 
+		if (check2items == 1 && input.itemNow.colorId[0][goalX2][goalY2] == goalColor2 && input.itemNow.shapeId[0][goalX2][goalY2] == goalShape2) {
+			storedItem.shapeId[0][goalX2][goalY2] = goalShape2;
+			storedItem.colorId[0][goalX2][goalY2] = goalColor2;
+			if (check3items == 1 && input.itemNow.colorId[0][goalX3][goalY3] == goalColor3 && input.itemNow.shapeId[0][goalX3][goalY3] == goalShape3) {
+				storedItem.shapeId[0][goalX3][goalY3] = goalShape3;
+				storedItem.colorId[0][goalX3][goalY3] = goalColor3;
+				if (check4items == 1 && input.itemNow.colorId[0][goalX4][goalY4] == goalColor4 && input.itemNow.shapeId[0][goalX4][goalY4] == goalShape4) {
+					storedItem.shapeId[0][goalX4][goalY4] = goalShape4;
+					storedItem.colorId[0][goalX4][goalY4] = goalColor4;
+				}
+			}
+		}
 		isEmpty = false;
 		// Clear the belt
 		input.itemNow = Item();
@@ -428,7 +440,6 @@ bool Acceptor::input(Belt& input, int mode, int goalX, int goalY, int goalColor,
 		totalScore++;
 		return true;
 	}
-
 
 	// THE BELOW IS THE ORIGINAL CODED FOR ACCEPTING EVERYTHING
 	//isEmpty = false;

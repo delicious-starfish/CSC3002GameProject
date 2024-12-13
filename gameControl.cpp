@@ -111,7 +111,11 @@ void GameButton::operateTick(World * world,ExMessage& msg)
                         mouseCase == UIACCEPTOR ? ACCEPTORID : (mouseCase - UIBELT + BELTID),
                         buildX,
                         buildY,
-                        scrollCase
+                        scrollCase,
+                        1, 0, 0,REDITEM,QUARTERSQUARE,
+                        1, 0, 1,WHITEITEM,QUARTERSQUARE,
+                        1, 1, 0, BLUEITEM, QUARTERWINDMILL,
+                        1, 1, 1, YELLOWITEM, QUARTERCIRCLE
                     );
                     mouseCase = NORMALCASE;
                     break;
