@@ -430,7 +430,7 @@ bool Acceptor::input(Belt& input) {
 		// Clear the belt
 		input.itemNow = Item();
 		input.isEmpty = true;
-		totalScore++;
+		totalScore+=2;
 		isMoved = true;
 		return true;
 	}

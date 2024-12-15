@@ -1142,6 +1142,8 @@ void IntImg::renderMenu()
 
 void IntImg::renderIntro() {
     putImg(0, 0, &menuIntro, 1, 1);
+    if(hoverCase==QUIT)
+        putImg(0, 0, &escBT);
     RenderImg();
 }
 

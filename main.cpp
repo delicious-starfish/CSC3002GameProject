@@ -110,6 +110,15 @@ int main() {
             delete oldGame;
             game = new Game();
             SCENE = SCENESUCCESS;
+            game->loadShowMap();
+        }
+        if (totalScore == -1) {
+            totalScore = 0;
+            Game* oldGame = game;
+            delete oldGame;
+            game = new Game();
+            SCENE = SCENEMENU;
+            game->loadShowMap();
         }
 
     }
