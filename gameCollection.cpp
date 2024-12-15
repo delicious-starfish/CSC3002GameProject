@@ -31,10 +31,24 @@ World::World() {
 
 
 void World::buildAt(int building, int x, int y, int direction) {
-	clearGround(building,x,y,direction);
-	int newId;
-	switch (building) {
+
+	// Handle rubbish bin del
+	int buildingType = mapp[x][y].type;
+
+	if (buildingType == RUBBISHBINID) {
+		//std::cout << "RAN THIS LINE: 11111";
+	}
+
+	else {
+		//std::cout << "RAN THIS LINE: 222222222222";
+		// 
+		//clearGround(building, x, y, direction);
+		// 1215 Handle rubbish bin build: moved the above line "clearGround(building, x, y, direction);" into each case
+
+		int newId;
+		switch (building) {
 		case BELTID:
+			clearGround(building, x, y, direction);
 			if (deletedBeltId.empty()) {
 				belt[maxBeltId] = Belt(direction, x, y);
 				mapp[x][y] = Node(BELTID, maxBeltId, true);
@@ -52,21 +66,26 @@ void World::buildAt(int building, int x, int y, int direction) {
 			break;
 
 		case ROTATORID:
+			
 			switch (direction) {
 			case UP:
-				if (x - 1 < 0) return;
+				if (x - 1 < 0 || mapp[x - 1][y].type == RUBBISHBINID) return;
 				break;
 			case DOWN:
-				if (x + 1 >= MAPLENGTH) return;
+				if (x + 1 >= MAPLENGTH || mapp[x + 1][y].type == RUBBISHBINID) return;
 				break;
 			case LEFT:
-				if (y + 1 >= MAPLENGTH) return;
+				if (y + 1 >= MAPLENGTH || mapp[x][y - 1].type == RUBBISHBINID) return;
 				break;
 			case RIGHT:
-				if (y - 1 < 0) return;
+				if (y - 1 < 0 || mapp[x][y + 1].type == RUBBISHBINID) return;
 				break;
 			}
-		
+
+			// I added "clearGround(building, x, y, direction);" here so: if because of rubbish bin cannot build, dont del the ground
+			// The others are the same ...
+			clearGround(building, x, y, direction);
+
 			if (deletedRotatorId->empty()) {
 				newId = maxRotatorId;
 				maxRotatorId++;
@@ -92,28 +111,55 @@ void World::buildAt(int building, int x, int y, int direction) {
 			rotatorNum++;
 			rotator[newId] = Rotator(x, y, direction);
 			mapp[x][y] = Node(ROTATORID, newId, true);
-			
+
 			break;
 
 		case CUTTERID:
+
 			switch (direction) {
 			case UP:
 				if (x - 1 < 0) return;
 				if (y + 1 >= MAPLENGTH) return;
+
+				// For Determining block is RubbishBin or not
+				if (mapp[x - 1][y].type == RUBBISHBINID) return;
+				if (mapp[x - 1][y + 1].type == RUBBISHBINID) return;
+
 				break;
+
 			case DOWN:
 				if (x + 1 >= MAPLENGTH) return;
 				if (y - 1 < 0) return;
+
+				// For Determining block is RubbishBin or not
+				if (mapp[x + 1][y].type == RUBBISHBINID) return;
+				if (mapp[x + 1][y - 1].type == RUBBISHBINID) return;
+
 				break;
+
 			case LEFT:
 				if (y - 1 < 0) return;
 				if (x - 1 < 0) return;
+
+				// For Determining block is RubbishBin or not
+				if (mapp[x - 1][y - 1].type == RUBBISHBINID) return;
+				if (mapp[x][y - 1].type == RUBBISHBINID) return;
+
 				break;
+
 			case RIGHT:
 				if (y + 1 >= MAPLENGTH) return;
 				if (x + 1 >= MAPLENGTH) return;
+
+				// For Determining block is RubbishBin or not
+				if (mapp[x + 1][y + 1].type == RUBBISHBINID) return;
+				if (mapp[x][y + 1].type == RUBBISHBINID) return;
+
 				break;
 			}
+
+			clearGround(building, x, y, direction);
+
 			if (deletedCutterId.empty()) {
 				newId = maxCutterId;
 				maxCutterId++;
@@ -144,7 +190,7 @@ void World::buildAt(int building, int x, int y, int direction) {
 				mapp[x + 1][y] = Node(CUTTERID, newId, false);
 				break;
 			}
-			// 编号回收
+			// 编号回收3
 			cutterNum++;
 			cutter[newId] = Cutter(direction, x, y);
 
@@ -156,24 +202,51 @@ void World::buildAt(int building, int x, int y, int direction) {
 
 
 		case COMPOSERID:
+
 			switch (direction) {
 			case UP:
 				if (x - 1 < 0) return;
 				if (y + 1 >= MAPLENGTH) return;
+
+				// For Determining block is RubbishBin or not
+				if (mapp[x - 1][y].type == RUBBISHBINID) return;
+				if (mapp[x][y + 1].type == RUBBISHBINID) return;
+
 				break;
+
 			case DOWN:
 				if (x + 1 >= MAPLENGTH) return;
 				if (y - 1 < 0) return;
+
+				// For Determining block is RubbishBin or not
+				if (mapp[x + 1][y].type == RUBBISHBINID) return;
+				if (mapp[x][y - 1].type == RUBBISHBINID) return;
+
 				break;
+
 			case LEFT:
 				if (y - 1 < 0) return;
 				if (x - 1 < 0) return;
+
+				// For Determining block is RubbishBin or not
+				if (mapp[x - 1][y].type == RUBBISHBINID) return;
+				if (mapp[x][y - 1].type == RUBBISHBINID) return;
+
 				break;
+
 			case RIGHT:
 				if (y + 1 >= MAPLENGTH) return;
 				if (x + 1 >= MAPLENGTH) return;
+
+				// For Determining block is RubbishBin or not
+				if (mapp[x + 1][y].type == RUBBISHBINID) return;
+				if (mapp[x][y + 1].type == RUBBISHBINID) return;
+
 				break;
 			}
+
+			// If there arent any corruptions with MAP and RUBBISHBIN, then clear ground & build ...
+			clearGround(building, x, y, direction);
 
 			if (deletedCompId.empty()) {
 				newId = maxComposerId;
@@ -190,22 +263,22 @@ void World::buildAt(int building, int x, int y, int direction) {
 			case UP:
 				buildAt(BELTID, x - 1, y, direction);
 				mapp[x][y + 1] = Node(COMPOSERID, newId, false);
-				
+
 				break;
 			case DOWN:
 				buildAt(BELTID, x + 1, y, direction);
 				mapp[x][y - 1] = Node(COMPOSERID, newId, false);
-				
+
 				break;
 			case LEFT:
 				buildAt(BELTID, x, y - 1, direction);
 				mapp[x - 1][y] = Node(COMPOSERID, newId, false);
-				
+
 				break;
 			case RIGHT:
 				buildAt(BELTID, x, y + 1, direction);
 				mapp[x + 1][y] = Node(COMPOSERID, newId, false);
-				
+
 				break;
 			}
 
@@ -219,12 +292,14 @@ void World::buildAt(int building, int x, int y, int direction) {
 			break;
 
 		case MINERID:
+			clearGround(building, x, y, direction);
 			mapp[x][y] = Node(MINERID, maxMinerId, true);
 			miner[maxMinerId] = Miner(x, y, direction);
 			maxMinerId++;
 			break;
 
 		case RUBBISHBINID:
+			clearGround(building, x, y, direction);
 			newId = maxRubbishBinId;
 			maxRubbishBinId++;
 			/*if (!deletedRubbishBinId->empty()) {
@@ -235,11 +310,14 @@ void World::buildAt(int building, int x, int y, int direction) {
 			mapp[x][y] = Node(RUBBISHBINID, newId, true);
 			rubbishBin[newId] = RubbishBin(x, y);
 			rubbishBinNum++;
-			
+
 			break;
 
-		// ADDING THE ACCEPTOR BUIDING STEPS, 1207 by Xin Cao
+
+			// ADDING THE ACCEPTOR BUIDING STEPS, 1207 by Xin Cao
+
 		case ACCEPTORID:
+			clearGround(building, x, y, direction);
 			for (int dx = 0; dx < 3; dx++) {
 				for (int dy = 0; dy < 3; dy++) {
 					if (dx < 0 || dx >= MAPLENGTH || dy < 0 || dy >= MAPLENGTH) return;
@@ -273,15 +351,16 @@ void World::buildAt(int building, int x, int y, int direction) {
 				}
 			}
 			break;
-		// Over
+			// Over
 
+		}
 	}
 }
 
 void World::destoryAt(int x, int y) {
 	int buildingType = mapp[x][y].type;
 	int buildingId = mapp[x][y].id;
-	if (buildingType == GROUNDID) return;
+	if (buildingType == GROUNDID || buildingType == RUBBISHBINID) return;
 
 	if (buildingType == BELTID) deleteBeltLink(buildingId);
 
@@ -292,8 +371,8 @@ void World::destoryAt(int x, int y) {
 	
 }
 
-void World::destroyAppendix(int x, int y)
-{
+void World::destroyAppendix(int x, int y) {
+
 	int Id = mapp[x][y].id;
 	if (mapp[x][y].type == BELTID) {
 		int delDir = belt[Id].dir;
@@ -371,6 +450,8 @@ void World::destroyAppendix(int x, int y)
 
 void World::putItemAt(Item item, int x, int y) {
 	int buildingId = mapp[y][x].type;
+
+
 	switch (buildingId) {
 	case BELTID:
 		belt[mapp[y][x].id].grantItem(item);
@@ -540,7 +621,7 @@ void World::deleteInMapp(int buildingType, int id) {
 
 void World::clearGround(int building, int x, int y, int direction) {
 	destroyAppendix(x, y);
-	if (mapp[x][y].type != GROUNDID) { destoryAt(x, y);  }
+	if (mapp[x][y].type != RUBBISHBINID  || mapp[x][y].type != GROUNDID) { destoryAt(x, y);  }
 	
 	if (building == CUTTERID || building == COMPOSERID) {
 		switch (direction) {
@@ -856,10 +937,10 @@ void Game::loadShowMap() {
 	world->buildAt(RUBBISHBINID, 6, 4, UP);
 	world->buildAt(RUBBISHBINID, 10, 4, UP);
 	world->buildAt(RUBBISHBINID, 16, 4, UP);
-	world->buildAt(RUBBISHBINID, 11, 28, UP);
+	//world->buildAt(RUBBISHBINID, 11, 28, UP);
 	world->buildAt(RUBBISHBINID, 16, 28, UP);
 	world->buildAt(RUBBISHBINID, 10, 38, UP);
-	world->buildAt(RUBBISHBINID, 15, 24, UP);
+	//world->buildAt(RUBBISHBINID, 15, 24, UP);
 
 	Item SquareC1 = Item(QUARTERSQUARE, YELLOWITEM);
 	Item Circle_WindmillC1 = Item(QUARTERCIRCLE, WHITEITEM);	

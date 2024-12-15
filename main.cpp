@@ -12,7 +12,7 @@
 #include "game.h"
 #include "menu.h"
 
-#define SCOREREQUEST_TEST 20
+#define SCOREREQUEST_TEST 100
 
 int LOGIC_FPS;
 int RENDER_FPS;
@@ -94,14 +94,14 @@ int main() {
             playGame(mouseMessage);
             break;
         }
-        //if (totalScore >= SCOREREQUEST_TEST || totalScore == -1) {
-        //    totalScore = 0;
-        //    game->showInstruction();
-        //    Game* oldGame = game;
-        //    delete oldGame;
-        //    game = new Game();
-        //    SCENE = SCENEMENU;
-        //}
+        if (totalScore >= SCOREREQUEST_TEST || totalScore == -1) {
+            totalScore = 0;
+            game->showInstruction();
+            Game* oldGame = game;
+            delete oldGame;
+            game = new Game();
+            SCENE = SCENEMENU;
+        }
     }
 
     delete game;

@@ -1,5 +1,6 @@
 #pragma once
 #include "gameCollection.h"
+#include "gameBuildings.h"
 
 #ifndef _gameLogic_h_
 #define _gameLogic_h_

@@ -97,7 +97,7 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             if (canBuild)
                 switch (mouseCase) {
                 case NORMALCASE: break;
-                case UICUTTER:
+                case UICUTTER:  
                 case UIROTATOR:
                 case UICOMPOSER:
                 case UIBELT: world->buildAt(mouseCase - UIGROUND, UIbY, UIbX, scrollCase); mouseCase = NORMALCASE; break;

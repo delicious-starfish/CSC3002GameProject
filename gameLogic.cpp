@@ -182,7 +182,88 @@ void buildingInput(World * world) {
 		Acceptor* acc = &world->acceptor[i];
 		int cx = acc->pos[0] + 1;
 		int cy = acc->pos[1] + 1;
-		
+
+		//1215: Change to a new target when totalScore >= 20
+
+		//CHANGE TO TARGET 2: ...
+
+		if (totalScore >= 20) {
+			Item Target = Item(QUARTERSQUARE, WHITEITEM);
+
+			Target.shapeId[0][0][1] = QUARTERCIRCLE;
+			Target.shapeId[0][1][1] = QUARTERWINDMILL;
+			//Target.colorId[0][0][0] = WHITEITEM;
+			Target.colorId[0][0][1] = YELLOWITEM;
+			Target.colorId[0][1][0] = BLUEITEM;
+
+			world->putItemAt(Target, 11, 11);
+
+		}
+
+		// CHANGE TO TARGET 3: ...
+
+		//if (totalScore >= 40) {
+		//	Item Target = Item(QUARTERSQUARE, WHITEITEM);
+
+		//	Target.shapeId[0][1][0] = QUARTERCIRCLE;
+		//	Target.shapeId[0][1][1] = QUARTERWINDMILL;
+		//	//Target.colorId[0][0][0] = WHITEITEM;
+		//	Target.colorId[0][0][0] = YELLOWITEM;
+		//	Target.colorId[0][0][1] = REDITEM;
+
+		//	// Delete one quarterItem ...
+		//	Target.shapeId[0][1][1] = 0;
+		//	//Target.colorId[0][0][0] = WHITEITEM;
+		//	Target.colorId[0][1][1] = 0;
+
+		//	world->putItemAt(Target, 11, 11);
+
+		//}
+
+
+		//// CHANGE TO TARGET 4: ...
+
+		//if (totalScore >= 60) {
+		//	Item Target = Item(QUARTERSQUARE, WHITEITEM);
+
+		//	Target.shapeId[0][1][0] = QUARTERCIRCLE;
+		//	Target.shapeId[0][1][1] = QUARTERWINDMILL;
+		//	//Target.colorId[0][0][0] = WHITEITEM;
+		//	Target.colorId[0][0][0] = YELLOWITEM;
+		//	Target.colorId[0][0][1] = REDITEM;
+
+		//	world->putItemAt(Target, 11, 11);
+
+		//}
+
+
+		//// CHANGE TO TARGET 5: ...
+
+		//if (totalScore >= 80) {
+		//	Item Target = Item(QUARTERSQUARE, WHITEITEM);
+
+		//	//Target.shapeId[0][1][0] = QUARTERCIRCLE;
+		//	Target.shapeId[0][1][1] = QUARTERWINDMILL;
+		//	//Target.colorId[0][0][0] = WHITEITEM;
+		//	Target.colorId[0][0][0] = YELLOWITEM;
+		//	//Target.colorId[0][0][1] = REDITEM;
+
+		//	// Delete two quarterItems ...
+		//	//Target.shapeId[0][0][1] = 0;
+		//	Target.colorId[0][0][1] = 0;
+		//	Target.shapeId[0][0][1] = 0;
+		//	//Target.shapeId[0][1][0] = 0;
+		//	//Target.colorId[0][1][0] = 0;
+
+		//	world->putItemAt(Target, 11, 11);
+
+		//}
+
+		// Criteria to win is 100, after completing all the 5 targets, each 20
+			// DEFINED #define SCOREREQUEST_TEST 100
+
+
+
 		// Wrote four directions, two blocks away:
 
 		// Up direction source: (cx-2, cy), belt must be DOWN(2)
