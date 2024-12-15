@@ -360,7 +360,7 @@ void World::buildAt(int building, int x, int y, int direction) {
 void World::destoryAt(int x, int y) {
 	int buildingType = mapp[x][y].type;
 	int buildingId = mapp[x][y].id;
-	if (buildingType == GROUNDID || buildingType == RUBBISHBINID) return;
+	if (buildingType == GROUNDID) return;
 
 	if (buildingType == BELTID) deleteBeltLink(buildingId);
 
@@ -621,7 +621,7 @@ void World::deleteInMapp(int buildingType, int id) {
 
 void World::clearGround(int building, int x, int y, int direction) {
 	destroyAppendix(x, y);
-	if (mapp[x][y].type != RUBBISHBINID  || mapp[x][y].type != GROUNDID) { destoryAt(x, y);  }
+	if (mapp[x][y].type != GROUNDID) { destoryAt(x, y);  }
 	
 	if (building == CUTTERID || building == COMPOSERID) {
 		switch (direction) {
