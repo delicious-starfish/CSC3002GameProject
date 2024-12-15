@@ -818,6 +818,8 @@ void Game::loadTestMap() {
 }
 
 void Game::loadShowMap() {
+
+	// 6 MINERS
 	world->buildAt(MINERID, 1, 0, RIGHT);
 	world->buildAt(MINERID, 5, 0, RIGHT);
 	world->buildAt(MINERID, 10, 0, RIGHT);
@@ -825,8 +827,10 @@ void Game::loadShowMap() {
 	world->buildAt(MINERID, 10, 20, RIGHT);
 	world->buildAt(MINERID, 15, 20, RIGHT);
 
+	// 1 ACCEPTOR
 	world->buildAt(ACCEPTORID, 10, 10, 0);
 
+	// BELTS
 	world->buildAt(BELTID, 1, 1, RIGHT);
 	world->buildAt(BELTID, 1, 3, RIGHT);
 	world->buildAt(BELTID, 2, 3, RIGHT);
@@ -897,25 +901,30 @@ void Game::loadShowMap() {
 	world->buildAt(BELTID, 10, 29, RIGHT);
 	world->buildAt(BELTID, 16, 25, RIGHT);
 	world->buildAt(BELTID, 16, 27, RIGHT);
-	world->buildAt(BELTID, 17, 27, RIGHT);
-	world->buildAt(BELTID, 17, 29, RIGHT);
-	world->buildAt(BELTID, 17, 31, RIGHT);
-	world->buildAt(BELTID, 15, 32, UP);
-	world->buildAt(BELTID, 17, 32, UP);
+	//world->buildAt(BELTID, 17, 27, RIGHT);
+	//world->buildAt(BELTID, 17, 29, RIGHT);
+	//world->buildAt(BELTID, 17, 31, RIGHT);
+	//world->buildAt(BELTID, 15, 32, UP);
+	//world->buildAt(BELTID, 17, 32, UP);
 	world->buildAt(BELTID, 10, 34, RIGHT);
+	world->buildAt(BELTID, 10, 33, RIGHT);
 	world->buildAt(BELTID, 10, 32, RIGHT);
-	world->buildAt(BELTID, 14, 32, UP);
-	world->buildAt(BELTID, 13, 32, UP);
-	world->buildAt(BELTID, 12, 32, UP);
-	world->buildAt(BELTID, 11, 32, RIGHT);
+	//world->buildAt(BELTID, 14, 32, UP);
+	//world->buildAt(BELTID, 13, 32, UP);
+	//world->buildAt(BELTID, 12, 32, UP);
+	//world->buildAt(BELTID, 11, 32, RIGHT);
 	world->buildAt(BELTID, 10, 35, RIGHT);
 	world->buildAt(BELTID, 10, 36, RIGHT);
 	world->buildAt(BELTID, 10, 37, RIGHT);
 	world->buildAt(BELTID, 9, 11, DOWN);
+
+	//COMPOSORS
 	world->buildAt(COMPOSERID, 2, 7, RIGHT);
 	world->buildAt(COMPOSERID, 11, 7, RIGHT);
 	world->buildAt(COMPOSERID, 10, 30, RIGHT);
-	world->buildAt(COMPOSERID, 10, 33, RIGHT);
+	//world->buildAt(COMPOSERID, 10, 33, RIGHT);
+
+	//CUTTERS
 	world->buildAt(CUTTERID, 1, 2, RIGHT);
 	world->buildAt(CUTTERID, 5, 2, RIGHT);
 	world->buildAt(CUTTERID, 10, 2, RIGHT);
@@ -924,23 +933,29 @@ void Game::loadShowMap() {
 	world->buildAt(CUTTERID, 15, 22, RIGHT);
 	world->buildAt(CUTTERID, 11, 26, RIGHT);
 	world->buildAt(CUTTERID, 16, 26, RIGHT);
+
+	// ROTATORS
 	world->buildAt(ROTATORID, 2, 5, RIGHT);
 	world->buildAt(ROTATORID, 5, 4, RIGHT);
 	world->buildAt(ROTATORID, 11, 4, RIGHT);
 	world->buildAt(ROTATORID, 15, 4, RIGHT);
 	world->buildAt(ROTATORID, 11, 24, RIGHT);
 	world->buildAt(ROTATORID, 16, 24, RIGHT);
-	world->buildAt(ROTATORID, 17, 28, RIGHT);
-	world->buildAt(ROTATORID, 17, 30, RIGHT);
-	world->buildAt(ROTATORID, 16, 32, UP);
+	//world->buildAt(ROTATORID, 17, 28, RIGHT);
+	//world->buildAt(ROTATORID, 17, 30, RIGHT);
+	//world->buildAt(ROTATORID, 16, 32, UP);
+
+	// RUBBISH BINS
 	world->buildAt(RUBBISHBINID, 1, 4, UP);
 	world->buildAt(RUBBISHBINID, 6, 4, UP);
 	world->buildAt(RUBBISHBINID, 10, 4, UP);
 	world->buildAt(RUBBISHBINID, 16, 4, UP);
-	//world->buildAt(RUBBISHBINID, 11, 28, UP);
-	world->buildAt(RUBBISHBINID, 16, 28, UP);
+	world->buildAt(RUBBISHBINID, 11, 28, UP);
+	world->buildAt(RUBBISHBINID, 16, 32, UP);
+	world->buildAt(RUBBISHBINID, 17, 32, UP);
+
 	world->buildAt(RUBBISHBINID, 10, 38, UP);
-	//world->buildAt(RUBBISHBINID, 15, 24, UP);
+	world->buildAt(RUBBISHBINID, 15, 24, UP);
 
 	Item SquareC1 = Item(QUARTERSQUARE, YELLOWITEM);
 	Item Circle_WindmillC1 = Item(QUARTERCIRCLE, WHITEITEM);	
