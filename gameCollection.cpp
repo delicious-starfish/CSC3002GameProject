@@ -14,6 +14,7 @@ World::World() {
 			mapp[i][j] = Node(GROUNDID, 0, false);
 	for (int i = 0; i < 2500; i++) belt[i] = Belt();
 	deletedRotatorId = new stack <int>;
+	deletedRubbishBinId = new stack <int>;
 	rotator = new Rotator[2500];
 	//belt = new Belt[2500];
 	//cutter = new Cutter[2500];
@@ -302,11 +303,11 @@ void World::buildAt(int building, int x, int y, int direction) {
 			clearGround(building, x, y, direction);
 			newId = maxRubbishBinId;
 			maxRubbishBinId++;
-			/*if (!deletedRubbishBinId->empty()) {
+			if (!deletedRubbishBinId->empty()) {
 				maxRubbishBinId--;
 				newId = deletedRubbishBinId->top();
 				deletedRubbishBinId->pop();
-			}*/
+			}
 			mapp[x][y] = Node(RUBBISHBINID, newId, true);
 			rubbishBin[newId] = RubbishBin(x, y);
 			rubbishBinNum++;

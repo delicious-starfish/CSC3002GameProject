@@ -78,6 +78,7 @@ void GameButton::operateTick(World * world,ExMessage& msg)
             case UIROTATOR:
             case UICOMPOSER:
             case UIBELT: mouseCase = hoverCase; break;
+            case UICOLORER:
             case UIACCEPTOR: // Handle Acceptor Selection
                 mouseCase = hoverCase;
                 break;
@@ -226,6 +227,31 @@ void MenuButton::operateMenu(ExMessage& msg)
             if (hoverCase == MENUSTART) {
                 SCENE = SCENEGAME;
                 initGame(currentTime);
+            }
+            if (hoverCase == MENUSETTING) SCENE = SCENEINTRO;
+            break;
+        case WM_RBUTTONDOWN:
+            break;
+        case WM_LBUTTONUP:
+            break;
+        }
+    }
+}
+void MenuIntroButton::operateMenu(ExMessage& msg) {
+    if (BTesc.isHover()) { hoverCase = QUIT; }
+    else { hoverCase = NORMALCASE; }
+    while (peekmessage(&msg, EM_MOUSE | EM_KEY))
+    {
+        //Mouse Operation
+        switch (msg.message)
+        {
+        case WM_MOUSEMOVE:
+            mousePositionX = msg.x; mousePositionY = msg.y;
+            break;
+        case WM_LBUTTONDOWN:
+            if (hoverCase == QUIT) {
+                SCENE = SCENEMENU;
+                //initGame(currentTime);
             }
             break;
         case WM_RBUTTONDOWN:

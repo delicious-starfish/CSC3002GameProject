@@ -11,6 +11,9 @@
 
 //UI
 IMAGE menu1;
+IMAGE menuIntro;
+IMAGE menuFailed;
+IMAGE menuSuccess;
 IMAGE menuBTstart;
 IMAGE menuBTsetting;
 IMAGE UIframe1, UIframe2, UIframe3, UIframe4;
@@ -91,6 +94,9 @@ void loadImgRes() {
     }
 
     loadimage(&menu1, StrToTchar(StrTexPath + "menu1.png"));
+    loadimage(&menuIntro, StrToTchar(StrTexPath + "Menu_Intro.png"));
+    loadimage(&menuFailed, StrToTchar(StrTexPath + "Menu_Failed.png"));
+    loadimage(&menuSuccess, StrToTchar(StrTexPath + "Menu_Success.png"));
     loadimage(&menuBTstart, StrToTchar(StrTexPath + "menuBTstart.png"));
     loadimage(&menuBTsetting, StrToTchar(StrTexPath + "menuBTsetting.png"));
     loadimage(&UIframe1, StrToTchar(StrTexPath + "UI-03-up.png"));
@@ -955,6 +961,8 @@ void IntImg::putUI() {
         putImg(740, 435, &UIbdscr2); putImg(140, 440, &UIBlight); break;
     case UIDELETER: putImg(UIbX, UIbY, &dstrOO, scrollCase, screenScale);
         putImg(740, 435, &UIbdscr6); putImg(528, 440, &UIBlight); break;
+    case UICOLORER:putImg(UIbX, UIbY, &bin, scrollCase, screenScale);
+        putImg(740, 435, &UIbdscr5); putImg(528, 440, &UIBlight); break;
     case UIACCEPTOR:
         // Render Acceptor preview (3x3 grid)
             // Use the acceptor preview image
@@ -1125,6 +1133,28 @@ void IntImg::renderTick(World* world) {
 void IntImg::renderMenu()
 {
     putImg(0, 0, &menu1, 1, 1);
+    if (hoverCase == MENUSTART)
+        putImg(288, 299, &menuBTstart, 1, 1);
+    if (hoverCase == MENUSETTING)
+        putImg(288, 399, &menuBTsetting, 1, 1);
+    RenderImg();
+}
+
+void IntImg::renderIntro() {
+    putImg(0, 0, &menuIntro, 1, 1);
+    RenderImg();
+}
+
+void IntImg :: renderMenuFailed() {
+    putImg(0, 0, &menuFailed, 1, 1);
+    if (hoverCase == MENUSTART)
+        putImg(288, 299, &menuBTstart, 1, 1);
+    if (hoverCase == MENUSETTING)
+        putImg(288, 399, &menuBTsetting, 1, 1);
+    RenderImg();
+}
+void IntImg::renderMenuSuccess() {
+    putImg(0, 0, &menuSuccess, 1, 1);
     if (hoverCase == MENUSTART)
         putImg(288, 299, &menuBTstart, 1, 1);
     if (hoverCase == MENUSETTING)

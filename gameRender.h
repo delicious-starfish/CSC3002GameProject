@@ -199,6 +199,10 @@ public:
 	void loadMask();
 	void renderMenu();
 
+	void renderIntro();
+	void renderMenuFailed();
+	void renderMenuSuccess();
+
 };
 
 void loadImgRes();

@@ -77,5 +77,11 @@ public:
 	void operateMenu(ExMessage& msg);
 };
 
+class MenuIntroButton {
+public:
+	Button BTesc = Button(1, 144, 1, 89);
+	void operateMenu(ExMessage& msg);
+};
+
 
 #endif

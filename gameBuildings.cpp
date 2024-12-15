@@ -434,7 +434,7 @@ bool Acceptor::input(Belt& input) {
 		isMoved = true;
 		return true;
 	}
-	// THE BELOW IS THE ORIGINAL CODED FOR ACCEPTING EVERYTHING
+	
 	isEmpty = true;
 	return false;
 }

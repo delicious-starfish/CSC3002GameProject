@@ -98,6 +98,9 @@
 #define SCENEGAME 1
 #define SCENEMENU 2
 #define SCENESETTING 3
+#define SCENEINTRO 4
+#define SCENEFAILED 5
+#define SCENESUCCESS 6
 
 #endif // !_constant_h_
 

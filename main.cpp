@@ -25,6 +25,7 @@ int screenSizeY;
 IntImg* intimg1 = new IntImg();
 GameButton* gameButton = new GameButton();
 MenuButton* menuButton = new MenuButton();
+MenuIntroButton* menuIntroButton = new MenuIntroButton();
 
 long long getTime() {
     long long millisecSince1970 = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
@@ -90,18 +91,27 @@ int main() {
             break;
         case SCENESETTING:
             break;
+        case SCENEINTRO:
+            playIntroMenu(mouseMessage);
+            break;
         case SCENEGAME:
             playGame(mouseMessage);
             break;
+        case SCENESUCCESS:
+            playSuccessfulMenu(mouseMessage);
+            break;
+        case SCENEFAILED:
+            playFailedMenu(mouseMessage);
         }
-        if (totalScore >= SCOREREQUEST_TEST || totalScore == -1) {
+        
+        if (totalScore >= SCOREREQUEST_TEST) {
             totalScore = 0;
-            game->showInstruction();
             Game* oldGame = game;
             delete oldGame;
             game = new Game();
-            SCENE = SCENEMENU;
+            SCENE = SCENESUCCESS;
         }
+
     }
 
     delete game;

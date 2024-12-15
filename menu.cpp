@@ -16,3 +16,19 @@ void playMenu(ExMessage mouseMessage)
 	intimg1->renderMenu();
 	FlushBatchDraw();
 }
+void playIntroMenu(ExMessage mouseMessage) {
+	menuIntroButton->operateMenu(mouseMessage);
+	intimg1->renderIntro();
+	FlushBatchDraw();
+
+}
+void playFailedMenu(ExMessage mouseMessage) {
+	menuButton->operateMenu(mouseMessage);
+	intimg1->renderMenuFailed();
+	FlushBatchDraw();
+}
+void playSuccessfulMenu(ExMessage mouseMessage) {
+	menuButton->operateMenu(mouseMessage);
+	intimg1->renderMenuSuccess();
+	FlushBatchDraw();
+}

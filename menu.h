@@ -21,8 +21,12 @@ extern int mousePositionX;
 extern int mousePositionY;
 extern IntImg* intimg1;
 extern MenuButton* menuButton;
+extern MenuIntroButton* menuIntroButton;
 
 void playMenu(ExMessage mouseMessage);
 //render the menu, click start to enter the game
+void playIntroMenu(ExMessage mouseMessage);
+void playFailedMenu(ExMessage mouseMessage);
+void playSuccessfulMenu(ExMessage mouseMessage);
 
 #endif
