@@ -318,24 +318,32 @@ void World::buildAt(int building, int x, int y, int direction) {
 			// ADDING THE ACCEPTOR BUIDING STEPS, 1207 by Xin Cao
 
 		case ACCEPTORID:
-			clearGround(building, x, y, direction);
+			//clearGround(building, x, y, direction);
 			for (int dx = 0; dx < 3; dx++) {
 				for (int dy = 0; dy < 3; dy++) {
 					if (dx < 0 || dx >= MAPLENGTH || dy < 0 || dy >= MAPLENGTH) return;
 				}
 			}
-			clearGround(ACCEPTORID, x, y, direction);
-			int newId;
-			if (deletedAcceptorId.empty()) {
-				newId = maxAcceptorId;
-				maxAcceptorId++;
+			if (acceptor[0].pos[0] == -1) {
+				acceptor[0] = Acceptor(x, y);
+				maxAcceptorId = 1;
+				for (int dx = 0; dx < 3; dx++) {
+					for (int dy = 0; dy < 3; dy++) {
+						bool mainBlock = (dx == 1 && dy == 1);
+						mapp[x + dx][y + dy] = Node(ACCEPTORID, 0, mainBlock);
+					}
+				}
+				break;
 			}
-			else {
-				newId = deletedAcceptorId.top();
-				deletedAcceptorId.pop();
+			for (int dx = 0; dx < 3; dx++) {
+				for (int dy = 0; dy < 3; dy++) {
+					mapp[acceptor[0].pos[0] + dx][acceptor[0].pos[1] + dy] = Node(GROUNDID, 0, false);
+				}
 			}
-			acceptorNum++;
-			acceptor[newId] = Acceptor(x, y);
+			
+
+			acceptor[0].pos[0] = x;
+			acceptor[0].pos[1] = y;
 
 			// For the 1st Quarter-Item
 
@@ -348,7 +356,7 @@ void World::buildAt(int building, int x, int y, int direction) {
 			for (int dx = 0; dx < 3; dx++) {
 				for (int dy = 0; dy < 3; dy++) {
 					bool mainBlock = (dx == 1 && dy == 1);
-					mapp[x + dx][y + dy] = Node(ACCEPTORID, newId, mainBlock);
+					mapp[x + dx][y + dy] = Node(ACCEPTORID, 0, mainBlock);
 				}
 			}
 			break;
@@ -361,7 +369,7 @@ void World::buildAt(int building, int x, int y, int direction) {
 void World::destoryAt(int x, int y) {
 	int buildingType = mapp[x][y].type;
 	int buildingId = mapp[x][y].id;
-	if (buildingType == GROUNDID) return;
+	if (buildingType == GROUNDID || buildingType == ACCEPTORID) return;
 
 	if (buildingType == BELTID) deleteBeltLink(buildingId);
 

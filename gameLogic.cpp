@@ -196,7 +196,7 @@ void buildingInput(World * world) {
 			Target.colorId[0][0][1] = YELLOWITEM;
 			Target.colorId[0][1][0] = BLUEITEM;
 
-			world->putItemAt(Target, 11, 11);
+			world->acceptor[0].setTarget(Target);
 
 		}
 
@@ -216,7 +216,7 @@ void buildingInput(World * world) {
 			//Target.colorId[0][0][0] = WHITEITEM;
 			Target.colorId[0][1][1] = 0;
 
-			world->putItemAt(Target, 11, 11);
+			world->acceptor[0].setTarget(Target);
 
 		}
 
@@ -232,7 +232,7 @@ void buildingInput(World * world) {
 			Target.colorId[0][0][0] = YELLOWITEM;
 			Target.colorId[0][0][1] = REDITEM;
 
-			world->putItemAt(Target, 11, 11);
+			world->acceptor[0].setTarget(Target);
 
 		}
 
@@ -255,7 +255,7 @@ void buildingInput(World * world) {
 			//Target.shapeId[0][1][0] = 0;
 			//Target.colorId[0][1][0] = 0;
 
-			world->putItemAt(Target, 11, 11);
+			world->acceptor[0].setTarget(Target);
 
 		}
 
